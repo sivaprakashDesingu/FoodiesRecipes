@@ -1,5 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './../pages/Home';
+import Recipe from './../pages/LandingPage/Recipe';
 
 const AppNavigator = createStackNavigator(
   {
@@ -9,6 +10,12 @@ const AppNavigator = createStackNavigator(
         header: null,
       }
     },
+    Recipe: { 
+      screen: Recipe,
+      navigationOptions: {
+        header: null,
+      }
+    }
   },
     {
       initialRouteName: 'Home',

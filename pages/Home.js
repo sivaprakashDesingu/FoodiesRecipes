@@ -1,16 +1,14 @@
 'use strict';
 
 import React from 'react';
-import { StyleSheet, 
+import {
   Text,
   View, 
-  Image,
-  ScrollView,
   ImageBackground,
   StatusBar,
   Dimensions } from 'react-native';
 import { Button } from 'react-native-paper';
-import {HomeCSS} from './../Style'
+import {HomeCSS, CommonCSS} from './../Style'
 
 import bgImage from './../assets/home_bg.jpg'
 
@@ -20,6 +18,7 @@ const height = win.height;
 const ratio = win.width/732;
 export default class Home extends React.Component {
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <View style = {HomeCSS.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
@@ -29,7 +28,7 @@ export default class Home extends React.Component {
              <Text style ={HomeCSS.subHeading}>Ready | Cook | Eat</Text>
              <Button 
               mode="contained"
-              style = {{marginTop:30}}
+              style = {CommonCSS.marginTop30}
               theme={{
                 roundness: 5,
                 width: 200,
@@ -38,41 +37,13 @@ export default class Home extends React.Component {
                 }
               }}
               contentStyle = {{width:200,height:60}}
-              onPress={() => alert('Pressed')}>
+              onPress={() => navigate('Recipe')}
+              >
               Let's Cook
             </Button>
           </View>
-          
         </ImageBackground>
-
       </View>
-      
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red' 
-  },
-  backgroundImage: {
-    width: '100%', 
-    height: '100%',
-    position: 'relative'
-  },
-  homepageContainer:{
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: 'center',
-    height: height,
-  },
-  heading: {
-    fontSize: 30,
-    color: '#fff'
-  },
-  subHeading :{
-    fontSize: 16,
-    color: '#fff'
-  }
-});

@@ -3,7 +3,17 @@ import { StyleSheet,Dimensions } from 'react-native';
 const win = Dimensions.get('window');
 const width = win.width;
 const height = win.height;
-
+const CommonCSS = StyleSheet.create({
+    padding10:{
+        paddingTop:10
+    },
+    marginTop30:{
+        marginTop:30
+    },
+    flexContainer:{
+        flex:1
+    }
+})
 const HomeCSS = StyleSheet.create({
     container: {
         flex: 1,
@@ -30,4 +40,4 @@ const HomeCSS = StyleSheet.create({
     }
 })
 
-export { HomeCSS }  
+export { HomeCSS, CommonCSS }  
