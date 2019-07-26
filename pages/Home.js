@@ -10,7 +10,7 @@ import {
 import { Button } from 'react-native-paper';
 import {HomeCSS, CommonCSS} from './../Style'
 
-import bgImage from './../assets/home_bg.jpg'
+import bgImage from './../assets/images/home_bg.jpg'
 
 const win = Dimensions.get('window');
 const width = win.width;
@@ -18,7 +18,7 @@ const height = win.height;
 const ratio = win.width/732;
 export default class Home extends React.Component {
   render() {
-    const {navigate} = this.props.navigation;
+    const {navigate} = this.props.navigation; 
     return (
       <View style = {HomeCSS.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
@@ -37,7 +37,7 @@ export default class Home extends React.Component {
                 }
               }}
               contentStyle = {{width:200,height:60}}
-              onPress={() => navigate('Recipe')}
+              onPress={() => navigate('InitialDetails')}
               >
               Let's Cook
             </Button>
