@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './../pages/Home';
-import Recipe from './../pages/LandingPage/Recipe';
+import InitialDetails from '../pages/LandingPage/initialDetails';
 
 const AppNavigator = createStackNavigator(
   {
@@ -10,11 +10,8 @@ const AppNavigator = createStackNavigator(
         header: null,
       }
     },
-    Recipe: { 
-      screen: Recipe,
-      navigationOptions: {
-        header: null,
-      }
+    InitialDetails: { 
+      screen: InitialDetails,
     }
   },
     {
