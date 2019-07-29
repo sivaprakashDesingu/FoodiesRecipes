@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import {
   View,
   Text,
@@ -9,9 +11,11 @@ import {
   TouchableOpacity
 } from 'react-native';
 import {Button } from 'react-native-paper';
+// actions
+import updateUserInitialInput from './../../action/Initial-action'
 import { CommonCSS, initialPageCSS } from '../../Style'
 
-export  class InitialDetails extends React.Component {
+class InitialDetails extends React.Component {
 
   constructor(props) {
     super(props)
@@ -116,16 +120,35 @@ export  class InitialDetails extends React.Component {
               }
             }}
             contentStyle = {{height:50}}
+            onPress = {this.props.updateUserInitialInput(this.state)}
           >
             Get Started
           </Button>
         </View>
-        
         {/* Are you Vegetarian */}
       </ScrollView>
-
     );
   }
 }
  
-export default InitialDetails
+
+InitialDetails.prototype = {
+  updateUserInitialInput: PropTypes.func,
+  userInput : PropTypes.object
+}
+
+// function mapStateToProps (state) {
+//   alert(JSON.stringify(state))
+//   return{
+//       userInput : state.userInitalInputFromUser
+//   }
+// }
+const mapStateToProps = state => ( { } ) 
+
+
+const mapDispatchToProps = dispatch => ({
+  updateUserInitialInput: (userInput) =>
+    dispatch(updateUserInitialInput(userInput)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(InitialDetails)

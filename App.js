@@ -2,6 +2,14 @@ import React from 'react';
 import AppNavigator from './config/AppNavigator'
 import { Provider as PaperProvider } from 'react-native-paper';
 import * as Font from 'expo-font'
+
+import { createStore } from 'redux'
+import { Provider as ReduxProvider} from 'react-redux'
+
+import InitialReducer from './reducer/Initial-reducer'
+
+const store = createStore(InitialReducer)
+
 export default class App extends React.Component {
   componentDidMount() {
     Font.loadAsync({
@@ -12,10 +20,11 @@ export default class App extends React.Component {
   }
   render() {
     return (
-       <PaperProvider>
-          <AppNavigator/>
-       </PaperProvider>
-     
+      <ReduxProvider store={store}>
+        <PaperProvider>
+          <AppNavigator />
+        </PaperProvider>
+      </ReduxProvider>
     );
   }
 }

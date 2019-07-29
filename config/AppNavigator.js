@@ -2,8 +2,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './../pages/Home';
 import InitialDetails from '../pages/LandingPage/initialDetails';
 
-const AppNavigator = createStackNavigator(
-  {
+const AppNavigator = createStackNavigator({
     Home: { 
       screen: Home,
       navigationOptions: {
@@ -16,7 +15,6 @@ const AppNavigator = createStackNavigator(
   },
     {
       initialRouteName: 'Home',
-    }
-);
+    });
 
 export default createAppContainer(AppNavigator);
