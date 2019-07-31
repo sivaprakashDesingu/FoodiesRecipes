@@ -1,1 +1,1 @@
-# Cooking_recipes
+# Cooking_recipes Mobile application which is under development.
