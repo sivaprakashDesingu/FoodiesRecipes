@@ -15,6 +15,7 @@ const CommonCSS = StyleSheet.create({
         height:height
     }
 })
+
 const HomeCSS = StyleSheet.create({
     container: {
         flex: 1,
@@ -39,6 +40,7 @@ const HomeCSS = StyleSheet.create({
         color: '#fff'
     }
 })
+
 const initialPageCSS = StyleSheet.create({
     heading: {
         fontSize: 24,
@@ -52,7 +54,7 @@ const initialPageCSS = StyleSheet.create({
         fontFamily:"RobotoRegular",
         alignItems: 'center',
         borderWidth:.5,
-        borderColor: '#efb0b0',
+        borderColor: '#fee3e3',
         height: 60,
         width: width - 20,
         borderRadius: 5,
@@ -61,7 +63,7 @@ const initialPageCSS = StyleSheet.create({
     },
     acitveButton:{
         borderWidth:1,
-        borderColor: '#0f5407',
+        borderColor: '#ec4242',
     },
     getStartedBtnWrapper:{
         backgroundColor:'#fff',
