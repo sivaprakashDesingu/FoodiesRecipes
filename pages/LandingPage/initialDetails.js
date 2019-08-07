@@ -1,21 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import {
   View,
   Text,
   ScrollView,
   Image,
   StatusBar,
-  StyleSheet,
   TouchableOpacity
 } from 'react-native';
-import {Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
+// actions
+import { updateUserInitialInput } from './../../action/Initial-action'
 import { CommonCSS, initialPageCSS } from '../../Style'
 
-export  class InitialDetails extends React.Component {
+class InitialDetails extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = { 
+      userInput:{
+        cookingSkill: 'Beginner',
+        isVegeterian:false
+      },
       cookingSkill: 'Beginner',
       isVegeterian:false
     }
@@ -34,12 +41,24 @@ export  class InitialDetails extends React.Component {
 
   userInitalInput(whichState,value){
       whichState ==='cookingSkill' ? 
-      this.setState({cookingSkill:value}) : 
-      this.setState({isVegeterian:value})
+      this.setState({userInput:{
+          ...this.state.userInput,
+          cookingSkill : value        
+      }}) :
+      this.setState({userInput:{
+        ...this.state.userInput,
+        isVegeterian : value        
+    }})
   }
 
+  updateList(){
+    let {navigate} = this.props.navigation;
+    this.props.updateUserInitialInput(this.state.userInput);
+    navigate('Recipe')
+  }
   render() {
-    return (
+    const {userInput} = this.state;
+    return(
       <ScrollView style={CommonCSS.flexContainer}>
         <StatusBar backgroundColor="#fa6767" barStyle="light-content" />
 
@@ -51,7 +70,7 @@ export  class InitialDetails extends React.Component {
         onPress={this.userInitalInput.bind(this,'cookingSkill','Beginner')} 
         style={
           [initialPageCSS.buttons, 
-          this.state.cookingSkill==='Beginner' ? initialPageCSS.acitveButton : null]
+            userInput.cookingSkill==='Beginner' ? initialPageCSS.acitveButton : null]
         }
         activeOpacity={0.5}>
           <Image source={require('../../assets/images/avatar.png')} style={initialPageCSS.ImageIconStyle}/>
@@ -61,7 +80,7 @@ export  class InitialDetails extends React.Component {
         onPress={this.userInitalInput.bind(this,'cookingSkill','Expert')} 
         style={
           [initialPageCSS.buttons, 
-          this.state.cookingSkill==='Expert' ? initialPageCSS.acitveButton : null]
+            userInput.cookingSkill==='Expert' ? initialPageCSS.acitveButton : null]
         }
         activeOpacity={0.5}>
           <Image source={require('../../assets/images/avatar.png')} style={initialPageCSS.ImageIconStyle}/>
@@ -71,7 +90,7 @@ export  class InitialDetails extends React.Component {
         onPress={this.userInitalInput.bind(this,'cookingSkill','Professional')} 
         style={
           [initialPageCSS.buttons, 
-          this.state.cookingSkill==='Professional' ? initialPageCSS.acitveButton : null]
+            userInput.cookingSkill==='Professional' ? initialPageCSS.acitveButton : null]
         }
         activeOpacity={0.5}>
           <Image source={require('../../assets/images/avatar.png')} style={initialPageCSS.ImageIconStyle}/>
@@ -87,7 +106,7 @@ export  class InitialDetails extends React.Component {
         onPress={this.userInitalInput.bind(this,'isVeg',false)} 
         style={
           [initialPageCSS.buttons, 
-          this.state.isVegeterian ? null : initialPageCSS.acitveButton]
+            userInput.isVegeterian ? null : initialPageCSS.acitveButton]
         }
         activeOpacity={0.5}>
           <Image source={require('../../assets/images/avatar.png')} style={initialPageCSS.ImageIconStyle}/>
@@ -97,7 +116,7 @@ export  class InitialDetails extends React.Component {
         onPress={this.userInitalInput.bind(this,'isVeg',true)} 
         style={
           [initialPageCSS.buttons, 
-          this.state.isVegeterian ? initialPageCSS.acitveButton : null]
+            userInput.isVegeterian ? initialPageCSS.acitveButton : null]
         }
         activeOpacity={0.5}>
           <Image source={require('../../assets/images/avatar.png')} style={initialPageCSS.ImageIconStyle}/>
@@ -116,16 +135,33 @@ export  class InitialDetails extends React.Component {
               }
             }}
             contentStyle = {{height:50}}
+            onPress = {this.updateList.bind(this)}
           >
             Get Started
           </Button>
         </View>
-        
         {/* Are you Vegetarian */}
       </ScrollView>
-
     );
   }
 }
  
-export default InitialDetails
+
+InitialDetails.propTypes = {
+  updateUserInitialInput: PropTypes.func,
+  userInput : PropTypes.object
+}
+
+
+function mapStateToProps (state) {
+  return{
+      userInput : state.userInitalInputFromUser
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  updateUserInitialInput: (userInput) =>
+    dispatch(updateUserInitialInput(userInput)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(InitialDetails)
