@@ -1,6 +1,6 @@
 ##  Welcome to Cooking_recipes React native mobile application
 
-## About PT
+## About App
 Mobile application which is under development for now.
 
 ## Ready to Contribute, Follow me
