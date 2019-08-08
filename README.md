@@ -3,7 +3,7 @@
 ## About App
 Mobile application which is under development for now.
 
-## Ready to Contribute, Follow me
+## Ready to Contribute, Follow the below few steps
 
 ## Running the React JS
 git clone https://github.com/sivaprakashDesingu/Cooking_recipes.git 
