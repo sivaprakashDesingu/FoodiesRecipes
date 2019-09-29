@@ -53,7 +53,7 @@ const headerComponentCSS = StyleSheet.create({
         top:0,
         width:width,
         backgroundColor:'transparent',
-        pointerEvents:'box-none'
+        /*pointerEvents:'box-none'*/
     },
     inActivesearchBox:{
         height:0,
