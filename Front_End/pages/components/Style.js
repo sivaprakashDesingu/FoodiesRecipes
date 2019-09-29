@@ -1,0 +1,89 @@
+import { StyleSheet, Dimensions } from 'react-native';
+import { startAsync } from 'expo/build/AR';
+
+const win = Dimensions.get('window');
+const width = win.width;
+const height = win.height;
+
+const appColor = {
+    primaryColor: '#ec4242',
+    grayColor: '#a09d9d',
+    white: "#fff",
+    textColor: '#394150',
+    borderColors:'#ddd'
+}
+const CommonCSS = StyleSheet.create({
+    padding10: {
+        paddingTop: 10
+    },
+    marginTop30: {
+        marginTop: 30
+    },
+    flexContainer: {
+        flex: 1,
+        height: height
+    },
+    container: {
+        flex: 1,
+    },
+    flexDirectionRow: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    }
+
+})
+
+const headerComponentCSS = StyleSheet.create({
+    title: {
+        fontSize: 20,
+        color: appColor.white,
+        fontFamily: 'RobotoBold',
+        flex:1,
+        paddingTop:13,
+    },
+    searchIcon: {
+        width:40,
+        paddingRight:10,
+        paddingTop:10,
+    },
+    searchBox :{
+        position:'absolute',
+        right:0,
+        top:0,
+        width:width,
+        backgroundColor:'transparent',
+        pointerEvents:'box-none'
+    },
+    inActivesearchBox:{
+        height:0,
+    },
+    activesearchBox:{
+        padding:30,
+        backgroundColor:appColor.white,
+        height:height,
+    },
+    searchText:{
+        paddingLeft:0,
+        paddingRight:0,
+        backgroundColor:appColor.white,
+        borderBottomColor:appColor.borderColors
+    },
+    searchTag:{
+        color:appColor.primaryColor,
+        borderBottomColor:appColor.borderColors,
+        borderBottomWidth:1,
+        borderStyle:'solid'
+    },
+    searchResultItem:{
+        flex:1,
+        color:appColor.textColor,
+        padding:10,
+        borderBottomColor:appColor.borderColors,
+        borderBottomWidth:1,
+        borderStyle:'solid'
+    }
+
+})
+
+export { headerComponentCSS, CommonCSS }  

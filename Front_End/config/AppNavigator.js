@@ -1,7 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './../pages/Home';
-import InitialDetails from '../pages/LandingPage/initialDetails';
-import Recipe from './../pages/LandingPage/Recipe'
+import InitialDetails from '../pages/container/initialDetails';
+import Recipe from './../pages/container/Recipe'
 
 
 const AppNavigator = createStackNavigator({

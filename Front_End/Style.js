@@ -1,8 +1,16 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { startAsync } from 'expo/build/AR';
 
 const win = Dimensions.get('window');
 const width = win.width;
 const height = win.height;
+
+const appColor = {
+    primaryColor: '#ec4242',
+    grayColor: '#a09d9d',
+    white: "#fff",
+    textColor:'#394150'
+}
 const CommonCSS = StyleSheet.create({
     padding10: {
         paddingTop: 10
@@ -13,7 +21,15 @@ const CommonCSS = StyleSheet.create({
     flexContainer: {
         flex: 1,
         height:height
+    },
+    container : {
+        flex: 1,
+    },
+    flexDirectionRow:{
+        flex:1,
+        flexDirection:'row'
     }
+
 })
 
 const HomeCSS = StyleSheet.create({
@@ -63,7 +79,7 @@ const initialPageCSS = StyleSheet.create({
     },
     acitveButton:{
         borderWidth:1,
-        borderColor: '#ec4242',
+        borderColor: appColor.primaryColor,
     },
     getStartedBtnWrapper:{
         backgroundColor:'#fff',
@@ -93,5 +109,51 @@ const initialPageCSS = StyleSheet.create({
         fontSize:16,
     }
 })
+const  RecipePageCSS = StyleSheet.create({
+    recipeBannerImage : {
+        alignItems:'flex-start',
+        width:width,
+        height:200
+    },
+    desciptoinWrapper:{
+        padding:20
+    },
+    heading: {
+        fontSize:20,
+        fontFamily:'RobotoBold'
+    },
+    ownDes:{
+        fontSize:14,
+        color:appColor.grayColor
+    },
+    ownDesName:{
+        fontSize:14,
+        color:appColor.primaryColor
+    },
+    recipeTags:{
+        backgroundColor:'#fffaf9',
+        padding:5,
+        color:appColor.textColor,
+        borderWidth:1,
+        borderStyle:'solid',
+        textAlign:'center',
+        borderColor:'#f1e1de',
+        borderRadius:20,
+        marginTop:10,
+        marginBottom:10,
+        marginRight:6,
+        minWidth:70
+    },
+    recipeFeatureItemImage :{
+        width:25,
+        height:25,
+        marginRight:5,
+    },
+    recepeFeatureItem:{
+        padding:10,
+        marginRight:10,
+        marginBottom:10
+    }
+})
 
-export { HomeCSS, CommonCSS, initialPageCSS }  
+export { HomeCSS, CommonCSS, initialPageCSS,RecipePageCSS }  
