@@ -55,7 +55,7 @@ class HeaderBar extends React.Component {
                             onChangeText={text => this.setState({ text })}
                         />
 
-                        <View>
+                        {/* <View>
                             <Text style={headerComponentCSS.searchTag}>Recipe</Text>
                             <Text style={headerComponentCSS.searchResultItem}>Chicken Briyani</Text>
                             <Text style={headerComponentCSS.searchResultItem}>Chicken Briyani</Text>
@@ -64,7 +64,7 @@ class HeaderBar extends React.Component {
                             <Text style={headerComponentCSS.searchResultItem}>Chicken Briyani</Text>
                             <Text style={headerComponentCSS.searchResultItem}>Chicken Briyani</Text>
                             <Text style={headerComponentCSS.searchResultItem}>Chicken Briyani</Text>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </View>
