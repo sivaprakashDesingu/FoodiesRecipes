@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { startAsync } from 'expo/build/AR';
-
+import {Layout,AppColor} from '../helper/dimenstion'
 const win = Dimensions.get('window');
 const width = win.width;
 const height = win.height;
@@ -10,7 +9,7 @@ const appColor = {
     grayColor: '#a09d9d',
     white: "#fff",
     textColor: '#394150',
-    borderColors:'#ddd'
+    borderColors: '#ddd'
 }
 const CommonCSS = StyleSheet.create({
     padding10: {
@@ -30,6 +29,11 @@ const CommonCSS = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    heading18px:{
+        fontSize:18,
+        fontFamily:"RobotoBold",
+        paddingBottom:10,
     }
 
 })
@@ -39,51 +43,66 @@ const headerComponentCSS = StyleSheet.create({
         fontSize: 20,
         color: appColor.white,
         fontFamily: 'RobotoBold',
-        flex:1,
-        paddingTop:13,
+        flex: 1,
+        paddingTop: 13,
     },
     searchIcon: {
-        width:40,
-        paddingRight:10,
-        paddingTop:10,
+        width: 40,
+        paddingRight: 10,
+        paddingTop: 10,
     },
-    searchBox :{
-        position:'absolute',
-        right:0,
-        top:0,
-        width:width,
-        backgroundColor:'transparent',
+    searchBox: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        width: width,
+        backgroundColor: 'transparent',
         /*pointerEvents:'box-none'*/
     },
-    inActivesearchBox:{
-        height:0,
+    inActivesearchBox: {
+        height: 0,
     },
-    activesearchBox:{
-        padding:30,
-        backgroundColor:appColor.white,
-        height:height,
+    activesearchBox: {
+        padding: 30,
+        backgroundColor: appColor.white,
+        height: height,
     },
-    searchText:{
-        paddingLeft:0,
-        paddingRight:0,
-        backgroundColor:appColor.white,
-        borderBottomColor:appColor.borderColors
+    searchText: {
+        paddingLeft: 0,
+        paddingRight: 0,
+        backgroundColor: appColor.white,
+        borderBottomColor: appColor.borderColors
     },
-    searchTag:{
-        color:appColor.primaryColor,
-        borderBottomColor:appColor.borderColors,
-        borderBottomWidth:1,
-        borderStyle:'solid'
+    searchTag: {
+        color: appColor.primaryColor,
+        borderBottomColor: appColor.borderColors,
+        borderBottomWidth: 1,
+        borderStyle: 'solid'
     },
-    searchResultItem:{
-        flex:1,
-        color:appColor.textColor,
-        padding:10,
-        borderBottomColor:appColor.borderColors,
-        borderBottomWidth:1,
-        borderStyle:'solid'
-    }
+    searchResultItem: {
+        flex: 1,
+        color: appColor.textColor,
+        padding: 10,
+        borderBottomColor: appColor.borderColors,
+        borderBottomWidth: 1,
+        borderStyle: 'solid'
+    },
+
 
 })
-
-export { headerComponentCSS, CommonCSS }  
+const slideToggleComponentCSS = StyleSheet.create({
+    container: {
+        position:'relative',
+        overflow: 'hidden',
+        flexDirection: 'row',
+        width:Layout.width
+    },
+    // titleContainer: {
+    //     flexDirection: 'row'
+    // },
+    buttonImage: {
+        width: 30,
+        height: 25
+    }
+})
+export { headerComponentCSS, CommonCSS, slideToggleComponentCSS }  

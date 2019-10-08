@@ -63,6 +63,7 @@ class InitialDetails extends React.Component {
         <StatusBar backgroundColor="#fa6767" barStyle="light-content" />
 
         {/* Rate your cooking skills */}
+        <View style={initialPageCSS.pageWrapper}>
         <View >
           <Text style={initialPageCSS.heading}>Rate your cooking skills!</Text>
         </View>
@@ -141,6 +142,8 @@ class InitialDetails extends React.Component {
           </Button>
         </View>
         {/* Are you Vegetarian */}
+        </View>
+        
       </ScrollView>
     );
   }

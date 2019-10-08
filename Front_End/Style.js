@@ -1,16 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { startAsync } from 'expo/build/AR';
+import {Layout,AppColor} from './pages/helper/dimenstion'
 
-const win = Dimensions.get('window');
-const width = win.width;
-const height = win.height;
-
-const appColor = {
-    primaryColor: '#ec4242',
-    grayColor: '#a09d9d',
-    white: "#fff",
-    textColor:'#394150'
-}
 const CommonCSS = StyleSheet.create({
     padding10: {
         paddingTop: 10
@@ -20,7 +10,7 @@ const CommonCSS = StyleSheet.create({
     },
     flexContainer: {
         flex: 1,
-        height:height
+        minHeight:Layout.height
     },
     container : {
         flex: 1,
@@ -45,7 +35,7 @@ const HomeCSS = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: 'center',
-        height: height,
+        height: Layout.height,
     },
     heading: {
         fontSize: 30,
@@ -72,14 +62,20 @@ const initialPageCSS = StyleSheet.create({
         borderWidth:.5,
         borderColor: '#fee3e3',
         height: 60,
-        width: width - 20,
+        width: Layout.width - 20,
         borderRadius: 5,
         margin: 10,
         marginTop:0, 
     },
+    pageWrapper:{
+        flex:1,
+        width:Layout.width,
+        minHeight:Layout.height -80,
+        flexDirection:'column',
+    },
     acitveButton:{
         borderWidth:1,
-        borderColor: appColor.primaryColor,
+        borderColor: AppColor.primaryColor,
     },
     getStartedBtnWrapper:{
         backgroundColor:'#fff',
@@ -87,7 +83,9 @@ const initialPageCSS = StyleSheet.create({
         borderWidth:1,
         borderStyle:'solid',
         borderColor:'#ddd',
-        alignSelf:'flex-end',
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: 0,
         width:'100%',
         marginTop:30,
         shadowOffset: { width: 10, height: 10 },
@@ -112,11 +110,16 @@ const initialPageCSS = StyleSheet.create({
 const  RecipePageCSS = StyleSheet.create({
     recipeBannerImage : {
         alignItems:'flex-start',
-        width:width,
-        height:200
+        width:Layout.width,
+        height:300
     },
     desciptoinWrapper:{
-        padding:20
+        padding:20,
+        position:'relative',
+        top:-100,
+        borderTopRightRadius:30,
+        borderTopLeftRadius:30,
+        backgroundColor:AppColor.white
     },
     heading: {
         fontSize:20,
@@ -124,16 +127,16 @@ const  RecipePageCSS = StyleSheet.create({
     },
     ownDes:{
         fontSize:14,
-        color:appColor.grayColor
+        color:AppColor.grayColor
     },
     ownDesName:{
         fontSize:14,
-        color:appColor.primaryColor
+        color:AppColor.primaryColor
     },
     recipeTags:{
         backgroundColor:'#fffaf9',
         padding:5,
-        color:appColor.textColor,
+        color:AppColor.textColor,
         borderWidth:1,
         borderStyle:'solid',
         textAlign:'center',
@@ -143,16 +146,6 @@ const  RecipePageCSS = StyleSheet.create({
         marginBottom:10,
         marginRight:6,
         minWidth:70
-    },
-    recipeFeatureItemImage :{
-        width:25,
-        height:25,
-        marginRight:5,
-    },
-    recepeFeatureItem:{
-        padding:10,
-        marginRight:10,
-        marginBottom:10
     }
 })
 

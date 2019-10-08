@@ -9,7 +9,7 @@ const appColor = {
     grayColor: '#a09d9d',
     white: "#fff",
     textColor: '#394150',
-    borderColors:'#ddd'
+    borderColors: '#ddd'
 }
 
 class HeaderBar extends React.Component {
@@ -27,14 +27,13 @@ class HeaderBar extends React.Component {
     }
     render() {
         const { headerTitle } = this.props
-        const { searchBar,text } = this.state
+        const { searchBar, text } = this.state
         return (
             <View style={[CommonCSS.container, { position: 'relative' }]}>
                 <View style={CommonCSS.flexDirectionRow}>
                     <Text style={headerComponentCSS.title}>{this.props.headerTitle}</Text>
                     <Text style={headerComponentCSS.searchIcon}
-                        onPress={this.isSearchBarEnabled.bind(this)}
-                    >
+                        onPress={this.isSearchBarEnabled.bind(this)} >
                         <Image
                             source={require('./../../assets/images/search.png')}
                             style={{ width: 25, height: 25 }}
@@ -44,7 +43,7 @@ class HeaderBar extends React.Component {
                         searchBar ?
                             [headerComponentCSS.searchBox, headerComponentCSS.activesearchBox] :
                             [headerComponentCSS.searchBox, headerComponentCSS.inActivesearchBox]}>
-                        <TextInput
+                        {/* <TextInput
                             label='Email'
                             value={text}
                             theme={{
@@ -53,7 +52,7 @@ class HeaderBar extends React.Component {
                             }}
                             style={headerComponentCSS.searchText}
                             onChangeText={text => this.setState({ text })}
-                        />
+                        /> */}
 
                         {/* <View>
                             <Text style={headerComponentCSS.searchTag}>Recipe</Text>
