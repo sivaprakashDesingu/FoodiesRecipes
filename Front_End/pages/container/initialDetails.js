@@ -1,19 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  StatusBar,
-  TouchableOpacity
-} from 'react-native';
+import {View,Text,ScrollView,Image,StatusBar,TouchableOpacity} from 'react-native';
 import { Button } from 'react-native-paper';
-// actions
+/* actions */
 import { updateUserInitialInput } from './../../action/Initial-action'
-import { CommonCSS, initialPageCSS } from '../../Style'
-
+/* Styles */
+import { CommonCSS } from '../../assets/styles/common_style'
+import {initialPageCSS} from '../../assets/styles/initial_style'
 class InitialDetails extends React.Component {
 
   constructor(props) {
