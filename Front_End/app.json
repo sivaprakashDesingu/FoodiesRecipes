@@ -25,6 +25,11 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "versionCode": 1,
+      "package": "com.futuretech.cookmaster"
+    },
+    "description": ""
   }
 }
