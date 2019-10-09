@@ -18,6 +18,18 @@ const CommonCSS = StyleSheet.create({
     flexDirectionRow:{
         flex:1,
         flexDirection:'row'
+    },
+    listWrapper:{
+        flex:1,
+        flexDirection:'row',
+        marginBottom:10,
+    },
+    listBulllet:{
+        width: 10,
+        alignSelf:'flex-start'
+    },
+    listText:{
+        fontSize: 16,
     }
 
 })

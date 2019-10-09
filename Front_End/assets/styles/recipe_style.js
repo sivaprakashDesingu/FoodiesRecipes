@@ -11,9 +11,11 @@ const  RecipePageCSS = StyleSheet.create({
         padding:20,
         position:'relative',
         top:-100,
+        marginBottom:-100,
         borderTopRightRadius:30,
         borderTopLeftRadius:30,
-        backgroundColor:AppColor.white
+        backgroundColor:AppColor.white,
+        elevation:5,
     },
     heading: {
         fontSize:20,
@@ -39,13 +41,15 @@ const  RecipePageCSS = StyleSheet.create({
         marginTop:10,
         marginBottom:10,
         marginRight:6,
-        minWidth:70
+        minWidth:70,
+        fontSize:16,
     },
     horizontalCenteredLine:{
-        height:1,width:180,backgroundColor:'#ddd',marginLeft: 'auto',marginRight: 'auto',marginTop:30,marginBottom:30
+        height:1,width:180,backgroundColor:'#ddd',marginLeft: 'auto',marginRight: 'auto',marginTop:30,
     },
     ingredientHeading:{
         fontSize:18,
+        marginTop:30,
         fontFamily:"RobotoBold",
         paddingBottom:10,
     }

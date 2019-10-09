@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView,Animated,TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
 import HeaderBar from './../components/Header'
 //import { CommonCSS, RecipePageCSS } from '../../Style'
@@ -9,11 +9,11 @@ import { RecipePageCSS } from '../../assets/styles/recipe_style'
 class Recipe extends Component {
     constructor(props) {
         super(props)
-        this.state = { 
-            height:0,
-            toggleItemHeight:0,
+        this.state = {
+            height: 0,
+            toggleItemHeight: 0,
             animation: new Animated.Value(0),
-            expanded:false,
+            expanded: false,
         }
     }
 
@@ -28,38 +28,7 @@ class Recipe extends Component {
         }
     };
 
-    toggle = () => {
-        //alert(this.state.toggleItemHeight)
-        const {toggleItemHeight,expanded}= this.state
-        expanded ? this.setState({expanded:false,toggleItemHeight:0}) : this.setState({expanded:true,toggleItemHeight:0})
-        Animated.timing(this.state.animation, {
-            toValue: this.state.toggleItemHeight,
-            duration: 1000
-        }).start()
-    };
 
-    find_dimesions(layout){
-        // let {height} = layout; 
-        // if(height === 0){
-        //     this.setState({height})
-        // }else{
-        //     this.setState({height:0})
-        // }
-    }
-
-    toggleContent(layout){
-        this.setState({toggleItemHeight:0})
-        const {toggleItemHeight,expanded} = this.state
-        let {height} = layout; 
-        alert(toggleItemHeight)
-
-        alert(height)
-        expanded ? this.setState({toggleItemHeight:20}) : 
-        this.setState({toggleItemHeight:toggleItemHeight+height+15}) 
-       
-    }
-    
-    
     render() {
         const { height } = this.state;
         return (
@@ -79,44 +48,86 @@ class Recipe extends Component {
 
                     </View>
 
-                    <View  style={CommonCSS.flexDirectionRow}>
+                    <View style={CommonCSS.flexDirectionRow}>
                         <Text style={RecipePageCSS.recipeTags}>Lunch</Text>
                         <Text style={RecipePageCSS.recipeTags}>Indian</Text>
                         <Text style={RecipePageCSS.recipeTags}>Vegan</Text>
                     </View>
 
                     <View style={RecipePageCSS.horizontalCenteredLine}></View>
-                    <TouchableOpacity  onPress={this.toggle}>
-                        <Text>Show Less</Text>
-                    </TouchableOpacity>
-                    <Animated.View style={{ height:this.state.animation, overflow: 'hidden',position:'relative'}}
-                    onLayout={(event) => { this.find_dimesions(event.nativeEvent.layout) }}>
-                       
-                        <Text  style={RecipePageCSS.ingredientHeading}>Ingredients</Text>
-                        <View style={CommonCSS.flexDirectionRow} >
-                            <Text style={RecipePageCSS.recipeTags} onLayout={(event) => { this.toggleContent(event.nativeEvent.layout) }}>Lunch</Text>
-                            <Text style={RecipePageCSS.recipeTags} onLayout={(event) => { this.toggleContent(event.nativeEvent.layout) }}>Indian</Text>
-                            <Text style={RecipePageCSS.recipeTags} onLayout={(event) => { this.toggleContent(event.nativeEvent.layout) }}>Vegan</Text>
+                    <View >
+
+                        <Text style={RecipePageCSS.ingredientHeading}>Ingredients</Text>
+
+                        <ScrollView style={CommonCSS.flexDirectionRow} horizontal={true}>
+                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
+                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
+                        </ScrollView>
+                    </View>
+                    <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
+
+                    <View>
+                        <View style={[CommonCSS.listWrapper]}>
+                            <View style={CommonCSS.listBulllet}>
+                                <Text>{'\u2022'}</Text>
+                            </View>
+                            <View style={CommonCSS.listText}>
+                                <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</Text>
+                            </View>
                         </View>
-                    </Animated.View>
+                        <View style={[CommonCSS.listWrapper]}>
+                            <View style={CommonCSS.listBulllet}>
+                                <Text>{'\u2022'}</Text>
+                            </View>
+                            <View style={CommonCSS.listText}>
+                                <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</Text>
+                            </View>
+                        </View>
 
+                        <View style={[CommonCSS.listWrapper]}>
+                            <View style={CommonCSS.listBulllet}>
+                                <Text>{'\u2022'}</Text>
+                            </View>
+                            <View style={CommonCSS.listText}>
+                                <Text>Lorem Ipsum is simply dummy text of.</Text>
+                            </View>
+                        </View>
+                        <View style={[CommonCSS.listWrapper]}>
+                            <View style={CommonCSS.listBulllet}>
+                                <Text>{'\u2022'}</Text>
+                            </View>
+                            <View style={CommonCSS.listText}>
+                                <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</Text>
+                            </View>
+                        </View>
+                        <View style={[CommonCSS.listWrapper]}>
+                            <View style={CommonCSS.listBulllet}>
+                                <Text>{'\u2022'}</Text>
+                            </View>
+                            <View style={CommonCSS.listText}>
+                                <Text>known printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also </Text>
+                            </View>
+                        </View>
+                        <View style={[CommonCSS.listWrapper]}>
+                            <View style={CommonCSS.listBulllet}>
+                                <Text>{'\u2022'}</Text>
+                            </View>
+                            <View style={CommonCSS.listText}>
+                                <Text>but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets</Text>
+                            </View>
+                        </View>
 
-
-                    {/* <Text >
-                        <Text style={RecipePageCSS.recepeFeatureItem}>
-                            <Image
-                                style={RecipePageCSS.recipeFeatureItemImage}
-                                source={require('../../assets/images/rewind-time.png')} />
-                            <Text > 30 Mins </Text>
-                        </Text>
-
-                        <Text style={RecipePageCSS.recepeFeatureItem}>
-                            <Image
-                                style={RecipePageCSS.recipeFeatureItemImage}
-                                source={require('../../assets/images/bell-covering-hot-dish.png')} />
-                            <Text > 4 Serving </Text>
-                        </Text>
-                    </Text> */}
+                    </View>
 
 
                 </View>
