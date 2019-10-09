@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 27539,
-  "expoServerNgrokUrl": "https://8h-rza.linuxshiva.front-end.exp.direct",
-  "packagerNgrokUrl": "https://packager.8h-rza.linuxshiva.front-end.exp.direct",
-  "ngrokPid": 27568
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }
