@@ -8,9 +8,9 @@ import {
   StatusBar,
   Dimensions } from 'react-native';
 import { Button } from 'react-native-paper';
-import {HomeCSS, CommonCSS} from './../Style'
+import {HomeCSS, CommonCSS} from '../../Style'
 
-import bgImage from './../assets/images/home_bg.jpg'
+import bgImage from '../../assets/images/home_bg.jpg'
 
 const win = Dimensions.get('window');
 const width = win.width;
