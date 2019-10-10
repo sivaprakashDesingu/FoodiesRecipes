@@ -1,5 +1,4 @@
-export const  USER_INITIAL_INPUT = 'USER_INITIAL_INPUT'
-
+import {USER_INITIAL_INPUT} from './../constraint/constraint'
 
 export function updateUserInitialInput (action){
     return{

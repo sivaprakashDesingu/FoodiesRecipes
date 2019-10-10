@@ -6,7 +6,7 @@ const initialState = {
 
 const InitialReducer = (state = initialState,action) => {
     switch(action.type){
-        case 'USER_INITIAL_INPUT':
+        case USER_INITIAL_INPUT:
             return{
                 ...state,
                 userInitalInputFromUser : action.action

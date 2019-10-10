@@ -43,14 +43,15 @@ class TextBox extends Component {
     }
     render() {
         const { topValue,fontValue } = this.state
+        //alert(JSON.stringify(this.props.value))
         return (
             <Animated.View style={style.inputwrapper}>
                 <TextInput
                     style={style.inputField}
                     onFocus={this.enableFloating.bind(this)}
                     onBlur={this.FloatingLable.bind(this)}
-                    onChangeText={(value) => this.setState({ value })}
-                    value={this.state.value}
+                    onChangeText={(value) => this.props.onTextValue({ value })}
+                    value={this.props.value}
                 />
                 <Animated.Text onClick={this.FloatingLable.bind(this)} 
                 style={[style.floatlable, { top: topValue,fontSize:fontValue }]}>
