@@ -97,9 +97,6 @@ const slideToggleComponentCSS = StyleSheet.create({
         flexDirection: 'row',
         width:Layout.width
     },
-    // titleContainer: {
-    //     flexDirection: 'row'
-    // },
     buttonImage: {
         width: 30,
         height: 25

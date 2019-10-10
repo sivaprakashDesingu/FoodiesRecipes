@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View, 
@@ -8,24 +8,32 @@ import {
   StatusBar,
   Dimensions } from 'react-native';
 import { Button } from 'react-native-paper';
-import {HomeCSS, CommonCSS} from '../../Style'
-
+import { CommonCSS } from '../../assets/styles/common_style'
+import {HomeCSS} from '../../assets/styles/home_style'
+import TextBox from './../components/TextBox/textbox'
 import bgImage from '../../assets/images/home_bg.jpg'
 
-const win = Dimensions.get('window');
-const width = win.width;
-const height = win.height;
-const ratio = win.width/732;
-export default class Home extends React.Component {
-  render() {
-    const {navigate} = this.props.navigation; 
+export default function Home(props) {
+  
+  const {navigate} = props.navigation; 
+  const [isRegisteruser, SetIsRegisteruser] = useState(true);
+    //render() {
+    //const {navigate} = this.props.navigation; 
     return (
       <View style = {HomeCSS.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
         <ImageBackground source={bgImage} style={HomeCSS.backgroundImage}>
+          <View style={CommonCSS.overlay}></View>
           <View style ={HomeCSS.homepageContainer}>
              <Text style ={HomeCSS.heading}>Join with us</Text>
-             <Text style ={HomeCSS.subHeading}>Ready | Cook | Eat</Text>
+             <Text style ={HomeCSS.subHeading}>Look | Cook | Taste</Text>
+
+              <View style={HomeCSS.loginFormWrapper}>
+                <TextBox label="Email ID" />
+                {isRegisteruser ? null : <TextBox label="Full Name" />}
+                
+              </View>
+
              <Button 
               mode="contained"
               style = {CommonCSS.marginTop30}
@@ -39,11 +47,11 @@ export default class Home extends React.Component {
               contentStyle = {{width:200,height:60}}
               onPress={() => navigate('InitialDetails')}
               >
-              Let's Cook
+              Submit
             </Button>
           </View>
         </ImageBackground>
       </View>
     );
-  }
+  //}
 }

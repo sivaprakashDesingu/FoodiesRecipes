@@ -30,7 +30,15 @@ const CommonCSS = StyleSheet.create({
     },
     listText:{
         fontSize: 16,
+    },
+    overlay:{
+        position:'absolute',
+        left:0,
+        top:0,
+        backgroundColor:'#000',
+        height:'100%',
+        width:'100%',
+        opacity:0.7,
     }
-
 })
 export { CommonCSS }  
