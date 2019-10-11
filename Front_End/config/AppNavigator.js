@@ -3,7 +3,6 @@ import Home from './../pages/container/Home';
 import InitialDetails from '../pages/container/initialDetails';
 import Recipe from './../pages/container/Recipe'
 
-
 const AppNavigator = createStackNavigator({
     Home: { 
       screen: Home,

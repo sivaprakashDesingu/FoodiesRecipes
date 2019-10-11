@@ -1,78 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import {Text,View,ImageBackground,StatusBar,} from 'react-native';
+import { Text, View, ImageBackground, StatusBar, } from 'react-native';
 import { Button } from 'react-native-paper';
-import {isUserLoggedIn} from './../../action/UserDetails-action'
+import { isUserLoggedIn, isUserRegistered } from './../../action/UserDetails-action'
 import { CommonCSS } from '../../assets/styles/common_style'
-import {HomeCSS} from '../../assets/styles/home_style'
+import { HomeCSS } from '../../assets/styles/home_style'
 import TextBox from './../components/TextBox/textbox'
 import bgImage from '../../assets/images/home_bg.jpg'
+import {AppColor} from './../../pages/helper/dimenstion'
 
 function Home(props) {
 
-  const {navigate} = props.navigation; 
+  const { navigate } = props.navigation;
   const [isRegisteruser, SetIsRegisteruser] = useState(true);
-  const [emailId,setEmailId] = useState('');
-  const [fullName,setFullName] = useState('');
+  const [emailId, setEmailId] = useState('');
+  const [fullName, setFullName] = useState('');
+  //Fetch value form props
+  const { isRegisterUser, aboutRegister } = props.UserDetailsReducer
 
-  function isUserLoggedIn(){
-    //alert(JSON.stringify(emailId))
-    props.isUserLoggedIn(emailId)
+
+  function isUserLoggedIn() {
+    const { userDetails } = props.UserDetailsReducer
+    if (isRegisterUser) {
+      props.isUserLoggedIn(emailId.value)
+    } else {
+      props.isUserRegistered(emailId.value, fullName.value)
+    }
+
   }
-    return (
-      <View style = {HomeCSS.container}>
-        <StatusBar backgroundColor="blue" barStyle="light-content" />
-        <ImageBackground source={bgImage} style={HomeCSS.backgroundImage}>
-          <View style={CommonCSS.overlay}></View>
-          <View style ={HomeCSS.homepageContainer}>
-             <Text style ={HomeCSS.heading}>Join with us</Text>
-             <Text style ={HomeCSS.subHeading}>Look | Cook | Taste</Text>
+  
+  useEffect(() => {
+    if(props.UserDetailsReducer.userDetails.emailId.length>=1){
+      navigate('InitialDetails')
+    }
+  }, [props.UserDetailsReducer])
 
-              <View style={HomeCSS.loginFormWrapper}>
-                <TextBox label="Email ID" 
-                value={emailId.value}
-                onTextValue ={(value) =>  setEmailId(value)}/>
-                
-                {isRegisteruser ? null : <TextBox label="Full Name" />}
-                
-              </View>
+  return (
+    <View style={HomeCSS.container}>
+      <StatusBar backgroundColor="blue" barStyle="light-content" />
+      <ImageBackground source={bgImage} style={HomeCSS.backgroundImage}>
+        <View style={CommonCSS.overlay}></View>
+        <View style={HomeCSS.homepageContainer}>
+          <Text style={HomeCSS.heading}>Join with us</Text>
+          <Text style={HomeCSS.subHeading}>Look | Cook | Taste</Text>
 
-             <Button 
-              mode="contained"
-              style = {CommonCSS.marginTop30}
-              theme={{
-                roundness: 5,
-                width: 200,
-                colors: {
-                  primary:'#fff',
-                }
-              }}
-              contentStyle = {{width:200,height:60}}
-              //onPress={() => navigate('InitialDetails')}
-              onPress={isUserLoggedIn}
-              >
-              Submit
-            </Button>
+          <View style={HomeCSS.loginFormWrapper}>
+            <TextBox label="Email Id"
+              value={emailId.value}
+              onTextValue={(value) => setEmailId(value)} />
+
+            {isRegisterUser ? null :
+              <TextBox
+                label="Full Name"
+                value={fullName.value}
+                onTextValue={(value) => setFullName(value)}
+              />}
+
           </View>
-        </ImageBackground>
-      </View>
-    );
+
+          <Button
+            mode="contained"
+            style={CommonCSS.marginTop30}
+            theme={{
+              roundness: 5,
+              width: 200,
+              colors: {
+                primary: AppColor.primaryColor,
+                
+              }
+            }}
+            contentStyle={{ width: 200, height: 60 }}
+            onPress={isUserLoggedIn}
+          >
+            {isRegisterUser ? "Login" : "Register"}
+            </Button>
+        </View>
+      </ImageBackground>
+    </View>
+  );
   //}
 }
 
 
-function mapStateToProps (state) {
-  //alert(JSON.stringify(state))
-  return{
-    loggedinUser : state.userInitalInputFromUser
+function mapStateToProps(state) {
+  return {
+    loggedinUser: state.userInitalInputFromUser,
+    UserDetailsReducer: state.UserDetailsReducer
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   isUserLoggedIn: (action) =>
     dispatch(isUserLoggedIn(action)),
+  isUserRegistered: (email, fullName) => dispatch(isUserRegistered(email, fullName))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
