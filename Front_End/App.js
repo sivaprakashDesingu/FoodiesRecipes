@@ -6,28 +6,36 @@ import * as Font from 'expo-font'
 
 import { createStore } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
-import {store} from './store/store'
+import { store } from './store/store'
 //import InitialReducer from './reducer/Initial-reducer'
 
 //const store = createStore(InitialReducer)
 
 export default class App extends React.Component {
-  componentDidMount() {
-    Font.loadAsync({
+
+  state = {
+    fontLoaded: false,
+  }
+  
+  async componentDidMount() {
+    await Font.loadAsync({
       'RobotoBlack': require('./assets/fonts/Roboto/Roboto-Black.ttf'),
       'RobotoBold': require('./assets/fonts/Roboto/Roboto-Bold.ttf'),
       'RobotoRegular': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
     });
-    this.refs.toast.show('hello world!',DURATION.LENGTH_LONG);
+    this.refs.toast.show('hello world!', DURATION.LENGTH_LONG);
+    this.setState({ fontLoaded: true });
   }
+
   render() {
+
     return (
       <ReduxProvider store={store}>
         <PaperProvider>
-          <AppNavigator />
+          {this.state.fontLoaded ? <AppNavigator /> : null}
           <Toast
             ref="toast"
-            style={{ backgroundColor: '#000',width:200 }}
+            style={{ backgroundColor: '#000', width: 200 }}
             position='bottom'
             positionValue={100}
             fadeInDuration={750}
@@ -35,6 +43,7 @@ export default class App extends React.Component {
             opacity={0.8}
             textStyle={{ color: '#fff' }}
           />
+
         </PaperProvider>
       </ReduxProvider>
     );

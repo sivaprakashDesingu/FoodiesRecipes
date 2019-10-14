@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux'
-import { Text, View, ImageBackground, StatusBar, } from 'react-native';
+import { Text, View, ImageBackground, StatusBar,AsyncStorage } from 'react-native';
 import { Button } from 'react-native-paper';
-import { isUserLoggedIn, isUserRegistered } from './../../action/UserDetails-action'
-import { CommonCSS } from '../../assets/styles/common_style'
-import { HomeCSS } from '../../assets/styles/home_style'
-import TextBox from './../components/TextBox/textbox'
-import bgImage from '../../assets/images/home_bg.jpg'
-import {AppColor} from './../../pages/helper/dimenstion'
+import { isUserLoggedIn, isUserRegistered } from '../../../action/UserDetails-action'
+import { CommonCSS } from '../../../assets/styles/common_style'
+import { HomeCSS } from '../../../assets/styles/home_style'
+import TextBox from '../../components/TextBox/textbox'
+import bgImage from './../../../assets/images/home_bg.jpg'
+import {AppColor} from '../../../pages/helper/dimenstion'
 
 function Home(props) {
 
@@ -31,8 +31,22 @@ function Home(props) {
   }
   
   useEffect(() => {
+    
+    AsyncStorage.getItem('cookieUserToken', (err, result) => {
+      //alert(result);
+      if(result !== null && result.length>=1){
+        navigate('Personalization')
+      }
+    });
+    
+  }, [])
+
+  useEffect(() => {
+    
     if(props.UserDetailsReducer.userDetails.emailId.length>=1){
-      navigate('InitialDetails')
+      AsyncStorage.setItem('cookieUserToken', JSON.stringify(props.UserDetailsReducer.userDetails.accessToken), () => {
+      });
+      navigate('Personalization')
     }
   }, [props.UserDetailsReducer])
 
