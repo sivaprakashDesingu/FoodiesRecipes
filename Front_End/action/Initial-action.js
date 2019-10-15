@@ -1,8 +1,27 @@
-import {USER_INITIAL_INPUT} from './../constraint/constraint'
+import {
+    UDADATE_PERSONALIZED_DATA_REQUEST,
+    SAVE_PERSONALIZED_DATA_REQUEST,
+    FETCH_PERSONALIZED_DATA_FAILED
+} from './../constraint/constraint'
 
-export function updateUserInitialInput (action){
-    return{
-        type:USER_INITIAL_INPUT,
-        action
+export function saveUserInitialInput(userInput, accessToken) {
+
+    return {
+        type: SAVE_PERSONALIZED_DATA_REQUEST,
+        object: { userInput, accessToken }
+    }
+}
+export function fetchUserInitialInput(accessToken) {
+
+    return {
+        type: FETCH_PERSONALIZED_DATA_FAILED,
+        object:{accessToken}
+    }
+}
+export function updateUserInitialInput(userInput, accessToken) {
+
+    return {
+        type: UDADATE_PERSONALIZED_DATA_REQUEST,
+        object: { userInput, accessToken }
     }
 }

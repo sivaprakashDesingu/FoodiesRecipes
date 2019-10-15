@@ -4,7 +4,11 @@ import PropTypes from 'prop-types'
 import { View, Text, ScrollView, Image, StatusBar, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-paper';
 /* actions */
-import { updateUserInitialInput } from '../../../action/Initial-action'
+import { 
+  updateUserInitialInput,
+  saveUserInitialInput,
+  fetchUserInitialInput
+ } from '../../../action/Initial-action'
 /* Styles */
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { initialPageCSS } from '../../../assets/styles/initial_style'
@@ -15,14 +19,15 @@ class Personalization extends React.Component {
     this.state = {
       userInput: {
         cookingSkill: 'Beginner',
-        isVegeterian: false
-      }
+        isVegeterian: false,  
+      },
+      accessToken:''
     }
   }
 
   componentDidMount() {
     AsyncStorage.getItem('cookieUserToken', (err, result) => {
-      //alert(result);
+      this.setState({accessToken:result.substring(1, result.length - 1)})
     });
   }
   static navigationOptions = {
@@ -54,9 +59,9 @@ class Personalization extends React.Component {
 
   updateList() {
     let { navigate } = this.props.navigation;
-    alert(JSON.stringify(this.state.userInput))
-    //this.props.updateUserInitialInput(this.state.userInput);
-    navigate('RecipeDetails')
+    let {userInput,accessToken} = this.state
+    this.props.saveUserInitialInput(userInput,accessToken);
+    //navigate('RecipeDetails')
   }
   
   render() {
@@ -169,8 +174,9 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserInitialInput: (userInput) =>
-    dispatch(updateUserInitialInput(userInput)),
+  updateUserInitialInput: (userInput,accessToken) => dispatch(updateUserInitialInput(userInput,accessToken)),
+  fetchUserInitialInput:(accessToken) => dispatch(fetchUserInitialInput(accessToken)),
+  saveUserInitialInput: (userInput,accessToken) => dispatch(saveUserInitialInput(userInput,accessToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Personalization)

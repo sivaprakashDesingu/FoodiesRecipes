@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from 'react-native'
 import AppNavigator from './config/AppNavigator'
 import { Provider as PaperProvider } from 'react-native-paper';
 import Toast, { DURATION } from 'react-native-easy-toast'
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     fontLoaded: false,
   }
   
+
   async componentDidMount() {
     await Font.loadAsync({
       'RobotoBlack': require('./assets/fonts/Roboto/Roboto-Black.ttf'),
@@ -25,10 +27,13 @@ export default class App extends React.Component {
     });
     this.refs.toast.show('hello world!', DURATION.LENGTH_LONG);
     this.setState({ fontLoaded: true });
+ 
   }
 
   render() {
-
+    /*AsyncStorage.getItem('cookieUserToken', (err, result) => {
+      alert(result)
+    });*/
     return (
       <ReduxProvider store={store}>
         <PaperProvider>

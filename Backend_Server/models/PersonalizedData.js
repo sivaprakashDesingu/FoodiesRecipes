@@ -11,7 +11,6 @@ var PersonalizedData = new Schema({
     userLevel: {
         type: String,
         required: true,
-        unique: 'emailId'
     },
     userType: {
         type: Boolean,
@@ -21,7 +20,7 @@ var PersonalizedData = new Schema({
         type: String,
         required: true,
         allowNull: false,
-        unique: 'access_token'
+        unique: 'emailId'
     }
 });
 

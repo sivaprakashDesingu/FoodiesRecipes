@@ -9,6 +9,7 @@ const middleWare = require('./middleware');
 
 /* import router pages */
 const user = require('./routes/user');
+const personalized = require('./routes/PersonalizedData')
 const InitialInput = require('./routes/InitialInput')
 
 /* import router pages */
@@ -49,7 +50,8 @@ mongoose.connect(dbConfig.url, {
 /* Create Router URL for app */
 middleWare(app)
 app.use('/api/user', user);
-app.use('/api/initial-data',InitialInput)
+app.use("/api/user/personalized",personalized)
+app.use('/api/initialData',InitialInput)
 /* Create Router URL for app */
 
 

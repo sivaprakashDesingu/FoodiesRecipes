@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 23632,
-  "expoServerNgrokUrl": "https://zy-siv.linuxshiva.front-end.exp.direct",
-  "packagerNgrokUrl": "https://packager.zy-siv.linuxshiva.front-end.exp.direct",
-  "ngrokPid": 23655,
+  "packagerPid": 7538,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
