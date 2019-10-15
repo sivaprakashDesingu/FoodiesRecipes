@@ -6,10 +6,12 @@ import {
    LOGGIN_USER_FAILED,
    REGISTER_USER_REQUEST,
    REGISTER_USER_SUCCESS,
-   REGISTER_USER_FAILED
+   REGISTER_USER_FAILED,
+   FETCH_USER_DETAILS_RQUEST,
+   FETCH_USER_DETAILS_SUCCESS,
+   FETCH_USER_DETAILS_FAILED,
+   API_URL
 } from './../constraint/constraint'
-
-const API_URL = "http://10.101.1.145:8000/api/"
 
 function* isUserLoggedIn(action) {
    try {
@@ -23,6 +25,23 @@ function* isUserLoggedIn(action) {
       yield put({ type: LOGGIN_USER_SUCCESS, data: result.data });
    } catch (error) {
       yield put({ type: LOGGIN_USER_FAILED, data: "failed" });
+   }
+}
+
+function* fetchUserDetails(action) {
+   const {accessToken} = action.payload
+   try {
+      const result = yield call(() =>
+         axios.get(`${API_URL}user/user`, {
+            headers: {
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken.substring(1, accessToken.length - 1)
+            }
+         })
+      )
+      yield put({ type: FETCH_USER_DETAILS_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: FETCH_USER_DETAILS_FAILED, data: "failed" });
    }
 }
 
@@ -50,6 +69,7 @@ function* isUserRegistered(action) {
 function* userDetailsSagas() {
    yield takeLatest(LOGGIN_USER_REQUEST, isUserLoggedIn);
    yield takeLatest(REGISTER_USER_REQUEST, isUserRegistered);
+   yield takeLatest (FETCH_USER_DETAILS_RQUEST,fetchUserDetails)
 }
 
 export default userDetailsSagas;

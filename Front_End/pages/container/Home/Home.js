@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux'
-import { Text, View, ImageBackground, StatusBar,AsyncStorage } from 'react-native';
+import { Text, View, ImageBackground, StatusBar, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-paper';
-import { isUserLoggedIn, isUserRegistered } from '../../../action/UserDetails-action'
+import {
+  isUserLoggedIn,
+  isUserRegistered,
+  fetchUserDetails
+} from '../../../action/UserDetails-action'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { HomeCSS } from '../../../assets/styles/home_style'
 import TextBox from '../../components/TextBox/textbox'
 import bgImage from './../../../assets/images/home_bg.jpg'
-import {AppColor} from '../../../pages/helper/dimenstion'
+import { AppColor } from '../../../pages/helper/dimenstion'
 
 function Home(props) {
 
@@ -21,7 +25,6 @@ function Home(props) {
 
 
   function isUserLoggedIn() {
-    const { userDetails } = props.UserDetailsReducer
     if (isRegisterUser) {
       props.isUserLoggedIn(emailId.value)
     } else {
@@ -29,21 +32,21 @@ function Home(props) {
     }
 
   }
-  
+
   useEffect(() => {
-    
-    AsyncStorage.getItem('cookieUserToken', (err, result) => {
-      //alert(result);
-      if(result !== null && result.length>=1){
+
+    AsyncStorage.getItem('cookieUserToken', (err, token) => {
+      if (token !== null && token.length >= 1) {
+        props.fetchUserDetails(token)
         navigate('Personalization')
       }
     });
-    
+
   }, [])
 
   useEffect(() => {
-    
-    if(props.UserDetailsReducer.userDetails.emailId.length>=1){
+
+    if (props.UserDetailsReducer.userDetails.emailId.length >= 1) {
       AsyncStorage.setItem('cookieUserToken', JSON.stringify(props.UserDetailsReducer.userDetails.accessToken), () => {
       });
       navigate('Personalization')
@@ -81,14 +84,14 @@ function Home(props) {
               width: 200,
               colors: {
                 primary: AppColor.primaryColor,
-                
+
               }
             }}
             contentStyle={{ width: 200, height: 60 }}
             onPress={isUserLoggedIn}
           >
             {isRegisterUser ? "Login" : "Register"}
-            </Button>
+          </Button>
         </View>
       </ImageBackground>
     </View>
@@ -107,7 +110,9 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   isUserLoggedIn: (action) =>
     dispatch(isUserLoggedIn(action)),
-  isUserRegistered: (email, fullName) => dispatch(isUserRegistered(email, fullName))
+  isUserRegistered: (email, fullName) => dispatch(isUserRegistered(email, fullName)),
+  fetchUserDetails:(accessToken) => dispatch(fetchUserDetails(accessToken))
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

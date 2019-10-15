@@ -6,12 +6,14 @@ exports.test = function (req, res) {
     res.send('User controller!');
 };
 
-exports.userDetails = function (req, res) {
-    User.find({}, function (err, user) {
-        if (err) return next(err);
-        res.send(user);
-    })
-};
+
+// async function fetchUSerData(emailId){
+//     User.find({ emailId: emailId }, function (err, user) {
+//         console.log(user)
+//         return user[0]
+//     })
+// }
+
 
 exports.isLoggedIn = function (request, response) {
     const { emailID } = request.query;
@@ -28,25 +30,24 @@ exports.isLoggedIn = function (request, response) {
                     "data": null
                 });
             return
-        }else{
-            console.log("user exist...")
+        } else {
             response
-            .status(200)
-            .json({
-                "status": "Success",
-                "message": "Valid User",
-                "data": user
-            });
-        return
+                .status(200)
+                .json({
+                    "status": "Success",
+                    "message": "Valid User",
+                    "data": user
+                });
+            return
         }
-        
+
     });
 };
 
 exports.register = function (request, response) {
     //console.log(request)
     const { emailId, fullName } = request.body;
-    console.log('Register API CALL activated',emailId);
+    console.log('Register API CALL activated', emailId);
     const insertData = new User({
         emailId,
         fullName,
@@ -63,11 +64,11 @@ exports.register = function (request, response) {
                         "message": "Registered Successfully",
                         "data": user
                     });
-                return 
+                return
             });
         })
         .catch(err => {
-            
+
             response
                 .status(400)
                 .json({
@@ -78,3 +79,30 @@ exports.register = function (request, response) {
             return
         });
 };
+
+exports.userDetails = function (request, response) {
+    const {emailId} =  request.userData
+    console.log('Request to fetch Use data=>', emailId);
+    User.find({ emailId: emailId }, function (err, user) {
+        if (err || user.length == 0) {
+            response
+                .status(400)
+                .json({
+                    "status": "failed",
+                    "message": "Invalid User",
+                    "data": null
+                });
+            return
+        } else {
+            response
+                .status(200)
+                .json({
+                    "status": "Success",
+                    "message": "Valid User",
+                    "data": user
+                });
+            return
+        }
+
+    });
+}; 

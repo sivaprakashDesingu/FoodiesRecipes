@@ -4,7 +4,10 @@ import {
     LOGGIN_USER_REQUEST,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILED,
-    REGISTER_USER_REQUEST
+    REGISTER_USER_REQUEST,
+    FETCH_USER_DETAILS_SUCCESS,
+    FETCH_USER_DETAILS_RQUEST,
+    FETCH_USER_DETAILS_FAILED
 } from './../constraint/constraint'
 
 const initialState = {
@@ -28,7 +31,7 @@ const UserDetailsReducer = (state = initialState, action) => {
             }
 
         case LOGGIN_USER_SUCCESS:
-            
+
             return {
                 ...state,
                 userDetails: {
@@ -40,7 +43,34 @@ const UserDetailsReducer = (state = initialState, action) => {
             }
 
         case LOGGIN_USER_FAILED:
-                
+
+            return {
+                ...state,
+                isRegisterUser: false,
+                userDetails: {
+                    emailId: '',
+                    fullName: '',
+                    accessToken: ''
+                },
+            }
+
+        case FETCH_USER_DETAILS_RQUEST:
+            return {
+                ...state
+            }
+
+        case FETCH_USER_DETAILS_SUCCESS:
+            return {
+                ...state,
+                userDetails: {
+                    emailId: action.data.data[0].emailId,
+                    fullName: action.data.data[0].fullName,
+                    accessToken: action.data.data[0].accessToken
+                },
+                isRegisterUser: true
+            }
+
+        case FETCH_USER_DETAILS_FAILED:
             return {
                 ...state,
                 isRegisterUser: false,
@@ -68,10 +98,10 @@ const UserDetailsReducer = (state = initialState, action) => {
                     fullName: action.data.data.data[0].fullName,
                     accessToken: action.data.data.data[0].accessToken
                 },
-                
+
             }
 
-        case REGISTER_USER_FAILED:  
+        case REGISTER_USER_FAILED:
             return {
                 ...state,
                 aboutRegister: {

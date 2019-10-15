@@ -1,6 +1,7 @@
 import {
     LOGGIN_USER_REQUEST,
-    REGISTER_USER_REQUEST
+    REGISTER_USER_REQUEST,
+    FETCH_USER_DETAILS_RQUEST
 } from './../constraint/constraint'
 
 export function isUserLoggedIn(action) {
@@ -16,6 +17,15 @@ export function isUserRegistered(email, fullName) {
         payload: {
             email,
             fullName
+        }
+    }
+}
+
+export function fetchUserDetails(accessToken) {
+    return {
+        type: FETCH_USER_DETAILS_RQUEST,
+        payload: {
+            accessToken
         }
     }
 }

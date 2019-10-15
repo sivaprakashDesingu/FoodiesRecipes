@@ -54,9 +54,11 @@ class Personalization extends React.Component {
 
   updateList() {
     let { navigate } = this.props.navigation;
-    this.props.updateUserInitialInput(this.state.userInput);
+    alert(JSON.stringify(this.state.userInput))
+    //this.props.updateUserInitialInput(this.state.userInput);
     navigate('RecipeDetails')
   }
+  
   render() {
     const { userInput } = this.state;
     const imageBaseURL =  '../../../assets/images'
@@ -160,6 +162,7 @@ Personalization.propTypes = {
 
 
 function mapStateToProps(state) {
+  //alert(JSON.stringify(state))
   return {
     userInput: state.userInitalInputFromUser
   }
