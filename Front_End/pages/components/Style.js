@@ -56,16 +56,12 @@ const headerComponentCSS = StyleSheet.create({
         right: 0,
         top: 0,
         width: width,
-        backgroundColor: 'transparent',
-        /*pointerEvents:'box-none'*/
-    },
-    inActivesearchBox: {
-        height: 0,
+        backgroundColor:'blue',
+        zIndex:3
     },
     activesearchBox: {
         padding: 30,
-        backgroundColor: appColor.white,
-        height: height,
+        //backgroundColor: appColor.white,
     },
     searchText: {
         paddingLeft: 0,

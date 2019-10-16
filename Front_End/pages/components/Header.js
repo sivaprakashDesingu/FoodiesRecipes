@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { TextInput } from 'react-native-paper';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Animated } from 'react-native';
 import { CommonCSS, headerComponentCSS } from './Style'
 
 const appColor = {
@@ -13,21 +13,31 @@ const appColor = {
 }
 
 class HeaderBar extends React.Component {
-
     constructor(props) {
         super(props)
         this.state = {
             searchBar: false,
-            text: ''
+            text: '',
+            height: new Animated.Value(0),
         }
     }
 
+
     isSearchBarEnabled() {
+       
+        this.state.height.setValue(400);
+        Animated.timing(this.state.height, {
+            toValue: 400,
+            delay: 0,
+            duration: 300
+        }).start()
+
         this.setState({ searchBar: true })
     }
     render() {
         const { headerTitle } = this.props
-        const { searchBar, text } = this.state
+        const { searchBar, text, height } = this.state
+
         return (
             <View style={[CommonCSS.container, { position: 'relative' }]}>
                 <View style={CommonCSS.flexDirectionRow}>
@@ -39,8 +49,10 @@ class HeaderBar extends React.Component {
                             style={{ width: 25, height: 25 }}
                         />
                     </Text>
-                    <View style={
+                    
+                    <View style={  
                         searchBar ?
+                            [{height:height}]
                             [headerComponentCSS.searchBox, headerComponentCSS.activesearchBox] :
                             [headerComponentCSS.searchBox, headerComponentCSS.inActivesearchBox]}>
                         {/* <TextInput

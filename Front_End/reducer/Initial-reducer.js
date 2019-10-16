@@ -1,19 +1,98 @@
-import USER_INITIAL_INPUT from './../action/Initial-action'
+import {
+    SAVE_PERSONALIZED_DATA_SUCCESS,
+    SAVE_PERSONALIZED_DATA_REQUEST,
+    SAVE_PERSONALIZED_DATA_FAILED,
+
+    FETCH_PERSONALIZED_DATA_REQUEST,
+    FETCH_PERSONALIZED_DATA_SUCCESS,
+    FETCH_PERSONALIZED_DATA_FAILED,
+
+    UDADATE_PERSONALIZED_DATA_REQUEST,
+    UDADATE_PERSONALIZED_DATA_SUCCESS,
+    UDADATE_PERSONALIZED_DATA_FAILED
+} from './../constraint/constraint'
+
 
 const initialState = {
-    userInitalInputFromUser :{}
+    personalizedData: {
+        isAlreadySet: false,
+        userStatus:'AUTHORISED',
+        userInput: {
+            cookingSkill: 'Beginner',
+            isVegeterian: false,
+        }
+    }
 }
 
-const InitialReducer = (state = initialState,action) => {
-    switch(action.type){
-        case 'USER_INITIAL_INPUT':
-            return{
+const InitialReducer = (state = initialState, action) => {
+    switch (action.type) {
+
+        case SAVE_PERSONALIZED_DATA_REQUEST:
+            return {
                 ...state,
-                userInitalInputFromUser : action.action
+            }
+        case SAVE_PERSONALIZED_DATA_SUCCESS:
+            return {
+                ...state,
+                personalizedData: {
+                    isAlreadySet: true,
+                    userInput: {
+                        cookingSkill: action.data.data.userLevel,
+                        isVegeterian: action.data.data.userType,
+                    }
+                }
+            }
+
+        case SAVE_PERSONALIZED_DATA_FAILED:
+            return {
+                ...state,
+            }
+
+        case FETCH_PERSONALIZED_DATA_REQUEST:
+            return {
+                ...state,
+            }
+        case FETCH_PERSONALIZED_DATA_SUCCESS:
+            return {
+                ...state,
+                personalizedData: {
+                    isAlreadySet: true,
+                    userInput: {
+                        cookingSkill: action.data.data.userLevel,
+                        isVegeterian: action.data.data.userType,
+                    }
+                }
+            }
+
+        case FETCH_PERSONALIZED_DATA_FAILED:
+            return {
+                ...state,
+                userStatus:action.data.data.status
+            }
+
+        case UDADATE_PERSONALIZED_DATA_REQUEST:
+            return {
+                ...state,
+            }
+        case UDADATE_PERSONALIZED_DATA_SUCCESS:
+            return {
+                ...state,
+                personalizedData: {
+                    isAlreadySet: true,
+                    userInput: {
+                        cookingSkill: action.data.data.userLevel,
+                        isVegeterian: action.data.data.userType,
+                    }
+                }
+            }
+
+        case UDADATE_PERSONALIZED_DATA_FAILED:
+            return {
+                ...state,
             }
         default:
             return state
     }
 }
 
-export default  InitialReducer
+export default InitialReducer
