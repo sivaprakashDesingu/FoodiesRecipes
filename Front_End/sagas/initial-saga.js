@@ -1,25 +1,114 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-
+import axios from 'axios';
+import {
+   UDADATE_PERSONALIZED_DATA_REQUEST,
+   UDADATE_PERSONALIZED_DATA_SUCCESS,
+   UDADATE_PERSONALIZED_DATA_FAILED,
+   FETCH_PERSONALIZED_DATA_REQUEST,
+   FETCH_PERSONALIZED_DATA_SUCCESS,
+   FETCH_PERSONALIZED_DATA_FAILED,
+   SAVE_PERSONALIZED_DATA_REQUEST,
+   SAVE_PERSONALIZED_DATA_SUCCESS,
+   SAVE_PERSONALIZED_DATA_FAILED,
+   API_URL
+} from './../constraint/constraint'
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchUser(action) {
+
+
+
+function* updatePersonalizedData(action) {
+   const {accessToken} = action.object
+   //alert(accessToken)
+   /*try {
+      const result = yield call(() =>
+         axios.get(`${API_URL}user/personalized/update`, {
+            headers: {
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken)
+            }
+         })
+      )
+      yield put({ type: UDADATE_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: UDADATE_PERSONALIZED_DATA_FAILED, data: "failed" });
+   }*/
+}
+function* fetchPersonalizedData(action) {
+
+   const {accessToken} = action.object
+   let result= {}
    try {
-      yield put({type: "USER_INITIAL_INPUT", user: 'hello'});
-   } catch (e) {
-      yield put({type: "USER_INITIAL_INPUT", message: e.message});
+      result = yield call(() =>
+         axios.get(`${API_URL}user/personalized/get`, {
+            headers: {
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken
+            }
+         })
+      )
+      yield put({ type: FETCH_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      //alert(JSON.stringify(error.response))
+      yield put({ type: FETCH_PERSONALIZED_DATA_FAILED, data: error.response});
    }
+   //alert(JSON.stringify(action))
+   /*try {
+      result = yield call(() =>
+         axios.get(`${API_URL}user/personalized/get`, {
+            headers: {
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken
+            }
+         })
+      )
+      yield put({ type: FETCH_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: FETCH_PERSONALIZED_DATA_FAILED, data: "failed" });
+   }*/
+}
+
+function* savePersonalizedData(action) {
+   const {accessToken,userInput} = action.object
+   let result ={}
+
+   try {
+      result = yield call(() =>
+         axios.post(`${API_URL}user/personalized/save`, userInput ,{
+            headers: {  
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken
+            }
+         })
+      )
+      yield put({ type: SAVE_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: SAVE_PERSONALIZED_DATA_FAILED, data: result });
+   }
+
+   /*try {
+      const result = yield call(() =>
+         axios.post(`${API_URL}user/personalized/save`,userInput, {
+            headers: {
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken
+            }
+         })
+      )
+      yield put({ type: SAVE_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: SAVE_PERSONALIZED_DATA_FAILED, data: "failed" });
+   }*/
 }
 
 /*
   Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
   Allows concurrent fetches of user.
 */
-function* mySaga() {
-  yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
+function* initialDataSagas() {
+   yield takeEvery(UDADATE_PERSONALIZED_DATA_REQUEST, updatePersonalizedData);
+   yield takeEvery(FETCH_PERSONALIZED_DATA_REQUEST, fetchPersonalizedData);
+   yield takeEvery(SAVE_PERSONALIZED_DATA_REQUEST, savePersonalizedData);
+
 }
 
-
-function* mySaga() {
-  yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
-}
-
-export default mySaga;
+export default initialDataSagas;

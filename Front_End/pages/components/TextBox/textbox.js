@@ -5,7 +5,7 @@ class TextBox extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: '',
+            
             topValue: new Animated.Value(15),
             fontValue:new Animated.Value(16)
         }
@@ -21,8 +21,8 @@ class TextBox extends Component {
     FloatingLable() {
         let topValue = 15;
         let fontValue = 16
-        const { value } = this.state
-        if (value.length >= 1) {
+        const { value } = this.props
+        if (value && value.length >= 1) {
             topValue = -20
             fontValue = 14
         }
@@ -43,14 +43,16 @@ class TextBox extends Component {
     }
     render() {
         const { topValue,fontValue } = this.state
+        const {value} = this.props
+
         return (
             <Animated.View style={style.inputwrapper}>
                 <TextInput
                     style={style.inputField}
                     onFocus={this.enableFloating.bind(this)}
                     onBlur={this.FloatingLable.bind(this)}
-                    onChangeText={(value) => this.setState({ value })}
-                    value={this.state.value}
+                    onChangeText={(value) => this.props.onTextValue({ value })}
+                    value={value}
                 />
                 <Animated.Text onClick={this.FloatingLable.bind(this)} 
                 style={[style.floatlable, { top: topValue,fontSize:fontValue }]}>

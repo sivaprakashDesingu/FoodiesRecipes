@@ -4,7 +4,7 @@
   "description": "Mobile application",
   "main": "app.js",
   "scripts": {
-    "start" :"nodemon app.js"
+    "start": "nodemon app.js"
   },
   "keywords": [
     "Express",
@@ -16,9 +16,16 @@
   "author": "Sivaprakash",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.7.0",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.3",
     "mongodb": "^3.3.0",
-    "mongoose": "^5.2.8"
+    "mongoose": "^5.2.8",
+    "nodemon": "^1.19.3",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1"
   }
 }

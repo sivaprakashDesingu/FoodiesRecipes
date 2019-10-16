@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
-import HeaderBar from './../components/Header'
+import HeaderBar from './../../components/Header'
 //import { CommonCSS, RecipePageCSS } from '../../Style'
-import { CommonCSS } from '../../assets/styles/common_style'
-import { RecipePageCSS } from '../../assets/styles/recipe_style'
+import { CommonCSS } from '../../../assets/styles/common_style'
+import { RecipePageCSS } from '../../../assets/styles/recipe_style'
 
-class Recipe extends Component {
+
+class RecipeDetails extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -30,6 +31,7 @@ class Recipe extends Component {
 
 
     render() {
+        //alert(JSON.stringify(this.props))
         const { height } = this.state;
         return (
             <ScrollView style={CommonCSS.container}>
@@ -136,5 +138,16 @@ class Recipe extends Component {
     }
 }
 
-export default Recipe;
+
+function mapStateToProps(state) {
+    alert(JSON.stringify(state))
+    const { personalizedDataReducer } = state
+    return {
+        personalizedData: personalizedDataReducer.personalizedData
+    }
+}
+const mapDispatchToProps = dispatch => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails)
 

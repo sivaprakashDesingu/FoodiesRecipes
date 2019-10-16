@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
-import {InitialReducer} from './Initial-reducer'
-
-// export default combineReducers({
-//     InitialReducer
-// })
-
+import InitialReducer from './Initial-reducer'
+import toasterReducer from './toast-reducer'
+import UserDetailsReducer from './UserDetailsReducer'
 const AllReducers = combineReducers({
-    InitialReducer
+    personalizedDataReducer:InitialReducer,
+    toasterReducer,
+    UserDetailsReducer
 });
 
 export default AllReducers;

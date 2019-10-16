@@ -1,4 +1,3 @@
-
 const MONGO_USERNAME = 'admin';
 const MONGO_PASSWORD = 'admin123';
 const MONGO_HOSTNAME = 'localhost';
@@ -11,3 +10,4 @@ module.exports = {
     url: url,
     db: MONGO_DB
 }
+
