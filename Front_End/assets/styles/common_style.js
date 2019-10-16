@@ -15,6 +15,12 @@ const CommonCSS = StyleSheet.create({
     container : {
         flex: 1,
     },
+    marginCenter:{
+        marginLeft:'auto',
+        marginBottom:0,
+        marginTop:0,
+        marginRight:'auto'
+    },
     flexDirectionRow:{
         flex:1,
         flexDirection:'row'
@@ -35,10 +41,13 @@ const CommonCSS = StyleSheet.create({
         position:'absolute',
         left:0,
         top:0,
-        backgroundColor:'#000',
+        backgroundColor:AppColor.black,
         height:'100%',
         width:'100%',
         opacity:0.7,
+    },
+    Whiteoverlay:{
+        opacity:0.5
     }
 })
 export { CommonCSS }  

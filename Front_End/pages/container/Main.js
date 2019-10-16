@@ -14,8 +14,6 @@ function Main(props) {
 
 
     useEffect(() => {
-
-        //AsyncStorage.removeItem('PersonalizedData',(err,status) => {});
       
         AsyncStorage.getItem('cookieUserToken', (err, token) => {
             if (token !== null && token.length >= 1) {
@@ -42,7 +40,7 @@ function Main(props) {
             <Text>{null}</Text>
         </View>
     );
-    //}
+    
 }
 
 

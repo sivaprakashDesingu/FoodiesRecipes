@@ -10,6 +10,14 @@ const AppColor = {
     primaryColor: '#ec4242',
     grayColor: '#a09d9d',
     white: "#fff",
+    black:"#000",
+    primaryBorderColor:'#ddd',
     textColor:'#394150'
 }
-export { Layout,AppColor };
+
+const FontFamily = {
+    normal : 'RobotoRegular',
+    bold:'RobotoBold',
+    Black:'RobotoBlack',
+}
+export { Layout,AppColor,FontFamily };

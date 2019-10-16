@@ -61,7 +61,6 @@ const headerComponentCSS = StyleSheet.create({
     },
     activesearchBox: {
         padding: 30,
-        //backgroundColor: appColor.white,
     },
     searchText: {
         paddingLeft: 0,
