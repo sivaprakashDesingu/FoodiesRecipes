@@ -17,10 +17,7 @@ class Personalization extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      userInput: {
-        cookingSkill: 'Beginner',
-        isVegeterian: false,  
-      },
+      userInput: this.props.personalizedData.userInput,
       accessToken:''
     }
   }
@@ -29,7 +26,17 @@ class Personalization extends React.Component {
     AsyncStorage.getItem('cookieUserToken', (err, result) => {
       this.setState({accessToken:result.substring(1, result.length - 1)})
     });
+    
   }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.personalizedData.isAlreadySet !== this.props.personalizedData.isAlreadySet){
+      AsyncStorage.setItem('PersonalizedData', 'True', () => {
+        this.props.navigation.navigate('RecipeDetails')
+      });
+    }
+  }
+
   static navigationOptions = {
     title: "Personalization",
     headerStyle: {
@@ -40,6 +47,8 @@ class Personalization extends React.Component {
       fontWeight: "bold"
     }
   };
+
+  
 
   userInitalInput(whichState, value) {
     whichState === 'cookingSkill' ?
@@ -65,6 +74,7 @@ class Personalization extends React.Component {
   }
   
   render() {
+
     const { userInput } = this.state;
     const imageBaseURL =  '../../../assets/images'
     return (
@@ -162,17 +172,18 @@ class Personalization extends React.Component {
 
 Personalization.propTypes = {
   updateUserInitialInput: PropTypes.func,
-  userInput: PropTypes.object
+  fetchUserInitialInput:PropTypes.func,
+  saveUserInitialInput:PropTypes.func,
+  personalizedData: PropTypes.object
 }
 
 
 function mapStateToProps(state) {
-  //alert(JSON.stringify(state))
+  const {personalizedDataReducer} = state
   return {
-    userInput: state.userInitalInputFromUser
+    personalizedData:personalizedDataReducer.personalizedData
   }
 }
-
 const mapDispatchToProps = dispatch => ({
   updateUserInitialInput: (userInput,accessToken) => dispatch(updateUserInitialInput(userInput,accessToken)),
   fetchUserInitialInput:(accessToken) => dispatch(fetchUserInitialInput(accessToken)),

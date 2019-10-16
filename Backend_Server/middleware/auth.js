@@ -12,11 +12,13 @@ module.exports = {
                 request.userData = user[0]
                 return next();
             } else {
+                console.log("UnAuthorized User.........")
                 return response
                     .status(400)
                     .json({
                         "status": "UNAUTHORISED",
-                        "message": "unknown user"
+                        "message": err && err.message,
+                        "data": err
                     });
             }
         })

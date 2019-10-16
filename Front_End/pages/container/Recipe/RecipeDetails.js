@@ -6,6 +6,7 @@ import HeaderBar from './../../components/Header'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { RecipePageCSS } from '../../../assets/styles/recipe_style'
 
+
 class RecipeDetails extends Component {
     constructor(props) {
         super(props)
@@ -30,6 +31,7 @@ class RecipeDetails extends Component {
 
 
     render() {
+        //alert(JSON.stringify(this.props))
         const { height } = this.state;
         return (
             <ScrollView style={CommonCSS.container}>
@@ -136,5 +138,16 @@ class RecipeDetails extends Component {
     }
 }
 
-export default RecipeDetails;
+
+function mapStateToProps(state) {
+    alert(JSON.stringify(state))
+    const { personalizedDataReducer } = state
+    return {
+        personalizedData: personalizedDataReducer.personalizedData
+    }
+}
+const mapDispatchToProps = dispatch => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails)
 

@@ -9,9 +9,9 @@ exports.test = function (req, res) {
 };
 
 exports.save = function (request, response) {
-    const { userInput } = request.body;
+    const userInput  = request.body;
     const { emailId } = request.userData
-    console.log(userInput)
+    console.log(request.body)
     console.log('PersonalizedData insert API =>', emailId);
     const insertData = new PersonalizedData({
         userLevel: userInput.cookingSkill,

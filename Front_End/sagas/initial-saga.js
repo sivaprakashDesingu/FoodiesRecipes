@@ -1,4 +1,5 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import axios from 'axios';
 import {
    UDADATE_PERSONALIZED_DATA_REQUEST,
    UDADATE_PERSONALIZED_DATA_SUCCESS,
@@ -17,7 +18,7 @@ import {
 
 function* updatePersonalizedData(action) {
    const {accessToken} = action.object
-   alert(accessToken)
+   //alert(accessToken)
    /*try {
       const result = yield call(() =>
          axios.get(`${API_URL}user/personalized/update`, {
@@ -33,32 +34,63 @@ function* updatePersonalizedData(action) {
    }*/
 }
 function* fetchPersonalizedData(action) {
+
    const {accessToken} = action.object
-   alert(accessToken)
-   /*try {
-      const result = yield call(() =>
+   let result= {}
+   try {
+      result = yield call(() =>
          axios.get(`${API_URL}user/personalized/get`, {
             headers: {
                'Content-Type': 'application/json',
-               'accesstoken' : accessToken)
+               'accesstoken' : accessToken
             }
          })
       )
-      yield put({ type: FETCH_USER_DETAILS_SUCCESS, data: result.data });
+      yield put({ type: FETCH_PERSONALIZED_DATA_SUCCESS, data: result.data });
    } catch (error) {
-      yield put({ type: FETCH_USER_DETAILS_FAILED, data: "failed" });
+      //alert(JSON.stringify(error.response))
+      yield put({ type: FETCH_PERSONALIZED_DATA_FAILED, data: error.response});
+   }
+   //alert(JSON.stringify(action))
+   /*try {
+      result = yield call(() =>
+         axios.get(`${API_URL}user/personalized/get`, {
+            headers: {
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken
+            }
+         })
+      )
+      yield put({ type: FETCH_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: FETCH_PERSONALIZED_DATA_FAILED, data: "failed" });
    }*/
 }
+
 function* savePersonalizedData(action) {
    const {accessToken,userInput} = action.object
-   alert(accessToken)
+   let result ={}
+
+   try {
+      result = yield call(() =>
+         axios.post(`${API_URL}user/personalized/save`, userInput ,{
+            headers: {  
+               'Content-Type': 'application/json',
+               'accesstoken' : accessToken
+            }
+         })
+      )
+      yield put({ type: SAVE_PERSONALIZED_DATA_SUCCESS, data: result.data });
+   } catch (error) {
+      yield put({ type: SAVE_PERSONALIZED_DATA_FAILED, data: result });
+   }
 
    /*try {
       const result = yield call(() =>
-         axios.get(`${API_URL}user/personalized/save`,userInput, {
+         axios.post(`${API_URL}user/personalized/save`,userInput, {
             headers: {
                'Content-Type': 'application/json',
-               'accesstoken' : accessToken)
+               'accesstoken' : accessToken
             }
          })
       )
@@ -66,9 +98,6 @@ function* savePersonalizedData(action) {
    } catch (error) {
       yield put({ type: SAVE_PERSONALIZED_DATA_FAILED, data: "failed" });
    }*/
-
-
-
 }
 
 /*

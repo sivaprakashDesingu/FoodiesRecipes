@@ -1,7 +1,7 @@
 import {
     UDADATE_PERSONALIZED_DATA_REQUEST,
     SAVE_PERSONALIZED_DATA_REQUEST,
-    FETCH_PERSONALIZED_DATA_FAILED
+    FETCH_PERSONALIZED_DATA_REQUEST
 } from './../constraint/constraint'
 
 export function saveUserInitialInput(userInput, accessToken) {
@@ -12,9 +12,9 @@ export function saveUserInitialInput(userInput, accessToken) {
     }
 }
 export function fetchUserInitialInput(accessToken) {
-
+    alert(accessToken)
     return {
-        type: FETCH_PERSONALIZED_DATA_FAILED,
+        type: FETCH_PERSONALIZED_DATA_REQUEST,
         object:{accessToken}
     }
 }
