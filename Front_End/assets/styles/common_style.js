@@ -1,9 +1,20 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import {Layout,AppColor} from './../../pages/helper/dimenstion'
+import { layer } from '@fortawesome/fontawesome-svg-core';
 
 const CommonCSS = StyleSheet.create({
     padding10: {
         paddingTop: 10
+    },
+    fixedBar:{
+        width:Layout.width,
+        borderTopWidth: 5,
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        borderColor:'#fff',
+        elevation:2
+    },
+    fixedMidwrapper:{
+        flex:1
     },
     marginTop30: {
         marginTop: 30

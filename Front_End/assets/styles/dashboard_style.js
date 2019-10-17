@@ -1,11 +1,21 @@
 import { StyleSheet} from 'react-native';
 import { Layout, AppColor, FontFamily } from './../../pages/helper/dimenstion'
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 const DashboardPageCSS = StyleSheet.create({
     dashBoardApp: {
         position: 'relative',
         height: Layout.height - 80,
-        backgroundColor: '#f1f1f1'
+        backgroundColor: 'red'
+    },
+    dashBoardAppMidwrapper:{
+        position:'absolute',
+        left:10,
+        top:40,
+        height:200,
+        width:200,
+        backgroundColor:'blue',
+        zIndex:12
     },
     bannerWrapper: {
         position: 'relative'
@@ -55,7 +65,7 @@ const DashboardPageCSS = StyleSheet.create({
         height: 50,
         left: 50,
         borderRadius: 25,
-        backgroundColor: '#44a7c6',
+        backgroundColor: AppColor.secondaryColor,
         position: 'relative'
     },
     itemCount: {
@@ -78,8 +88,24 @@ const DashboardPageCSS = StyleSheet.create({
     },
     recipeTile: {
         position: 'relative'
+    },
+    buttonwrapper:{
+        justifyContent:"center",
+        alignItems:"center",
+        padding:10,
+        elevation:1,
+        borderColor:AppColor.elivationBlack,
+        backgroundColor:AppColor.halfWhite
+    },
+    footerBtton:{
+        padding:15,
+        borderRadius:300 / 2,
+        backgroundColor: AppColor.secondaryColor,
+        color:AppColor.white,
+        textAlign:'center',
+        fontFamily:FontFamily.bold,
+        fontSize:16,
     }
-
 })
 
 export { DashboardPageCSS }  

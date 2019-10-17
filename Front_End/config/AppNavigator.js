@@ -33,7 +33,7 @@ const AppNavigator = createStackNavigator({
   }
 },
   {
-    initialRouteName: 'Main',
+    initialRouteName: 'Dashboard',
   });
 
 export default createAppContainer(AppNavigator);

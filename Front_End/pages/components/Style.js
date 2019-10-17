@@ -186,7 +186,8 @@ const RecipeTileComponentCSS = StyleSheet.create({
         borderStyle:'solid',
         textAlign:"center",
         borderRadius:10,
-    }
+    },
+    
 })
 export {
     headerComponentCSS,

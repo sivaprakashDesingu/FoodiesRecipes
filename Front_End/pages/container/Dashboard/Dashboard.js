@@ -12,6 +12,8 @@ import { CommonCSS } from '../../../assets/styles/common_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
 import RecipeTile from './../../components/Tile/RecipeTile'
 import RecentLViewed from './component/RecentViewed'
+import { Button } from 'react-native-paper';
+import { RecipeTileComponentCSS } from '../../components/Style';
 class Dashboard extends Component {
     constructor(props) {
         super(props)
@@ -35,8 +37,9 @@ class Dashboard extends Component {
     render() {
         const { height } = this.state;
         return (
-            <ScrollView style={CommonCSS.container}>
-                <ScrollView style={DashboardPageCSS.dashBoardApp} >
+            <View style={CommonCSS.container}>
+                <ScrollView style={CommonCSS.fixedMidwrapper}>
+                    {/* Hero banner section */}
                     <View style={DashboardPageCSS.bannerWrapper}>
                         <Image source={require(`../../../assets/images/user_cooking.jpeg`)} style={DashboardPageCSS.bannerImage} />
                         <View style={[CommonCSS.overlay, CommonCSS.Whiteoverlay]}></View>
@@ -47,7 +50,8 @@ class Dashboard extends Component {
 
                         </View>
                     </View>
-
+                    {/* Hero banner section */}
+                    {/* User Stats Section*/}
                     <View style={DashboardPageCSS.tileSection}>
                         <View style={DashboardPageCSS.tileItem}>
                             <View style={DashboardPageCSS.circle}>
@@ -83,16 +87,23 @@ class Dashboard extends Component {
                             </View>
                         </View>
                     </View>
-                    {/* Recently View Recipe */}
+                    {/* User Stats Section*/}
+
+                    {/* Recently Viewed Recipes */}
                     <RecentLViewed />
+                    {/* Recently Viewed Recipes */}
+                    {/* Recently Viewed Recipes */}
                     <RecentLViewed />
-                    
-                    {/* Recently View Recipe */}
+                    {/* Recently Viewed Recipes */}
                 </ScrollView>
-            </ScrollView>
+                <View style={[CommonCSS.fixedBar,DashboardPageCSS.buttonwrapper]}>
+                    <TouchableOpacity style={{width:300}}>
+                        <Text style={DashboardPageCSS.footerBtton}>Browse Recipes</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         )
     }
 }
 
 export default Dashboard;
-
