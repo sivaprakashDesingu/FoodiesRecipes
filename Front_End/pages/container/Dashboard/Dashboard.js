@@ -96,11 +96,14 @@ class Dashboard extends Component {
                     <RecentLViewed />
                     {/* Recently Viewed Recipes */}
                 </ScrollView>
-                <View style={[CommonCSS.fixedBar,DashboardPageCSS.buttonwrapper]}>
-                    <TouchableOpacity style={{width:300}}>
+
+                {/* Fixed Button Logic */}
+                <View style={[CommonCSS.fixedBar, DashboardPageCSS.buttonwrapper]}>
+                    <TouchableOpacity style={{ width: 300 }}>
                         <Text style={DashboardPageCSS.footerBtton}>Browse Recipes</Text>
                     </TouchableOpacity>
                 </View>
+                {/* Fixed Button Logic */}
             </View>
         )
     }
