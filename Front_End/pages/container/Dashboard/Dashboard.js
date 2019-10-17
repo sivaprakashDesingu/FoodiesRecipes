@@ -10,8 +10,8 @@ import { connect } from 'react-redux'
 import HeaderBar from './../../components/Header'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
-
-
+import RecipeTile from './../../components/Tile/RecipeTile'
+import RecentLViewed from './component/RecentViewed'
 class Dashboard extends Component {
     constructor(props) {
         super(props)
@@ -39,12 +39,12 @@ class Dashboard extends Component {
                 <ScrollView style={DashboardPageCSS.dashBoardApp} >
                     <View style={DashboardPageCSS.bannerWrapper}>
                         <Image source={require(`../../../assets/images/user_cooking.jpeg`)} style={DashboardPageCSS.bannerImage} />
-                        <View style={[CommonCSS.overlay,CommonCSS.Whiteoverlay]}></View>
+                        <View style={[CommonCSS.overlay, CommonCSS.Whiteoverlay]}></View>
                         <View style={DashboardPageCSS.userDeatails}>
                             <View style={DashboardPageCSS.centered}>
                                 <Text style={DashboardPageCSS.userName}>Hi , Sivaprakash</Text>
                             </View>
-                            
+
                         </View>
                     </View>
 
@@ -58,7 +58,7 @@ class Dashboard extends Component {
                             </View>
                         </View>
 
-                       <View style={DashboardPageCSS.tileItem}>
+                        <View style={DashboardPageCSS.tileItem}>
                             <View style={DashboardPageCSS.circle}>
                                 <Text style={DashboardPageCSS.itemCount}>30</Text>
                             </View>
@@ -83,14 +83,11 @@ class Dashboard extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{padding:15,marginTop:-50,}}>
-                        <Text style={DashboardPageCSS.sectionTitle}>Recently viewed recipe</Text>
-                        <ScrollView horizontal={true}>
-                            <View style={DashboardPageCSS.recipeTile}>
-                            </View>
-                        </ScrollView>
-                    </View>
-
+                    {/* Recently View Recipe */}
+                    <RecentLViewed />
+                    <RecentLViewed />
+                    
+                    {/* Recently View Recipe */}
                 </ScrollView>
             </ScrollView>
         )

@@ -1,16 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import {Layout,AppColor} from '../helper/dimenstion'
+import { Layout, AppColor,FontFamily } from '../helper/dimenstion'
+import { Title } from 'react-native-paper';
 const win = Dimensions.get('window');
 const width = win.width;
 const height = win.height;
 
-const appColor = {
-    primaryColor: '#ec4242',
-    grayColor: '#a09d9d',
-    white: "#fff",
-    textColor: '#394150',
-    borderColors: '#ddd'
-}
 const CommonCSS = StyleSheet.create({
     padding10: {
         paddingTop: 10
@@ -30,19 +24,34 @@ const CommonCSS = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
-    heading18px:{
-        fontSize:18,
-        fontFamily:"RobotoBold",
-        paddingBottom:10,
-    }
+    bothDirectionCenter: {
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    heading18px: {
+        fontSize: 18,
+        fontFamily: FontFamily.bold,
+        paddingBottom: 10,
+    },
+    overlay:{
+        position:'absolute',
+        left:0,
+        top:0,
+        backgroundColor:AppColor.black,
+        height:'100%',
+        width:'100%',
+        opacity:0.8,
+    },
 
 })
 
 const headerComponentCSS = StyleSheet.create({
     title: {
         fontSize: 20,
-        color: appColor.white,
-        fontFamily: 'RobotoBold',
+        color: AppColor.white,
+        fontFamily: FontFamily.bold,
         flex: 1,
         paddingTop: 13,
     },
@@ -56,8 +65,8 @@ const headerComponentCSS = StyleSheet.create({
         right: 0,
         top: 0,
         width: width,
-        backgroundColor:'blue',
-        zIndex:3
+        backgroundColor: 'blue',
+        zIndex: 3
     },
     activesearchBox: {
         padding: 30,
@@ -65,20 +74,20 @@ const headerComponentCSS = StyleSheet.create({
     searchText: {
         paddingLeft: 0,
         paddingRight: 0,
-        backgroundColor: appColor.white,
-        borderBottomColor: appColor.borderColors
+        backgroundColor: AppColor.white,
+        borderBottomColor: AppColor.borderColors
     },
     searchTag: {
-        color: appColor.primaryColor,
-        borderBottomColor: appColor.borderColors,
+        color: AppColor.primaryColor,
+        borderBottomColor: AppColor.borderColors,
         borderBottomWidth: 1,
         borderStyle: 'solid'
     },
     searchResultItem: {
         flex: 1,
-        color: appColor.textColor,
+        color: AppColor.textColor,
         padding: 10,
-        borderBottomColor: appColor.borderColors,
+        borderBottomColor: AppColor.borderColors,
         borderBottomWidth: 1,
         borderStyle: 'solid'
     },
@@ -87,14 +96,101 @@ const headerComponentCSS = StyleSheet.create({
 })
 const slideToggleComponentCSS = StyleSheet.create({
     container: {
-        position:'relative',
+        position: 'relative',
         overflow: 'hidden',
         flexDirection: 'row',
-        width:Layout.width
+        width: Layout.width
     },
     buttonImage: {
         width: 30,
         height: 25
     }
 })
-export { headerComponentCSS, CommonCSS, slideToggleComponentCSS }  
+
+const RecipeTileComponentCSS = StyleSheet.create({
+    tileSection : {
+        width: 200,
+        height: 200,
+        position:'relative',
+        elevation:2,
+        borderRadius:5,
+    },
+    overlauRadious:{
+        borderRadius:5
+    },
+    postedDate:{
+        color:'#9e9ea0',
+        fontSize:14,
+    },
+    topSection:{
+        position:'absolute',
+        left:0,
+        top:0,
+        padding:15
+        
+    },
+    Title:{
+        marginTop:15,
+        fontSize:15,
+        color:AppColor.white  ,
+        lineHeight: 20,
+    },
+    ReactionSection :{
+        position:'absolute',
+        bottom:0,
+        left:0,
+        elevation:2,
+        width:'100%',
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'center'
+    },
+    button:{
+        flexBasis:'50%',
+        borderColor:AppColor.primaryColor,
+        borderRightWidth:1,
+        borderStyle:'solid',
+        padding:3,
+        color:AppColor.white
+    },
+    like:{
+        backgroundColor:AppColor.primaryColor,
+        
+    },
+    dislike:{
+        backgroundColor:AppColor.white,
+    },
+    likeButtonColor :{
+        color:AppColor.white,
+        textAlign:"center"
+    },
+    dislikeButtonColor :{
+        color:AppColor.primaryColor,
+        textAlign:"center"
+    },
+    tegSection:{
+        position:'absolute',
+        bottom:10,
+        left:0,
+        width:'100%',
+        paddingLeft:10,
+        paddingRight:10,
+        
+    },
+    tagItems:{
+        maxWidth:70,
+        color:AppColor.white,
+        backgroundColor:'rgba(0, 0, 0, 0.2)',
+        borderColor:'#28242f',
+        borderWidth:2,
+        borderStyle:'solid',
+        textAlign:"center",
+        borderRadius:10,
+    }
+})
+export {
+    headerComponentCSS,
+    CommonCSS,
+    slideToggleComponentCSS,
+    RecipeTileComponentCSS
+}  

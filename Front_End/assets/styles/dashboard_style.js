@@ -37,7 +37,8 @@ const DashboardPageCSS = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom:-50,
     },
     tileItem: {
         width: Layout.width / 2,

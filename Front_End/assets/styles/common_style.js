@@ -23,7 +23,8 @@ const CommonCSS = StyleSheet.create({
     },
     flexDirectionRow:{
         flex:1,
-        flexDirection:'row'
+        flexDirection:'row',
+        flexWrap:'wrap'
     },
     listWrapper:{
         flex:1,
