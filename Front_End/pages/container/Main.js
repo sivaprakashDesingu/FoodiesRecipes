@@ -12,18 +12,16 @@ function Main(props) {
 
     const { navigate } = props.navigation;
 
-
-    useEffect(() => {
-      
+    function navigaToPages() {
+        
         AsyncStorage.getItem('cookieUserToken', (err, token) => {
             if (token !== null && token.length >= 1) {
                 AsyncStorage.getItem('PersonalizedData', (err, data) => {
+                    props.fetchUserDetails(token)
+                    props.fetchUserInitialInput(token.substring(1, token.length - 1))
                     if (data !== null && data.length >= 1) {
-                        props.fetchUserDetails(token)
-                        props.fetchUserInitialInput(token.substring(1, token.length - 1))
-                        navigate('RecipeDetails')
+                        navigate('Dashboard')
                     } else {
-                        props.fetchUserDetails(token)
                         navigate('Personalization')
                     }
                 })
@@ -32,6 +30,21 @@ function Main(props) {
                 navigate('Home')
             }
         });
+    }
+
+
+    useEffect(() => {
+        willFocusListener = props.navigation.addListener(
+            'willFocus',
+            () => {
+                navigaToPages()
+            }
+        )
+    }, []);
+
+    useEffect(() => {
+        /*AsyncStorage.removeItem('cookieUserToken', (err, token) => {})*/
+        navigaToPages()
 
     }, [])
 
@@ -40,7 +53,7 @@ function Main(props) {
             <Text>{null}</Text>
         </View>
     );
-    
+
 }
 
 

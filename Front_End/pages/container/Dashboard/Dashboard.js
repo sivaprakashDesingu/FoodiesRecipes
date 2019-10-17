@@ -14,6 +14,8 @@ import RecipeTile from './../../components/Tile/RecipeTile'
 import RecentLViewed from './component/RecentViewed'
 import { Button } from 'react-native-paper';
 import { RecipeTileComponentCSS } from '../../components/Style';
+
+
 class Dashboard extends Component {
     constructor(props) {
         super(props)

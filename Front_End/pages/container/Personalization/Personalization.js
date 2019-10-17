@@ -24,15 +24,19 @@ class Personalization extends React.Component {
 
   componentDidMount() {
     AsyncStorage.getItem('cookieUserToken', (err, result) => {
+      this.props.fetchUserInitialInput(result.substring(1, result.length - 1))
       this.setState({accessToken:result.substring(1, result.length - 1)})
     });
+    
     
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.personalizedData.isAlreadySet !== this.props.personalizedData.isAlreadySet){
+    //console.warn(nextProps.personalizedData)
+    //console.warn(this.props.personalizedData)
+    if(nextProps.personalizedData.localStorage !== this.props.personalizedData.localStorage){
       AsyncStorage.setItem('PersonalizedData', 'True', () => {
-        this.props.navigation.navigate('RecipeDetails')
+        this.props.navigation.navigate('Dashboard')
       });
     }
   }
@@ -69,7 +73,14 @@ class Personalization extends React.Component {
   updateList() {
     let { navigate } = this.props.navigation;
     let {userInput,accessToken} = this.state
-    this.props.saveUserInitialInput(userInput,accessToken);
+    const {personalizedData} = this.props
+    //alert(JSON.stringify(personalizedData))
+    if(personalizedData.isAlreadySet){
+      this.props.updateUserInitialInput(userInput,accessToken);
+    }else{
+      this.props.saveUserInitialInput(userInput,accessToken);
+    }
+    //this.props.saveUserInitialInput(userInput,accessToken);
     //navigate('RecipeDetails')
   }
   

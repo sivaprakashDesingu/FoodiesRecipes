@@ -16,6 +16,7 @@ import {
 const initialState = {
     personalizedData: {
         isAlreadySet: false,
+        localStorage: false,
         userStatus:'AUTHORISED',
         userInput: {
             cookingSkill: 'Beginner',
@@ -36,6 +37,7 @@ const InitialReducer = (state = initialState, action) => {
                 ...state,
                 personalizedData: {
                     isAlreadySet: true,
+                    localStorage: true,
                     userInput: {
                         cookingSkill: action.data.data.userLevel,
                         isVegeterian: action.data.data.userType,
@@ -57,6 +59,7 @@ const InitialReducer = (state = initialState, action) => {
                 ...state,
                 personalizedData: {
                     isAlreadySet: true,
+                    localStorage:false,
                     userInput: {
                         cookingSkill: action.data.data.userLevel,
                         isVegeterian: action.data.data.userType,
@@ -79,6 +82,7 @@ const InitialReducer = (state = initialState, action) => {
                 ...state,
                 personalizedData: {
                     isAlreadySet: true,
+                    localStorage: true,
                     userInput: {
                         cookingSkill: action.data.data.userLevel,
                         isVegeterian: action.data.data.userType,
