@@ -189,9 +189,19 @@ const RecipeTileComponentCSS = StyleSheet.create({
     },
     
 })
+
+const LoaderComponentStyle =StyleSheet.create({
+    loaderContainer: {
+        position:'relative',
+        height:Layout.height - 80,
+        width:'100%',
+        backgroundColor:'rgba(0,0,0,.05)',
+    }
+})
 export {
     headerComponentCSS,
     CommonCSS,
     slideToggleComponentCSS,
-    RecipeTileComponentCSS
+    RecipeTileComponentCSS,
+    LoaderComponentStyle
 }  

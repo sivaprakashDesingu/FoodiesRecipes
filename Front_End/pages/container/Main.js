@@ -7,13 +7,13 @@ import {
     fetchUserDetails
 } from './../../service/action/UserDetails-action'
 import { fetchUserInitialInput } from './../../service/action/Initial-action'
-
+import FullPageLoader from './../components/Loader/FullpageLoader'
 function Main(props) {
 
     const { navigate } = props.navigation;
 
     function navigaToPages() {
-        
+       /* AsyncStorage.setItem('PersonalizedData', '', () => {})*/
         AsyncStorage.getItem('cookieUserToken', (err, token) => {
             if (token !== null && token.length >= 1) {
                 AsyncStorage.getItem('PersonalizedData', (err, data) => {
@@ -43,15 +43,14 @@ function Main(props) {
     }, []);
 
     useEffect(() => {
-        /*AsyncStorage.removeItem('cookieUserToken', (err, token) => {})*/
+       
+        //AsyncStorage.removeItem('Personalization', (err, token) => {})
         navigaToPages()
 
     }, [])
 
     return (
-        <View>
-            <Text>{null}</Text>
-        </View>
+        <FullPageLoader />
     );
 
 }

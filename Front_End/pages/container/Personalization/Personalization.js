@@ -12,6 +12,7 @@ import {
 /* Styles */
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { initialPageCSS } from '../../../assets/styles/initial_style'
+import FullPageLoader from './../../components/Loader/FullpageLoader'
 class Personalization extends React.Component {
 
   constructor(props) {
@@ -32,12 +33,14 @@ class Personalization extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    //console.warn(nextProps.personalizedData)
-    //console.warn(this.props.personalizedData)
+
     if(nextProps.personalizedData.localStorage !== this.props.personalizedData.localStorage){
       AsyncStorage.setItem('PersonalizedData', 'True', () => {
         this.props.navigation.navigate('Dashboard')
       });
+    }
+    if(nextProps.personalizedData.isAlreadySet !== this.props.personalizedData.isAlreadySet){
+      this.setState({userInput:nextProps.personalizedData.userInput})
     }
   }
 
@@ -74,108 +77,112 @@ class Personalization extends React.Component {
     let { navigate } = this.props.navigation;
     let {userInput,accessToken} = this.state
     const {personalizedData} = this.props
-    //alert(JSON.stringify(personalizedData))
     if(personalizedData.isAlreadySet){
       this.props.updateUserInitialInput(userInput,accessToken);
     }else{
       this.props.saveUserInitialInput(userInput,accessToken);
     }
-    //this.props.saveUserInitialInput(userInput,accessToken);
-    //navigate('RecipeDetails')
+
   }
   
+
+
   render() {
 
+    const {pageLoading} = this.props.personalizedData
     const { userInput } = this.state;
+
     const imageBaseURL =  '../../../assets/images'
     return (
-      <ScrollView style={CommonCSS.flexContainer}>
-        <StatusBar backgroundColor="#fa6767" barStyle="light-content" />
+      pageLoading ? <FullPageLoader /> : <ScrollView style={CommonCSS.flexContainer}>
+        
+      <StatusBar backgroundColor="#fa6767" barStyle="light-content" />
 
-        {/* Rate your cooking skills */}
-        <View style={initialPageCSS.pageWrapper}>
-          <View >
-            <Text style={initialPageCSS.heading}>Rate your cooking skills!</Text>
-          </View>
-          <TouchableOpacity
-            onPress={this.userInitalInput.bind(this, 'cookingSkill', 'Beginner')}
-            style={
-              [initialPageCSS.buttons,
-              userInput.cookingSkill === 'Beginner' ? initialPageCSS.acitveButton : null]
-            }
-            activeOpacity={0.5}>
-
-            <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
-            <Text style={initialPageCSS.TextStyle}> Iam a Beginner </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.userInitalInput.bind(this, 'cookingSkill', 'Expert')}
-            style={
-              [initialPageCSS.buttons,
-              userInput.cookingSkill === 'Expert' ? initialPageCSS.acitveButton : null]
-            }
-            activeOpacity={0.5}>
-            <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
-            <Text style={initialPageCSS.TextStyle}> Iam an Expert </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.userInitalInput.bind(this, 'cookingSkill', 'Professional')}
-            style={
-              [initialPageCSS.buttons,
-              userInput.cookingSkill === 'Professional' ? initialPageCSS.acitveButton : null]
-            }
-            activeOpacity={0.5}>
-            <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
-            <Text style={initialPageCSS.TextStyle}> Iam a Professional </Text>
-          </TouchableOpacity>
-          {/* Rate your cooking skills */}
-
-          {/* Are you Vegetarian */}
-          <View>
-            <Text style={initialPageCSS.heading}>Are you a Vegetarian!</Text>
-          </View>
-          <TouchableOpacity
-            onPress={this.userInitalInput.bind(this, 'isVeg', false)}
-            style={
-              [initialPageCSS.buttons,
-              userInput.isVegeterian ? null : initialPageCSS.acitveButton]
-            }
-            activeOpacity={0.5}>
-            <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
-            <Text style={initialPageCSS.TextStyle}> Nope, Show me all Recipes </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.userInitalInput.bind(this, 'isVeg', true)}
-            style={
-              [initialPageCSS.buttons,
-              userInput.isVegeterian ? initialPageCSS.acitveButton : null]
-            }
-            activeOpacity={0.5}>
-            <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
-            <Text style={initialPageCSS.TextStyle}> Yes, Hide recipes with meat</Text>
-          </TouchableOpacity>
-          <View style={initialPageCSS.getStartedBtnWrapper}>
-            <Button
-              mode="contained"
-              theme={{
-                roundness: 5,
-                width: '90%',
-                dark: true,
-                colors: {
-                  primary: '#ec4242',
-                  accent: "#ffffff",
-                }
-              }}
-              contentStyle={{ height: 50 }}
-              onPress={this.updateList.bind(this)}
-            >
-              Get Started
-          </Button>
-          </View>
-          {/* Are you Vegetarian */}
+      {/* Rate your cooking skills */}
+      <View style={initialPageCSS.pageWrapper}>
+        <View >
+          <Text style={initialPageCSS.heading}>Rate your cooking skills!</Text>
         </View>
+        <TouchableOpacity
+          onPress={this.userInitalInput.bind(this, 'cookingSkill', 'Beginner')}
+          style={
+            [initialPageCSS.buttons,
+            userInput.cookingSkill === 'Beginner' ? initialPageCSS.acitveButton : null]
+          }
+          activeOpacity={0.5}>
 
-      </ScrollView>
+          <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
+          <Text style={initialPageCSS.TextStyle}> Iam a Beginner </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.userInitalInput.bind(this, 'cookingSkill', 'Expert')}
+          style={
+            [initialPageCSS.buttons,
+            userInput.cookingSkill === 'Expert' ? initialPageCSS.acitveButton : null]
+          }
+          activeOpacity={0.5}>
+          <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
+          <Text style={initialPageCSS.TextStyle}> Iam an Expert </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.userInitalInput.bind(this, 'cookingSkill', 'Professional')}
+          style={
+            [initialPageCSS.buttons,
+            userInput.cookingSkill === 'Professional' ? initialPageCSS.acitveButton : null]
+          }
+          activeOpacity={0.5}>
+          <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
+          <Text style={initialPageCSS.TextStyle}> Iam a Professional </Text>
+        </TouchableOpacity>
+        {/* Rate your cooking skills */}
+
+        {/* Are you Vegetarian */}
+        <View>
+          <Text style={initialPageCSS.heading}>Are you a Vegetarian!</Text>
+        </View>
+        <TouchableOpacity
+          onPress={this.userInitalInput.bind(this, 'isVeg', false)}
+          style={
+            [initialPageCSS.buttons,
+            userInput.isVegeterian ? null : initialPageCSS.acitveButton]
+          }
+          activeOpacity={0.5}>
+          <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
+          <Text style={initialPageCSS.TextStyle}> Nope, Show me all Recipes </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.userInitalInput.bind(this, 'isVeg', true)}
+          style={
+            [initialPageCSS.buttons,
+            userInput.isVegeterian ? initialPageCSS.acitveButton : null]
+          }
+          activeOpacity={0.5}>
+          <Image source={require(`${imageBaseURL}/avatar.png`)} style={initialPageCSS.ImageIconStyle} />
+          <Text style={initialPageCSS.TextStyle}> Yes, Hide recipes with meat</Text>
+        </TouchableOpacity>
+        <View style={initialPageCSS.getStartedBtnWrapper}>
+          <Button
+            mode="contained"
+            theme={{
+              roundness: 5,
+              width: '90%',
+              dark: true,
+              colors: {
+                primary: '#ec4242',
+                accent: "#ffffff",
+              }
+            }}
+            contentStyle={{ height: 50 }}
+            onPress={this.updateList.bind(this)}
+          >
+            Get Started
+        </Button>
+        </View>
+        {/* Are you Vegetarian */}
+      </View>
+
+    </ScrollView>
+      
     );
   }
 }
@@ -190,6 +197,7 @@ Personalization.propTypes = {
 
 
 function mapStateToProps(state) {
+  //alert(JSON.stringify(state))
   const {personalizedDataReducer} = state
   return {
     personalizedData:personalizedDataReducer.personalizedData
