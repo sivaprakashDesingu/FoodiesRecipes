@@ -8,7 +8,7 @@ import {
   updateUserInitialInput,
   saveUserInitialInput,
   fetchUserInitialInput
- } from '../../../action/Initial-action'
+ } from '../../../service/action/Initial-action'
 /* Styles */
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { initialPageCSS } from '../../../assets/styles/initial_style'

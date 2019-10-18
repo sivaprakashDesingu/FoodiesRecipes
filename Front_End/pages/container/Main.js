@@ -5,8 +5,8 @@ import {
     isUserLoggedIn,
     isUserRegistered,
     fetchUserDetails
-} from './../../action/UserDetails-action'
-import { fetchUserInitialInput } from './../../action/Initial-action'
+} from './../../service/action/UserDetails-action'
+import { fetchUserInitialInput } from './../../service/action/Initial-action'
 
 function Main(props) {
 
