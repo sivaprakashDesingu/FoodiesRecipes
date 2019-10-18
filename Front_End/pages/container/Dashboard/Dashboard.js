@@ -91,12 +91,21 @@ class Dashboard extends Component {
                     </View>
                     {/* User Stats Section*/}
 
-                    {/* Recently Viewed Recipes */}
-                    <RecentLViewed />
-                    {/* Recently Viewed Recipes */}
-                    {/* Recently Viewed Recipes */}
-                    <RecentLViewed />
-                    {/* Recently Viewed Recipes */}
+                    {/* Latest Viewed Recipes */}
+                    <RecentLViewed
+                        title={'Recently Visited Recipe'}
+                    />
+                    {/* Latest Viewed Recipes */}
+                    {/* Popular Recipes */}
+                    <RecentLViewed
+                        title={'Popular Recipe'}
+                    />
+                    {/* Popular Recipes */}
+                    {/*  Recipes */}
+                    <RecentLViewed
+                        title={'Latest Recipe'}
+                    />
+                    {/* Popular Recipes */}
                 </ScrollView>
 
                 {/* Fixed Button Logic */}

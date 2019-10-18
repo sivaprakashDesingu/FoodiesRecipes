@@ -16,7 +16,7 @@ function RecentLViewed(props) {
 
     return (
         <View style={{ padding: 15 }}>
-            <Text style={DashboardPageCSS.sectionTitle}>Recently viewed recipe</Text>
+            <Text style={DashboardPageCSS.sectionTitle}>{props.title}</Text>
             <ScrollView onResponderMove={() => { alert('outer responding'); }} horizontal={true} style={{ marginTop: 20 }}>
                 <View style={[CommonCSS.flexDirectionRow, { marginRight: 20 }]}>
                     <RecipeTile
