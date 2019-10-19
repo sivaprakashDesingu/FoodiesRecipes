@@ -4,10 +4,11 @@ import {
     Text,
     Image,
     ScrollView,
+    StatusBar,
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux'
-import HeaderBar from './../../components/Header'
+import HeaderBar from './../../components/Header/Header'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
 import RecipeTile from './../../components/Tile/RecipeTile'
@@ -25,14 +26,7 @@ class Dashboard extends Component {
     }
 
     static navigationOptions = {
-        headerTitle: <HeaderBar headerTitle="Dashboard" isSearchNeeded={true} />,
-        headerStyle: {
-            backgroundColor: "#fa7776"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-            fontWeight: "bold"
-        }
+        header: null,
     };
 
 
@@ -40,6 +34,16 @@ class Dashboard extends Component {
         const { height } = this.state;
         return (
             <View style={CommonCSS.container}>
+                <StatusBar backgroundColor="blue" barStyle="light-content" />
+                {/* <View >
+                    
+                </View> */}
+                <HeaderBar
+                    goBack={()=>{this.props.navigation.goBack()}}
+                    headerTitle = {"Dash board"}
+                    showSearch={true}
+                    
+                    />
                 <ScrollView style={CommonCSS.fixedMidwrapper}>
                     {/* Hero banner section */}
                     <View style={DashboardPageCSS.bannerWrapper}>

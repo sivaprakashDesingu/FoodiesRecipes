@@ -13,10 +13,11 @@ function Main(props) {
     const { navigate } = props.navigation;
 
     function navigaToPages() {
-       /* AsyncStorage.setItem('PersonalizedData', '', () => {})*/
+        /*AsyncStorage.setItem('PersonalizedData', '', () => {})*/
         AsyncStorage.getItem('cookieUserToken', (err, token) => {
             if (token !== null && token.length >= 1) {
                 AsyncStorage.getItem('PersonalizedData', (err, data) => {
+                    //alert(JSON.stringify(data))
                     props.fetchUserDetails(token)
                     props.fetchUserInitialInput(token.substring(1, token.length - 1))
                     if (data !== null && data.length >= 1) {

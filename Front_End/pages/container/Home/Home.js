@@ -64,12 +64,14 @@ function Home(props) {
 
           <View style={HomeCSS.loginFormWrapper}>
             <TextBox label="Email Id"
+              type={"text"}
               value={emailId.value}
               onTextValue={(value) => setEmailId(value)} />
 
             {isRegisterUser ? null :
               <TextBox
                 label="Full Name"
+                type ={"text"}
                 value={fullName.value}
                 onTextValue={(value) => setFullName(value)}
               />}

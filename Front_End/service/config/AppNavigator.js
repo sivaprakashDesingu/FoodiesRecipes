@@ -21,13 +21,19 @@ const AppNavigator = createStackNavigator({
     }
   },
   Personalization: {
-    screen: Personalization
+    screen: Personalization,
+    navigationOptions: {
+      header: null,
+    }
   },
   RecipeListing: {
     screen: RecipeListing
   },
   RecipeDetails: {
-    screen: RecipeDetails
+    screen: RecipeDetails,
+    navigationOptions: {
+      header: null,
+    }
   },
   Dashboard: {
     screen: Dashboard

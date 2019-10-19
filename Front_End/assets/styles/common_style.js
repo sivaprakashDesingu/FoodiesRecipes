@@ -6,6 +6,11 @@ const CommonCSS = StyleSheet.create({
     padding10: {
         paddingTop: 10
     },
+    fixedHeaderBar:{
+        height:80,
+        paddingTop:20,
+        backgroundColor:AppColor.halfPrimaryColor
+    },
     fixedBar:{
         width:Layout.width,
         borderTopWidth: 5,

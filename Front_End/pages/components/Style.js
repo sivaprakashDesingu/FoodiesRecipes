@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { Layout, AppColor,FontFamily } from '../helper/dimenstion'
 import { Title } from 'react-native-paper';
+import { layer } from '@fortawesome/fontawesome-svg-core';
 const win = Dimensions.get('window');
 const width = win.width;
 const height = win.height;
@@ -8,6 +9,11 @@ const height = win.height;
 const CommonCSS = StyleSheet.create({
     padding10: {
         paddingTop: 10
+    },
+    fixedHeaderBar:{
+        height:80,
+        paddingTop:20,
+        backgroundColor:AppColor.halfPrimaryColor, 
     },
     marginTop30: {
         marginTop: 30
@@ -23,6 +29,10 @@ const CommonCSS = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    flexDirectionColumn:{
+        flexDirection:"column",
+        justifyContent:'center',
     },
     bothDirectionCenter: {
         flex:1,
@@ -48,12 +58,15 @@ const CommonCSS = StyleSheet.create({
 })
 
 const headerComponentCSS = StyleSheet.create({
+    headerSection:{
+        paddingLeft:15,
+        paddingRight:15,
+        backgroundColor:AppColor.halfPrimaryColor
+    },
     title: {
         fontSize: 20,
         color: AppColor.white,
         fontFamily: FontFamily.bold,
-        flex: 1,
-        paddingTop: 13,
     },
     searchIcon: {
         width: 40,
@@ -65,17 +78,47 @@ const headerComponentCSS = StyleSheet.create({
         right: 0,
         top: 0,
         width: width,
-        backgroundColor: 'blue',
-        zIndex: 3
+        backgroundColor: AppColor.white,
+        zIndex: 30.
+        
     },
-    activesearchBox: {
-        padding: 30,
+    searchFieldWrapper:{
+        backgroundColor:AppColor.halfPrimaryColor,
+        padding:30,
     },
     searchText: {
         paddingLeft: 0,
         paddingRight: 0,
         backgroundColor: AppColor.white,
         borderBottomColor: AppColor.borderColors
+    },
+    resultContainer:{
+        position:'relative',
+        flex:1,
+        height:Layout.height - 148,
+        paddingLeft:20,
+        paddingRight:20,
+        paddingTop:20,
+        paddingBottom:20,
+    },
+    
+    searchCloseIconSection:{
+        position:'absolute',
+        width:Layout.width,
+        bottom:20,
+        flexDirection:"row",
+        justifyContent:"center"
+    },
+    searchCloseIconInnerSection:{
+        width:50,
+        height:50,
+        backgroundColor:AppColor.secondaryColor,
+        borderRadius:50 / 2,
+        elevation:2,
+        flexDirection:"column",
+        justifyContent:"center",
+        alignItems:"center",
+        zIndex:1
     },
     searchTag: {
         color: AppColor.primaryColor,
@@ -91,7 +134,35 @@ const headerComponentCSS = StyleSheet.create({
         borderBottomWidth: 1,
         borderStyle: 'solid'
     },
+    KeyWordSearchTag:{
+        fontFamily:FontFamily.bold,
+        textTransform:"uppercase",
+        fontSize:14,
+    },
+    KeyWordSearchValue:{
+        color:AppColor.secondaryColor,
+        fontSize:14,
+    },
 
+    resultItem:{
+        marginBottom:10
+    },
+    resultItemTag:{
+        paddingLeft:15,
+        paddingRight:15,
+        paddingTop:5,
+        paddingBottom:5,
+        backgroundColor:AppColor.primaryBorderColor,
+        borderRadius:20,        
+    },
+    resultItemRecipe:{
+        fontSize:16,
+        flex:1,
+        paddingLeft:20
+    },
+    resultItemCount:{
+        fontSize:20
+    }
 
 })
 const slideToggleComponentCSS = StyleSheet.create({

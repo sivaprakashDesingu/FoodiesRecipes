@@ -8,6 +8,7 @@ const Layout = {
 }
 const AppColor = {
     primaryColor: '#ec4242',
+    halfPrimaryColor:'#fa7776',
     secondaryColor: '#44a7c6',
     grayColor: '#a09d9d',
     white: "#fff",
