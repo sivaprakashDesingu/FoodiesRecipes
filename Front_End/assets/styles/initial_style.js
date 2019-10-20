@@ -36,7 +36,7 @@ const initialPageCSS = StyleSheet.create({
         padding:10,
         borderWidth:1,
         borderStyle:'solid',
-        borderColor:'#ddd',
+        borderColor:AppColor.primaryBorderColor,
         alignSelf: 'flex-end',
         position: 'absolute',
         bottom: 0,

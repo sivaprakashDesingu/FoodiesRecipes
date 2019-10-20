@@ -7,7 +7,7 @@ import {
   isUserLoggedIn,
   isUserRegistered,
   fetchUserDetails
-} from '../../../action/UserDetails-action'
+} from '../../../service/action/UserDetails-action'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { HomeCSS } from '../../../assets/styles/home_style'
 import TextBox from '../../components/TextBox/textbox'
@@ -64,12 +64,14 @@ function Home(props) {
 
           <View style={HomeCSS.loginFormWrapper}>
             <TextBox label="Email Id"
+              type={"text"}
               value={emailId.value}
               onTextValue={(value) => setEmailId(value)} />
 
             {isRegisterUser ? null :
               <TextBox
                 label="Full Name"
+                type ={"text"}
                 value={fullName.value}
                 onTextValue={(value) => setFullName(value)}
               />}

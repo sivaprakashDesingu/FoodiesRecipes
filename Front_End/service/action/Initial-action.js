@@ -12,7 +12,7 @@ export function saveUserInitialInput(userInput, accessToken) {
     }
 }
 export function fetchUserInitialInput(accessToken) {
-    alert(accessToken)
+
     return {
         type: FETCH_PERSONALIZED_DATA_REQUEST,
         object:{accessToken}

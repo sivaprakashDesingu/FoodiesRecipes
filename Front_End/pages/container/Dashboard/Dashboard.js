@@ -4,13 +4,17 @@ import {
     Text,
     Image,
     ScrollView,
-    Animated,
+    StatusBar,
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux'
-import HeaderBar from './../../components/Header'
-//import { CommonCSS, RecipePageCSS } from '../../Style'
+import HeaderBar from './../../components/Header/Header'
 import { CommonCSS } from '../../../assets/styles/common_style'
+import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
+import RecipeTile from './../../components/Tile/RecipeTile'
+import RecentLViewed from './component/RecentViewed'
+import { Button } from 'react-native-paper';
+import { RecipeTileComponentCSS } from '../../components/Style';
 
 
 class Dashboard extends Component {
@@ -22,26 +26,102 @@ class Dashboard extends Component {
     }
 
     static navigationOptions = {
-        headerTitle: <HeaderBar headerTitle="Recipe" isSearchNeeded={true} />,
-        headerStyle: {
-            backgroundColor: "#fa7776"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-            fontWeight: "bold"
-        }
+        header: null,
     };
 
 
     render() {
         const { height } = this.state;
         return (
-            <ScrollView style={CommonCSS.container}>
-                <Text>Dashboard page</Text>
-            </ScrollView>
+            <View style={CommonCSS.container}>
+                <StatusBar backgroundColor="blue" barStyle="light-content" />
+                {/* <View >
+                    
+                </View> */}
+                <HeaderBar
+                    goBack={()=>{this.props.navigation.goBack()}}
+                    headerTitle = {"Dash board"}
+                    showSearch={true}
+                    
+                    />
+                <ScrollView style={CommonCSS.fixedMidwrapper}>
+                    {/* Hero banner section */}
+                    <View style={DashboardPageCSS.bannerWrapper}>
+                        <Image source={require(`../../../assets/images/user_cooking.jpeg`)} style={DashboardPageCSS.bannerImage} />
+                        <View style={[CommonCSS.overlay, CommonCSS.Whiteoverlay]}></View>
+                        <View style={DashboardPageCSS.userDeatails}>
+                            <View style={DashboardPageCSS.centered}>
+                                <Text style={DashboardPageCSS.userName}>Hi , Sivaprakash</Text>
+                            </View>
+
+                        </View>
+                    </View>
+                    {/* Hero banner section */}
+                    {/* User Stats Section*/}
+                    <View style={DashboardPageCSS.tileSection}>
+                        <View style={DashboardPageCSS.tileItem}>
+                            <View style={DashboardPageCSS.circle}>
+                                <Text style={DashboardPageCSS.itemCount}>30</Text>
+                            </View>
+                            <View style={DashboardPageCSS.tag}>
+                                <Text>Viewed Recipe </Text>
+                            </View>
+                        </View>
+
+                        <View style={DashboardPageCSS.tileItem}>
+                            <View style={DashboardPageCSS.circle}>
+                                <Text style={DashboardPageCSS.itemCount}>30</Text>
+                            </View>
+                            <View style={DashboardPageCSS.tag}>
+                                <Text>Shorlisted Recipe </Text>
+                            </View>
+                        </View>
+                        <View style={DashboardPageCSS.tileItem}>
+                            <View style={DashboardPageCSS.circle}>
+                                <Text style={DashboardPageCSS.itemCount}>30</Text>
+                            </View>
+                            <View style={DashboardPageCSS.tag}>
+                                <Text>Viewed Recipe </Text>
+                            </View>
+                        </View>
+                        <View style={DashboardPageCSS.tileItem}>
+                            <View style={DashboardPageCSS.circle}>
+                                <Text style={DashboardPageCSS.itemCount}>30</Text>
+                            </View>
+                            <View style={DashboardPageCSS.tag}>
+                                <Text>Viewed Recipe </Text>
+                            </View>
+                        </View>
+                    </View>
+                    {/* User Stats Section*/}
+
+                    {/* Latest Viewed Recipes */}
+                    <RecentLViewed
+                        title={'Recently Visited Recipe'}
+                    />
+                    {/* Latest Viewed Recipes */}
+                    {/* Popular Recipes */}
+                    <RecentLViewed
+                        title={'Popular Recipe'}
+                    />
+                    {/* Popular Recipes */}
+                    {/*  Recipes */}
+                    <RecentLViewed
+                        title={'Latest Recipe'}
+                    />
+                    {/* Popular Recipes */}
+                </ScrollView>
+
+                {/* Fixed Button Logic */}
+                <View style={[CommonCSS.fixedBar, DashboardPageCSS.buttonwrapper]}>
+                    <TouchableOpacity style={{ width: 300 }}>
+                        <Text style={DashboardPageCSS.footerBtton}>Browse Recipes</Text>
+                    </TouchableOpacity>
+                </View>
+                {/* Fixed Button Logic */}
+            </View>
         )
     }
 }
 
 export default Dashboard;
-

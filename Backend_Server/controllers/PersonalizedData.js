@@ -32,6 +32,7 @@ exports.save = function (request, response) {
             });
         })
         .catch(err => {
+            console.log(err)
             response
                 .status(400)
                 .json({
@@ -72,20 +73,21 @@ exports.get = function (request, response) {
 };
 
 exports.update = function (request, response) {
-    const { userInput } = request.body;
+    const { cookingSkill,isVegeterian } = request.body;
     const { emailId } = request.userData
-    console.log(userInput)
     console.log('PersonalizedData Update API =>', emailId);
+    
     let query = {
         "emailId": emailId,
     };
     let setValue = {
-        "$set": { userLevel: userInput.cookingSkill, userType: userInput.isVegeterian }
+        "$set": { userLevel: cookingSkill, userType: isVegeterian }
     }
 
     PersonalizedData.updateMany(query, setValue, function (err, numAffected) {
 
         if (err) {
+            console.log(err)
             response
                 .status(400)
                 .json({
