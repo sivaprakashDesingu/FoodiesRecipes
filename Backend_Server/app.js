@@ -11,6 +11,7 @@ const middleWare = require('./middleware');
 const user = require('./routes/user');
 const personalized = require('./routes/PersonalizedData')
 const InitialInput = require('./routes/InitialInput')
+const Recipe = require('./routes/Recipe')
 
 /* import router pages */
 const dbConfig = require('./database.js');
@@ -52,6 +53,7 @@ middleWare(app)
 app.use('/api/user', user);
 app.use("/api/user/personalized",personalized)
 app.use('/api/initialData',InitialInput)
+app.use('/api/recipe',Recipe)
 /* Create Router URL for app */
 
 
