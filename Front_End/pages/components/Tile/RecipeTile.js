@@ -8,8 +8,6 @@ import {
     TouchableOpacity,
     TouchableWithoutFeedback
 } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { CommonCSS, RecipeTileComponentCSS } from './../Style'
 import { Title } from 'react-native-paper';
 

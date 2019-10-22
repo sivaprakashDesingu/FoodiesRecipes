@@ -114,7 +114,9 @@ class Dashboard extends Component {
 
                 {/* Fixed Button Logic */}
                 <View style={[CommonCSS.fixedBar, DashboardPageCSS.buttonwrapper]}>
-                    <TouchableOpacity style={{ width: 300 }}>
+                    <TouchableOpacity style={{ width: 300 }} 
+                    
+                    onPress={()=>this.props.navigation.navigate("RecipeListing")}>
                         <Text style={DashboardPageCSS.footerBtton}>Browse Recipes</Text>
                     </TouchableOpacity>
                 </View>

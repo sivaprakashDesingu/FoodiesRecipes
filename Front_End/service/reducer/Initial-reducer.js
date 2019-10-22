@@ -10,7 +10,7 @@ import {
     UDADATE_PERSONALIZED_DATA_REQUEST,
     UDADATE_PERSONALIZED_DATA_SUCCESS,
     UDADATE_PERSONALIZED_DATA_FAILED
-} from './../constraint/constraint'
+} from './../constants/constants'
 
 
 const initialState = {

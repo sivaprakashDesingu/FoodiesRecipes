@@ -1,6 +1,6 @@
 import { StyleSheet} from 'react-native';
 import { Layout, AppColor, FontFamily } from './../../pages/helper/dimenstion'
-import { text } from '@fortawesome/fontawesome-svg-core';
+
 
 const DashboardPageCSS = StyleSheet.create({
     dashBoardApp: {

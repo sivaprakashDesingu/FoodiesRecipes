@@ -8,7 +8,7 @@ import {
     FETCH_USER_DETAILS_SUCCESS,
     FETCH_USER_DETAILS_RQUEST,
     FETCH_USER_DETAILS_FAILED
-} from './../constraint/constraint'
+} from './../constants/constants'
 
 const initialState = {
     userDetails: {

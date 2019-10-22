@@ -41,13 +41,13 @@ class HeaderBar extends React.Component {
     render() {
         const { headerTitle, showSearch } = this.props
         const { searchBar, text, height } = this.state
-        //console.warn(height)
+        
         return (
             <View style={[CommonCSS.fixedHeaderBar, searchBar ? { height: Layout.height } : { height: 80 }]}>
                 <View style={[CommonCSS.container]}>
                     <View style={[headerComponentCSS.headerSection, CommonCSS.flexDirectionRow]}>
                         <TouchableOpacity style={CommonCSS.flexDirectionColumn} onPress={() => { this.props.goBack() }}>
-                            <Icon name="ios-arrow-round-back" color="#fff" size={50} />
+                            <Icon name="ios-arrow-round-back" color="#fff" size={45} />
                         </TouchableOpacity>
                         <View style={[{ flex: 1 }, CommonCSS.bothDirectionCenter]}>
                             <Text style={headerComponentCSS.title}>{headerTitle}</Text>
