@@ -38,6 +38,7 @@ class HeaderBar extends React.Component {
         }
 
     }
+    
     render() {
         const { headerTitle, showSearch } = this.props
         const { searchBar, text, height } = this.state
@@ -66,6 +67,7 @@ class HeaderBar extends React.Component {
                         <View style={headerComponentCSS.searchFieldWrapper}>
                             <View>
                                 <SearchBox
+                                    searchActive={(key) => this.props.searchActive(key)}
                                     label={"Search"}
                                     type={"search"}
                                     value={text}

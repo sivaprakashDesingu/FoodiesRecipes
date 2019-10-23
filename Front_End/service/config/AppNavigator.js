@@ -39,7 +39,10 @@ const AppNavigator = createStackNavigator({
     }
   },
   Dashboard: {
-    screen: Dashboard
+    screen: Dashboard,
+    navigationOptions: {
+      header: null,
+    }
   }
 },
   {

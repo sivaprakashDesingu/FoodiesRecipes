@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var RecipeCatagory = require('./RecipeCatagory')
 var Recipe = new Schema({
-    /*id: {
+    id: {
         type: Number,
         allowNull: false,
         primaryKey: true,
@@ -17,8 +17,8 @@ var Recipe = new Schema({
         required: true
     },
     recipeCategoryId:[{
-        type:Schema.Types.ObjectId,
-        ref: 'RecipeCatagory'
+        type: Schema.Types.ObjectId,
+        ref: RecipeCatagory
     }],
     cookTime: {
         type: String,
@@ -40,13 +40,12 @@ var Recipe = new Schema({
         type: String,
         required: true,
         allowNull: false,
-        unique: 'postedBy'
     },
     postedOn:{
         type:String,
         required: true
-    }*/
-    recipes: {
+    }
+    /*recipes: {
         RecipeId: {
             type: Schema.Types.ObjectId,
             primaryKey: true
@@ -65,7 +64,7 @@ var Recipe = new Schema({
         },
         recipeCategoryId: [{
             type: Schema.Types.ObjectId,
-            ref: 'RecipeCatagory'
+            ref: RecipeCatagory
         }],
         recipeCuisienId: {
             type: String,
@@ -91,7 +90,7 @@ var Recipe = new Schema({
             allowNull: false,
             unique: 'postedBy'
         },
-    }
+    }*/
 });
 
 

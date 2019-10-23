@@ -13,7 +13,6 @@ class SearchBox extends Component {
         }
     }
 
-
     render() {
         const { value, type,label } = this.props
 
@@ -29,6 +28,7 @@ class SearchBox extends Component {
                 />
 
                 <TouchableOpacity
+                    onPress={() => this.props.searchActive("biryani")} 
                     style={style.searchIconSection}>
                     <Icon name="md-arrow-forward" color="#fff" size={35} />
                 </TouchableOpacity>
@@ -69,7 +69,7 @@ const style = StyleSheet.create({
         borderBottomRightRadius: 10,
         flexDirection:'row',
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",zIndex:1
     },
     inputField: {
         padding: 10,

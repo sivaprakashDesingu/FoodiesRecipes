@@ -11,10 +11,12 @@ import { connect } from 'react-redux'
 import HeaderBar from './../../components/Header/Header'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
-import RecipeTile from './../../components/Tile/RecipeTile'
+import {
+    fetchSuggestionSearch
+} from '../../../service/action/header-action'
 import RecentLViewed from './component/RecentViewed'
 import { Button } from 'react-native-paper';
-import { RecipeTileComponentCSS } from '../../components/Style';
+/*import { RecipeTileComponentCSS } from '../../components/Style';*/
 
 
 class Dashboard extends Component {
@@ -25,13 +27,16 @@ class Dashboard extends Component {
         }
     }
 
-    static navigationOptions = {
-        header: null,
-    };
-
+    
+    searchActive(key){
+        const {UserDetailsReducer} = this.props
+        const {accessToken} = UserDetailsReducer.userDetails
+        //console.warn(accessToken)
+        this.props.fetchSuggestionSearch(accessToken,key)
+    }
 
     render() {
-        const { height } = this.state;
+        console.log(this.props)
         return (
             <View style={CommonCSS.container}>
                 <StatusBar backgroundColor="blue" barStyle="light-content" />
@@ -39,11 +44,12 @@ class Dashboard extends Component {
                     
                 </View> */}
                 <HeaderBar
-                    goBack={()=>{this.props.navigation.goBack()}}
-                    headerTitle = {"Dash board"}
+                    searchActive={(key) => this.searchActive(key)}
+                    goBack={() => { this.props.navigation.goBack() }}
+                    headerTitle={"Dash board"}
                     showSearch={true}
                     
-                    />
+                />
                 <ScrollView style={CommonCSS.fixedMidwrapper}>
                     {/* Hero banner section */}
                     <View style={DashboardPageCSS.bannerWrapper}>
@@ -114,9 +120,9 @@ class Dashboard extends Component {
 
                 {/* Fixed Button Logic */}
                 <View style={[CommonCSS.fixedBar, DashboardPageCSS.buttonwrapper]}>
-                    <TouchableOpacity style={{ width: 300 }} 
-                    
-                    onPress={()=>this.props.navigation.navigate("RecipeListing")}>
+                    <TouchableOpacity style={{ width: 300 }}
+
+                        onPress={() => this.props.navigation.navigate("RecipeListing")}>
                         <Text style={DashboardPageCSS.footerBtton}>Browse Recipes</Text>
                     </TouchableOpacity>
                 </View>
@@ -126,4 +132,21 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+// export default Dashboard;
+function mapStateToProps(state) {
+    //alert(JSON.stringify(state))
+    //console.warn(state.HeaderReducer)
+    return {
+        UserDetailsReducer: state.UserDetailsReducer,
+        headerSearchResult : state.HeaderReducer
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    fetchSuggestionSearch: (accessToken,keyword) =>
+        dispatch(fetchSuggestionSearch(accessToken,keyword)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+
