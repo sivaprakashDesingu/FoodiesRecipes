@@ -8,7 +8,7 @@ Mobile application which is under development for now.
 ## Running the React JS
 git clone https://github.com/sivaprakashDesingu/Cooking_recipes.git 
 
-cd Cooking_recipes
+cd Cooking_recipes/Front_End
 
 npm install
 
