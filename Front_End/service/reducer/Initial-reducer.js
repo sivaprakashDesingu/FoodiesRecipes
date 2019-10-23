@@ -16,6 +16,8 @@ import {
 const initialState = {
     personalizedData: {
         isAlreadySet: false,
+        pageLoading: true,
+        localStorage: false,
         userStatus:'AUTHORISED',
         userInput: {
             cookingSkill: 'Beginner',
@@ -30,12 +32,15 @@ const InitialReducer = (state = initialState, action) => {
         case SAVE_PERSONALIZED_DATA_REQUEST:
             return {
                 ...state,
+                pageLoading: true,
             }
         case SAVE_PERSONALIZED_DATA_SUCCESS:
             return {
                 ...state,
                 personalizedData: {
                     isAlreadySet: true,
+                    localStorage: true,
+                    pageLoading:false,
                     userInput: {
                         cookingSkill: action.data.data.userLevel,
                         isVegeterian: action.data.data.userType,
@@ -46,17 +51,21 @@ const InitialReducer = (state = initialState, action) => {
         case SAVE_PERSONALIZED_DATA_FAILED:
             return {
                 ...state,
+                pageLoading: true,
             }
 
         case FETCH_PERSONALIZED_DATA_REQUEST:
             return {
                 ...state,
+                pageLoading: true,
             }
         case FETCH_PERSONALIZED_DATA_SUCCESS:
             return {
                 ...state,
                 personalizedData: {
                     isAlreadySet: true,
+                    pageLoading: false,
+                    localStorage:false,
                     userInput: {
                         cookingSkill: action.data.data.userLevel,
                         isVegeterian: action.data.data.userType,
@@ -67,18 +76,22 @@ const InitialReducer = (state = initialState, action) => {
         case FETCH_PERSONALIZED_DATA_FAILED:
             return {
                 ...state,
-                userStatus:action.data.data.status
+                userStatus:action.data.data.status,
+                pageLoading: true,
             }
 
         case UDADATE_PERSONALIZED_DATA_REQUEST:
             return {
                 ...state,
+                pageLoading: true,
             }
         case UDADATE_PERSONALIZED_DATA_SUCCESS:
             return {
                 ...state,
                 personalizedData: {
                     isAlreadySet: true,
+                    localStorage: true,
+                    pageLoading: false,
                     userInput: {
                         cookingSkill: action.data.data.userLevel,
                         isVegeterian: action.data.data.userType,
@@ -89,6 +102,7 @@ const InitialReducer = (state = initialState, action) => {
         case UDADATE_PERSONALIZED_DATA_FAILED:
             return {
                 ...state,
+                pageLoading: true,
             }
         default:
             return state

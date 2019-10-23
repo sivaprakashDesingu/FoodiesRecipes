@@ -1,12 +1,12 @@
 import React from 'react';
-import AppNavigator from './config/AppNavigator'
+import AppNavigator from './service/config/AppNavigator'
 import { Provider as PaperProvider } from 'react-native-paper';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import * as Font from 'expo-font'
 
 import { createStore } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
-import { store } from './store/store'
+import { store } from './service/store/store'
 
 
 export default class App extends React.Component {

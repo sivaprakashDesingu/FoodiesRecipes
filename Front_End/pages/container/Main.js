@@ -5,27 +5,24 @@ import {
     isUserLoggedIn,
     isUserRegistered,
     fetchUserDetails
-} from './../../action/UserDetails-action'
-import { fetchUserInitialInput } from './../../action/Initial-action'
-
+} from './../../service/action/UserDetails-action'
+import { fetchUserInitialInput } from './../../service/action/Initial-action'
+import FullPageLoader from './../components/Loader/FullpageLoader'
 function Main(props) {
 
     const { navigate } = props.navigation;
 
-
-    useEffect(() => {
-
-        //AsyncStorage.removeItem('PersonalizedData',(err,status) => {});
-      
+    function navigaToPages() {
+        /*AsyncStorage.setItem('PersonalizedData', '', () => {})*/
         AsyncStorage.getItem('cookieUserToken', (err, token) => {
             if (token !== null && token.length >= 1) {
                 AsyncStorage.getItem('PersonalizedData', (err, data) => {
+                    //alert(JSON.stringify(data))
+                    props.fetchUserDetails(token)
+                    props.fetchUserInitialInput(token.substring(1, token.length - 1))
                     if (data !== null && data.length >= 1) {
-                        props.fetchUserDetails(token)
-                        props.fetchUserInitialInput(token.substring(1, token.length - 1))
-                        navigate('RecipeDetails')
+                        navigate('Dashboard')
                     } else {
-                        props.fetchUserDetails(token)
                         navigate('Personalization')
                     }
                 })
@@ -34,15 +31,29 @@ function Main(props) {
                 navigate('Home')
             }
         });
+    }
+
+
+    useEffect(() => {
+        willFocusListener = props.navigation.addListener(
+            'willFocus',
+            () => {
+                navigaToPages()
+            }
+        )
+    }, []);
+
+    useEffect(() => {
+       
+        //AsyncStorage.removeItem('Personalization', (err, token) => {})
+        navigaToPages()
 
     }, [])
 
     return (
-        <View>
-            <Text>{null}</Text>
-        </View>
+        <FullPageLoader />
     );
-    //}
+
 }
 
 

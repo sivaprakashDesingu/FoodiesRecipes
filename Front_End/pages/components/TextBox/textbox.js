@@ -5,7 +5,6 @@ class TextBox extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            
             topValue: new Animated.Value(15),
             fontValue:new Animated.Value(16)
         }
