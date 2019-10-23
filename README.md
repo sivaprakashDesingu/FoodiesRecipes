@@ -8,16 +8,21 @@ Mobile application which is under development for now.
 ## Running the React JS
 git clone https://github.com/sivaprakashDesingu/Cooking_recipes.git 
 
-cd Cooking_recipes
+cd Cooking_recipes/Front_End
 
 npm install
 
 npm start / expo start
 
 ## Running the Nodejs
+git clone https://github.com/sivaprakashDesingu/Cooking_recipes.git 
 
-Yet to setup
+cd Cooking_recipes/Back_End
+
+npm install
+
+npm start / expo start
 
 ## Running the Mongo DB
 
-Yet to setup
+Either setup in your local server or get clound one
