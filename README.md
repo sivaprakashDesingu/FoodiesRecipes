@@ -17,7 +17,7 @@ npm start / expo start
 ## Running the Nodejs
 git clone https://github.com/sivaprakashDesingu/Cooking_recipes.git 
 
-cd Cooking_recipes/Back_End
+cd Cooking_recipes/Backend_Server
 
 npm install
 
