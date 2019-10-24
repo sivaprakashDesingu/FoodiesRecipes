@@ -12,8 +12,11 @@ class SearchBox extends Component {
 
         }
     }
-
-
+    triggerSeach(value){
+        if(value.length >= 3){
+            this.props.searchActive(value)
+        }
+    }
     render() {
         const { value, type,label } = this.props
 
@@ -23,12 +26,13 @@ class SearchBox extends Component {
 
                 <TextInput
                     style={style.searchField}
-                    onChangeText={(value) => this.props.onTextValue(type === 'search' ? value : { value })}
+                    onChangeText={(value) => [this.props.onTextValue(type === 'search' ? value : { value }),this.triggerSeach(value)]}
                     value={value}
                     placeholder ={label}
                 />
 
                 <TouchableOpacity
+                    onPress={() => this.props.searchActive("biryani")} 
                     style={style.searchIconSection}>
                     <Icon name="md-arrow-forward" color="#fff" size={35} />
                 </TouchableOpacity>
@@ -69,7 +73,7 @@ const style = StyleSheet.create({
         borderBottomRightRadius: 10,
         flexDirection:'row',
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",zIndex:1
     },
     inputField: {
         padding: 10,

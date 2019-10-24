@@ -38,16 +38,92 @@ class HeaderBar extends React.Component {
         }
 
     }
+    getTheRecipeCategoryRepeatedCount(result) {
+        if (result.categoryList !== undefined) {
+            result.categoryList.forEach((x, i) => {
+                result.categoryList[i].count = 0 //setting up the default count as 0
+                result.recipes.forEach(y => {
+                    if (y.recipeCategoryId.includes(x._id)) {
+                        result.categoryList[i].count = result.categoryList[i].count + 1
+                    }
+                });
+            });
+        } else {
+            return 0
+        }
+        return result
+    }
+    renderRecipeResult(data) {
+        
+        if (data.length === 0) {
+            return (
+                null
+            )
+        } else {
+            const props = this.props
+            const result = data.map(function (data, i) {
+                return (
+                    <TouchableOpacity onPress={()=>props.navigatePage(data._id,'RecipeDetails')}  key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                        <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
+                            <Text>Recipe</Text>
+                        </View>
+                        <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
+                            <Text>{data.recipeTitle}</Text>
+                        </View>
+
+                    </TouchableOpacity>
+                )
+            })
+            return result;
+        }
+    }
+    renderEmptyResult() {
+        return (
+            <View style={[headerComponentCSS.resultWrapper]}>
+                <Text>No data Found</Text>
+            </View>
+        )
+    }
+    renderCategoryResult(data) {
+        
+        if (data === 0) {
+            return (
+                null
+            )
+        } else {
+            const props = this.props
+            const result = data.categoryList.map(function (data, i) {
+                return (
+                    <TouchableOpacity onPress={()=> props.navigatePage(data._id,'RecipeListing')} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                        <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
+                            <Text>Category</Text>
+                        </View>
+                        <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
+                            <Text>{data.CategoryName}</Text>
+                        </View>
+                        <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
+                            <Text>{data.count} Recipes</Text>
+                        </View>
+                    </TouchableOpacity>
+                )
+            })
+            return result;
+        }
+
+    }
+
     render() {
-        const { headerTitle, showSearch } = this.props
+        const { headerTitle, showSearch, searchResultData } = this.props
         const { searchBar, text, height } = this.state
-        //console.warn(height)
+
+        const categoryResult = this.getTheRecipeCategoryRepeatedCount(searchResultData.suggestionRecipeByCategory)
+        
         return (
             <View style={[CommonCSS.fixedHeaderBar, searchBar ? { height: Layout.height } : { height: 80 }]}>
                 <View style={[CommonCSS.container]}>
                     <View style={[headerComponentCSS.headerSection, CommonCSS.flexDirectionRow]}>
                         <TouchableOpacity style={CommonCSS.flexDirectionColumn} onPress={() => { this.props.goBack() }}>
-                            <Icon name="ios-arrow-round-back" color="#fff" size={50} />
+                            <Icon name="ios-arrow-round-back" color="#fff" size={45} />
                         </TouchableOpacity>
                         <View style={[{ flex: 1 }, CommonCSS.bothDirectionCenter]}>
                             <Text style={headerComponentCSS.title}>{headerTitle}</Text>
@@ -66,10 +142,12 @@ class HeaderBar extends React.Component {
                         <View style={headerComponentCSS.searchFieldWrapper}>
                             <View>
                                 <SearchBox
+                                    searchActive={(key) => this.props.searchActive(key)}
                                     label={"Search"}
                                     type={"search"}
                                     value={text}
                                     onTextValue={(value) => this.setState({ text: value })}
+                                //searchData = {this.props.searchData}
                                 />
                             </View>
                         </View>
@@ -84,7 +162,7 @@ class HeaderBar extends React.Component {
 
                             <View style={[CommonCSS.flexDirectionRow, { marginBottom: 15 }]}>
                                 <Text style={headerComponentCSS.KeyWordSearchTag}>KeyWord Search For: </Text>
-                                <Text style={headerComponentCSS.KeyWordSearchValue}>"Briyani"</Text>
+                                <Text style={headerComponentCSS.KeyWordSearchValue}>{text.length >=1 ? `"${text}"` : null}</Text>
                             </View>
                             <View style={[CommonCSS.flexDirectionRow, { marginBottom: 15 }]}>
                                 <Text style={headerComponentCSS.KeyWordSearchTag}>SUGGESTIONS </Text>
@@ -92,286 +170,9 @@ class HeaderBar extends React.Component {
                             </View>
 
                             <View style={[headerComponentCSS.resultWrapper]}>
-                                {/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}
-
-                                {/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}{/* Result Item */}
-                                <View style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
-                                    <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
-                                        <Text>Recipe</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemRecipe, CommonCSS.flexDirectionColumn]}>
-                                        <Text>How to prepare Mutton briyani</Text>
-                                    </View>
-                                    <View style={[headerComponentCSS.resultItemCount, CommonCSS.flexDirectionColumn]}>
-                                        <Text>200 Recipes</Text>
-                                    </View>
-                                </View>
-                                {/* Result Item */}
+                                {categoryResult === 0 && searchResultData.suggestionRecipe.length === 0
+                                    ? this.renderEmptyResult() :
+                                    [this.renderCategoryResult(categoryResult),this.renderRecipeResult(searchResultData.suggestionRecipe)]}
                             </View>
 
 

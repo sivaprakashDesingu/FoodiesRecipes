@@ -10,6 +10,7 @@ const AppColor = {
     primaryColor: '#ec4242',
     halfPrimaryColor:'#fa7776',
     secondaryColor: '#44a7c6',
+    midGrayColor: '#9c9c9c',
     grayColor: '#a09d9d',
     white: "#fff",
     halfWhite:'rgba(255,255,255,0.5)',

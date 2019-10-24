@@ -2,7 +2,7 @@ import {
     UDADATE_PERSONALIZED_DATA_REQUEST,
     SAVE_PERSONALIZED_DATA_REQUEST,
     FETCH_PERSONALIZED_DATA_REQUEST
-} from './../constraint/constraint'
+} from './../constants/constants'
 
 export function saveUserInitialInput(userInput, accessToken) {
 
