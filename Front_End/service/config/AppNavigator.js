@@ -27,7 +27,10 @@ const AppNavigator = createStackNavigator({
     }
   },
   RecipeListing: {
-    screen: RecipeListing
+    screen: RecipeListing,
+    navigationOptions: {
+      header: null,
+    }
   },
   RecipeDetails: {
     screen: RecipeDetails,
@@ -36,7 +39,10 @@ const AppNavigator = createStackNavigator({
     }
   },
   Dashboard: {
-    screen: Dashboard
+    screen: Dashboard,
+    navigationOptions: {
+      header: null,
+    }
   }
 },
   {

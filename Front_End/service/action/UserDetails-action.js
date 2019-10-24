@@ -2,7 +2,7 @@ import {
     LOGGIN_USER_REQUEST,
     REGISTER_USER_REQUEST,
     FETCH_USER_DETAILS_RQUEST
-} from './../constraint/constraint'
+} from './../constants/constants'
 
 export function isUserLoggedIn(action) {
     return {

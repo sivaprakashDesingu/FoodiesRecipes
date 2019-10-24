@@ -11,7 +11,7 @@ import {
    SAVE_PERSONALIZED_DATA_SUCCESS,
    SAVE_PERSONALIZED_DATA_FAILED,
    API_URL
-} from './../constraint/constraint'
+} from './../constants/constants'
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 
 

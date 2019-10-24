@@ -11,7 +11,7 @@ import {
    FETCH_USER_DETAILS_SUCCESS,
    FETCH_USER_DETAILS_FAILED,
    API_URL
-} from './../constraint/constraint'
+} from './../constants/constants'
 
 function* isUserLoggedIn(action) {
    try {

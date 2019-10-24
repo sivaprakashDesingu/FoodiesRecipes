@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { Layout, AppColor,FontFamily } from '../helper/dimenstion'
-import { Title } from 'react-native-paper';
-import { layer } from '@fortawesome/fontawesome-svg-core';
+
+
 const win = Dimensions.get('window');
 const width = win.width;
 const height = win.height;

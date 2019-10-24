@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import {Layout,AppColor} from './../../pages/helper/dimenstion'
-import { layer } from '@fortawesome/fontawesome-svg-core';
+import { StyleSheet} from 'react-native';
+import {Layout,AppColor,FontFamily} from './../../pages/helper/dimenstion'
 
 const CommonCSS = StyleSheet.create({
     padding10: {
@@ -15,7 +14,7 @@ const CommonCSS = StyleSheet.create({
         width:Layout.width,
         borderTopWidth: 5,
         backgroundColor: 'rgba(255,255,255,0.6)',
-        borderColor:'#fff',
+        borderColor:AppColor.white,
         elevation:2
     },
     fixedMidwrapper:{
