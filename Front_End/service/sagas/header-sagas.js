@@ -8,8 +8,7 @@ import {
 } from './../constants/constants'
 
 function* fetchSuggestionSearch(action) {
-    //alert(JSON.stringify(action))
-    console.warn(action)
+   
    try {
       const result = yield call(() =>
          axios.get(`${API_URL}recipe/recipeAndRecipeCategoryList?q=${action.object.keyword}`, {

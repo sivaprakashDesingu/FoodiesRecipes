@@ -31,12 +31,14 @@ class Dashboard extends Component {
     searchActive(key){
         const {UserDetailsReducer} = this.props
         const {accessToken} = UserDetailsReducer.userDetails
-        //console.warn(accessToken)
         this.props.fetchSuggestionSearch(accessToken,key)
     }
-
+    navigatePage(id,page){
+        //alert(id + page)
+        
+        this.props.navigation.navigate(page)
+    }
     render() {
-        console.log(this.props)
         return (
             <View style={CommonCSS.container}>
                 <StatusBar backgroundColor="blue" barStyle="light-content" />
@@ -48,7 +50,8 @@ class Dashboard extends Component {
                     goBack={() => { this.props.navigation.goBack() }}
                     headerTitle={"Dash board"}
                     showSearch={true}
-                    
+                    searchResultData = {this.props.headerSearchResult}
+                    navigatePage = {(id,page) => this.navigatePage(id,page)}
                 />
                 <ScrollView style={CommonCSS.fixedMidwrapper}>
                     {/* Hero banner section */}
@@ -132,10 +135,7 @@ class Dashboard extends Component {
     }
 }
 
-// export default Dashboard;
 function mapStateToProps(state) {
-    //alert(JSON.stringify(state))
-    //console.warn(state.HeaderReducer)
     return {
         UserDetailsReducer: state.UserDetailsReducer,
         headerSearchResult : state.HeaderReducer

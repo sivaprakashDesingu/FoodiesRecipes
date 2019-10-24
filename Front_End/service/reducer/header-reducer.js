@@ -6,10 +6,9 @@ import {
 
 
 const initialState = {
-    headerState: {
-        suggestionRecipe:[],
-        suggestionRecipeByCategory:{}
-    }
+    suggestionRecipe:[],
+    suggestionRecipeByCategory:{}
+    
 }
 
 const HeaderReducer = (state = initialState, action) => {
@@ -25,7 +24,6 @@ const HeaderReducer = (state = initialState, action) => {
             }
 
         case FETCH_SUGGESSTION_BY_SEARCH_SUCCESS:
-            //console.warn(action.data.data)
             return {
                 ...state,
                 suggestionRecipe:action.data.data.suggestionRecipe,
