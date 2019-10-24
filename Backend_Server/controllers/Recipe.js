@@ -5,7 +5,6 @@ var async = require('async');
 const helper = require("../helper/helper");
 const Promise = require("bluebird");
 
-//Simple version, without validation or sanitation
 
 exports.test = function (req, res) {
     res.send('Recipe controller!');
@@ -15,7 +14,7 @@ function suggessoinReciebyCategory(string) {
     return function (callback) {
         RecipeCatagory.find({ CategoryName: { '$regex': string, '$options': 'i' } })
             .exec(function (err, categoryList) {
-                //console.log(categoryList)
+                
                 const ids = categoryList.map(function (data) {
                     return data._id
                 })
@@ -70,7 +69,7 @@ exports.recipeAndRecipeCategoryList = function (request, response) {
                 });
             return
         }
-        // results now equals to: results.one: 'abc\n', results.two: 'xyz\n'
+       
     });
 
 };
