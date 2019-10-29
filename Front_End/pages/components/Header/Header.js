@@ -63,7 +63,7 @@ class HeaderBar extends React.Component {
             const props = this.props
             const result = data.map(function (data, i) {
                 return (
-                    <TouchableOpacity onPress={()=>props.navigatePage(data._id,'RecipeDetails')}  key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                    <TouchableOpacity onPress={()=>[props.navigatePage(data._id,'RecipeDetails'),this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
                         <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
                             <Text>Recipe</Text>
                         </View>
@@ -73,7 +73,7 @@ class HeaderBar extends React.Component {
 
                     </TouchableOpacity>
                 )
-            })
+            }.bind(this))
             return result;
         }
     }
@@ -94,7 +94,7 @@ class HeaderBar extends React.Component {
             const props = this.props
             const result = data.categoryList.map(function (data, i) {
                 return (
-                    <TouchableOpacity onPress={()=> props.navigatePage(data._id,'RecipeListing')} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                    <TouchableOpacity onPress={()=> [props.navigatePage(text,'RecipeListing'),,this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
                         <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
                             <Text>Category</Text>
                         </View>
@@ -106,7 +106,7 @@ class HeaderBar extends React.Component {
                         </View>
                     </TouchableOpacity>
                 )
-            })
+            }.bind(this))
             return result;
         }
 

@@ -52,6 +52,7 @@ const CommonCSS = StyleSheet.create({
     },
     listText:{
         fontSize: 16,
+        lineHeight:20,
     },
     overlay:{
         position:'absolute',

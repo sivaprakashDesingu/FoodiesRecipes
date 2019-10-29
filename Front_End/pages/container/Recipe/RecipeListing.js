@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-//import { CommonCSS, RecipePageCSS } from '../../Style'
+import { connect } from 'react-redux'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { RecipeListingPageCSS } from '../../../assets/styles/recipe_style'
 import { Layout } from '../../helper/dimenstion';
@@ -12,6 +12,10 @@ class RecipeListing extends Component {
         this.state = {
 
         }
+    }
+
+    componentDidMount(){
+        //console.warn(this.props)
     }
 
     render() {
@@ -159,5 +163,18 @@ class RecipeListing extends Component {
     }
 }
 
-export default RecipeListing;
+
+function mapStateToProps(state) {
+    //alert(JSON.stringify(state))
+    //console.error(state)
+    const { personalizedDataReducer } = state
+    return {
+        personalizedData: personalizedDataReducer.personalizedData
+    }
+}
+const mapDispatchToProps = dispatch => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeListing)
+//export default RecipeListing;
 

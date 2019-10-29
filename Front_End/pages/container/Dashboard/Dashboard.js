@@ -12,7 +12,8 @@ import HeaderBar from './../../components/Header/Header'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
 import {
-    fetchSuggestionSearch
+    fetchSuggestionSearch,
+    setActiveRecipeId
 } from '../../../service/action/header-action'
 import RecentLViewed from './component/RecentViewed'
 import { Button } from 'react-native-paper';
@@ -34,8 +35,7 @@ class Dashboard extends Component {
         this.props.fetchSuggestionSearch(accessToken,key)
     }
     navigatePage(id,page){
-        //alert(id + page)
-        
+        this.props.setActiveRecipeId(id,page)
         this.props.navigation.navigate(page)
     }
     render() {
@@ -145,6 +145,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
     fetchSuggestionSearch: (accessToken,keyword) =>
         dispatch(fetchSuggestionSearch(accessToken,keyword)),
+    setActiveRecipeId:(id,page) => dispatch(setActiveRecipeId(id,page)),
 })
 
 
