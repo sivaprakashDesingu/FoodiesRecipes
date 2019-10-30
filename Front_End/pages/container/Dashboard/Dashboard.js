@@ -39,6 +39,8 @@ class Dashboard extends Component {
         this.props.navigation.navigate(page)
     }
     render() {
+        const {UserDetailsReducer} = this.props
+        
         return (
             <View style={CommonCSS.container}>
                 <StatusBar backgroundColor="blue" barStyle="light-content" />
@@ -60,7 +62,7 @@ class Dashboard extends Component {
                         <View style={[CommonCSS.overlay, CommonCSS.Whiteoverlay]}></View>
                         <View style={DashboardPageCSS.userDeatails}>
                             <View style={DashboardPageCSS.centered}>
-                                <Text style={DashboardPageCSS.userName}>Hi , Sivaprakash</Text>
+                                <Text style={DashboardPageCSS.userName}>Hi ,{UserDetailsReducer.userDetails.fullName}</Text>
                             </View>
 
                         </View>

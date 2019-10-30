@@ -50,9 +50,35 @@ class RecipeDetails extends Component {
 
         //     }
     }
+    renderRecipeProcess(steps) {
+        const steprItem = steps.map(function (item, i) {
+            return (
+                <View key={i} style={[CommonCSS.listWrapper]}>
+                    <View style={CommonCSS.listBulllet}>
+                        <Text>{'\u2022'}</Text>
+                    </View>
+                    <View style={CommonCSS.listText}>
+                        <Text>{item}</Text>
+                    </View>
+                </View>
+            )
+        })
+        return steprItem;
+    }
 
     renderMidpage(data) {
-        //console.warn(data)
+
+        const _recipeTags = data.recipe.Recipetags.map(function (item, i) {
+            return (
+                <Text key={i} style={RecipePageCSS.recipeTags}>{item}</Text>
+            )
+        });
+        const _recipIngredients = data.ingredients && data.ingredients[0].map(function (item, i) {
+            return (
+                <Text key={item.id} style={RecipePageCSS.recipeTags} >{item.Name}</Text>
+            )
+        });
+
         return (
             <View>
                 <View>
@@ -61,23 +87,17 @@ class RecipeDetails extends Component {
                         style={RecipePageCSS.recipeBannerImage} />
                 </View>
                 <View style={RecipePageCSS.desciptoinWrapper}>
-                    <Text style={RecipePageCSS.heading}>{data.recipeTitle}</Text>
+                    <Text style={RecipePageCSS.heading}>{data.recipe.recipeTitle}</Text>
                     <View>
                         <Text style={RecipePageCSS.ownDes}>
                             Recipe by
-                        <Text style={RecipePageCSS.ownDesName}> {data.postedBy}</Text>
+                        <Text style={RecipePageCSS.ownDesName}> {data.userName[0]}</Text>
                         </Text>
 
                     </View>
 
                     <View style={CommonCSS.flexDirectionRow}>
-                        {
-                            data.Recipetags.map(function (item, i) {
-                                return(
-                                    <Text key={i} style={RecipePageCSS.recipeTags}>{item}</Text>
-                                )
-                            })
-                        }
+                        {_recipeTags}
                     </View>
 
                     <View style={RecipePageCSS.horizontalCenteredLine}></View>
@@ -86,74 +106,16 @@ class RecipeDetails extends Component {
                         <Text style={RecipePageCSS.ingredientHeading}>Ingredients</Text>
 
                         <ScrollView style={CommonCSS.flexDirectionRow} horizontal={true}>
-                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Lunch</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Indian</Text>
-                            <Text style={RecipePageCSS.recipeTags} >Vegan</Text>
+                            {_recipIngredients}
                         </ScrollView>
                     </View>
-                    <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
+                    {data.process.length>=1 ? <View>
+                        <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
 
-                    <View>
-                        <View style={[CommonCSS.listWrapper]}>
-                            <View style={CommonCSS.listBulllet}>
-                                <Text>{'\u2022'}</Text>
-                            </View>
-                            <View style={CommonCSS.listText}>
-                                <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</Text>
-                            </View>
+                        <View>
+                            {this.renderRecipeProcess(data.process[0].steps)}
                         </View>
-                        <View style={[CommonCSS.listWrapper]}>
-                            <View style={CommonCSS.listBulllet}>
-                                <Text>{'\u2022'}</Text>
-                            </View>
-                            <View style={CommonCSS.listText}>
-                                <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</Text>
-                            </View>
-                        </View>
-
-                        <View style={[CommonCSS.listWrapper]}>
-                            <View style={CommonCSS.listBulllet}>
-                                <Text>{'\u2022'}</Text>
-                            </View>
-                            <View style={CommonCSS.listText}>
-                                <Text>Lorem Ipsum is simply dummy text of.</Text>
-                            </View>
-                        </View>
-                        <View style={[CommonCSS.listWrapper]}>
-                            <View style={CommonCSS.listBulllet}>
-                                <Text>{'\u2022'}</Text>
-                            </View>
-                            <View style={CommonCSS.listText}>
-                                <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</Text>
-                            </View>
-                        </View>
-                        <View style={[CommonCSS.listWrapper]}>
-                            <View style={CommonCSS.listBulllet}>
-                                <Text>{'\u2022'}</Text>
-                            </View>
-                            <View style={CommonCSS.listText}>
-                                <Text>known printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also </Text>
-                            </View>
-                        </View>
-                        <View style={[CommonCSS.listWrapper]}>
-                            <View style={CommonCSS.listBulllet}>
-                                <Text>{'\u2022'}</Text>
-                            </View>
-                            <View style={CommonCSS.listText}>
-                                <Text>but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets</Text>
-                            </View>
-                        </View>
-
-                    </View>
+                    </View> : null}
 
 
                 </View>
@@ -179,7 +141,7 @@ class RecipeDetails extends Component {
                 <ScrollView style={CommonCSS.fixedMidwrapper}>
                     {RecipeReducer.recipeDetails._id !== undefined ?
                         this.renderMidpage(RecipeReducer.recipeDetails)
-                        : <FullPageLoader/>}
+                        : <FullPageLoader />}
 
                 </ScrollView>
                 {/* Fixed Button Logic */}

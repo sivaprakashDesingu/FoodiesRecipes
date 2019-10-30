@@ -1,6 +1,8 @@
 const async = require('async');
+var mongoose = require('mongoose');
 const Recipe = require('../models/Recipe');
 const RecipeCatagory = require('../models/RecipeCatagory');
+const Ingredient = require('../models/Ingredients')
 const User = require('../models/user');
 const helper = require("../helper/helper");
 
@@ -79,9 +81,50 @@ exports.recipeDetails = function (request, response) {
     console.log(`API for fetching Single Recipe => ${emailId}`);
     console.log(`Record matching for  => ${id}`)
 
-    Recipe.find(
-        { $and: [{ _id: `${id}` }, { postedBy: `${emailId}` }] }
-        , function (err, results) {
+    Recipe.aggregate([
+        {
+            $match: { "_id": mongoose.Types.ObjectId(id) }
+        },
+        {
+            $lookup: {
+                "from": "recipeprocesssteps",
+                "localField": "_id",
+                "foreignField": "recipeId",
+                "as": "precess",
+            }
+        },
+        {
+            $lookup: {
+                "from": "ingredients",
+                "localField": "_id",
+                "foreignField": "recipeId",
+                "as": "ingredients",
+            }
+        },
+        {
+            $lookup: {
+                "from": "users",
+                "localField": "emailId",
+                "foreignField": "postedBy",
+                "as": "users",
+            }
+        },
+        {
+            $project: {
+                recipe: {
+                    id: "$_id",
+                    Recipetags: "$Recipetags",
+                    cookTime: "$cookTime",
+                    title: "$recipeTitle",
+                    postedBy: "$postedBy",
+                },
+                ingredients: "$ingredients.Items",
+                process: "$precess",
+                userName: "$users.fullName",
+            }
+        }
+    ])
+        .exec(function (err, list) {
             if (err) {
                 response
                     .status(400)
@@ -97,11 +140,11 @@ exports.recipeDetails = function (request, response) {
                     .json({
                         "status": "Ok",
                         "message": "Success",
-                        "data": results
+                        "data": list
                     });
                 return
             }
-        });
+        })
 };
 
 exports.recipeListing = function (request, response) {
