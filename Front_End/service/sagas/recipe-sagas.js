@@ -12,12 +12,6 @@ import {
 
 
 function* fetchRecipeDetails(action) {
-    //console.warn(action)
-    // try{
-
-    // }catch(err){
-
-    // }
     try {
         const result = yield call(() =>
             axios.get(`${API_URL}recipe/recipDetails/${action.object.recipeId}`, {
@@ -33,8 +27,25 @@ function* fetchRecipeDetails(action) {
     }
 }
 
+function* fetchRecipeListing(action){
+    try {
+        const result = yield call(() =>
+            axios.get(`${API_URL}recipe/recipeListing/${action.object.keyword}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accesstoken': action.object.accessToken
+                }
+            })
+        )
+        yield put({ type: FETCH_REICPE_LISTING_SUCCESS, data: result.data });
+    } catch (error) {
+        yield put({ type: FETCH_REICPE_LISTING_FAILED, data: error });
+    }
+}
+
 function* recipeSagas() {
     yield takeLatest(FETCH_REICPE_DETAILS, fetchRecipeDetails);
+    yield takeLatest(FETCH_REICPE_LISTING, fetchRecipeListing);
 }
 
 export default recipeSagas;

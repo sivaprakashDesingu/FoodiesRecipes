@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux'
-import { Text, View, ImageBackground, StatusBar, AsyncStorage } from 'react-native';
+import { Text, View, ImageBackground, StatusBar, AsyncStorage, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 import {
   isUserLoggedIn,
@@ -17,18 +17,24 @@ import { AppColor } from '../../../pages/helper/dimenstion'
 function Home(props) {
 
   const { navigate } = props.navigation;
-  const [isRegisteruser, SetIsRegisteruser] = useState(true);
   const [emailId, setEmailId] = useState('');
   const [fullName, setFullName] = useState('');
-  //Fetch value form props
-  const { isRegisterUser, aboutRegister } = props.UserDetailsReducer
+  const [innerLoader, setInnerLoader] = useState(false)
+  const { isRegisterUser } = props.UserDetailsReducer
 
 
   function isUserLoggedIn() {
     if (isRegisterUser) {
-      props.isUserLoggedIn(emailId.value)
+      if ((emailId.trim()).length >= 1) {
+        setInnerLoader(true)
+        props.isUserLoggedIn(emailId)
+      } else {
+        setEmailId('')
+        alert("Fields should be filed")
+      }
     } else {
-      props.isUserRegistered(emailId.value, fullName.value)
+      setInnerLoader(true)
+      props.isUserRegistered(emailId, fullName)
     }
 
   }
@@ -45,7 +51,9 @@ function Home(props) {
   }, [])
 
   useEffect(() => {
-
+    if (!props.UserDetailsReducer.isRegisterUser) {
+      setInnerLoader(false)
+    }
     if (props.UserDetailsReducer.userDetails.emailId.length >= 1) {
       AsyncStorage.setItem('cookieUserToken', JSON.stringify(props.UserDetailsReducer.userDetails.accessToken), () => {
       });
@@ -65,14 +73,14 @@ function Home(props) {
           <View style={HomeCSS.loginFormWrapper}>
             <TextBox label="Email Id"
               type={"text"}
-              value={emailId.value}
+              value={emailId}
               onTextValue={(value) => setEmailId(value)} />
 
             {isRegisterUser ? null :
               <TextBox
                 label="Full Name"
-                type ={"text"}
-                value={fullName.value}
+                type={"text"}
+                value={fullName}
                 onTextValue={(value) => setFullName(value)}
               />}
 
@@ -96,6 +104,17 @@ function Home(props) {
           </Button>
         </View>
       </ImageBackground>
+      {/* Enable Loader once clicked Login/Register */}
+      {innerLoader ? <View style={[CommonCSS.overlay, CommonCSS.Whiteoverlay]}>
+        <View style={CommonCSS.verticalHorizalCenter}>
+          <Image
+            style={{ width: 200, height: 200 }}
+            source={{ uri: 'http://www.broadwaybalancesamerica.com/images/ajax-loader.gif' }}
+          />
+        </View>
+
+      </View> : null}
+      {/* Enable Loader once clicked Login/Register */}
     </View>
   );
   //}
@@ -113,7 +132,7 @@ const mapDispatchToProps = dispatch => ({
   isUserLoggedIn: (action) =>
     dispatch(isUserLoggedIn(action)),
   isUserRegistered: (email, fullName) => dispatch(isUserRegistered(email, fullName)),
-  fetchUserDetails:(accessToken) => dispatch(fetchUserDetails(accessToken))
+  fetchUserDetails: (accessToken) => dispatch(fetchUserDetails(accessToken))
 })
 
 

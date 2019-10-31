@@ -18,13 +18,17 @@ const RecipeReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+
         case FETCH_REICPE_LISTING_SUCCESS:
             return {
                 ...state,
+                recipeList:action.data.data[0]
             }
+
         case FETCH_REICPE_LISTING_FAILED:
             return {
                 ...state,
+                recipeList: [],
             }
 
         case FETCH_REICPE_DETAILS:
@@ -34,6 +38,7 @@ const RecipeReducer = (state = initialState, action) => {
         case FETCH_REICPE_DETAILS_FAILED:
             return {
                 ...state,
+                recipeDetails: {},
             }
         case FETCH_REICPE_DETAILS_SUCCESS:
             return {

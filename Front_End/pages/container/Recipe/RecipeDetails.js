@@ -23,33 +23,14 @@ class RecipeDetails extends Component {
         }
     }
 
-    // static navigationOptions = {
-    //     headerTitle: <HeaderBar headerTitle="Recipe" isSearchNeeded={true} />,
-    //     headerStyle: {
-    //         backgroundColor: "#fa7776"
-    //     },
-    //     headerTintColor: "#fff",
-    //     headerTitleStyle: {
-    //         fontWeight: "bold"
-    //     }
-    // };
-
     componentDidMount() {
         const { selectedRecipe } = this.props.HeaderReducer
         const { UserDetailsReducer } = this.props
         const { accessToken } = UserDetailsReducer.userDetails
-        //console.warn(selectedRecipe)
+        
         this.props.fetchRecipeDetails(selectedRecipe.recipeId, accessToken)
     }
-    componentWillReceiveProps(nextProps) {
-        //console.warn(nextProps.RecipeReducer)
-
-        // const {HeaderReducer} = this.props
-        // if(nextProps.HeaderReducer.selectedRecipe.queryString !== HeaderReducer.selectedRecipe.queryString ||
-        //     nextProps.HeaderReducer.selectedRecipe.recipeId !== HeaderReducer.selectedRecipe.recipeId ||){
-
-        //     }
-    }
+    componentWillReceiveProps(nextProps) {}
     renderRecipeProcess(steps) {
         const steprItem = steps.map(function (item, i) {
             return (
@@ -161,8 +142,7 @@ class RecipeDetails extends Component {
 
 
 function mapStateToProps(state) {
-    //alert(JSON.stringify(state))
-    //console.error(state)
+    
     const { RecipeReducer, HeaderReducer, UserDetailsReducer } = state
     return {
         HeaderReducer,

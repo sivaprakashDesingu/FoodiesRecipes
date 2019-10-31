@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { RecipeListingPageCSS } from '../../../assets/styles/recipe_style'
 import { Layout } from '../../helper/dimenstion';
+import { fetchRecipeListing } from './../../../service/action'
 
 class RecipeListing extends Component {
     constructor(props) {
@@ -14,18 +15,24 @@ class RecipeListing extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         //console.warn(this.props)
+        const { HeaderReducer,UserDetailsReducer } = this.props
+        const { accessToken } = UserDetailsReducer.userDetails
+        if (HeaderReducer.selectedRecipe.queryString.length >= 1) {
+            this.props.fetchRecipeListing(HeaderReducer.selectedRecipe.queryString,accessToken)
+        }
     }
 
     render() {
-        
+        const {RecipeReducer,HeaderReducer} = this.props
+        //console.warn(RecipeReducer)
         return (
             <View style={CommonCSS.container}>
                 <ScrollView style={{ flex: 1 }}>
                     <View style={{ position: 'relative' }}>
                         <View>
-                            <TouchableOpacity style={{ position: 'absolute', top: 40, left: 20,zIndex:1 }} onPress={() => { this.props.navigation.goBack() }}>
+                            <TouchableOpacity style={{ position: 'absolute', top: 40, left: 20, zIndex: 1 }} onPress={() => { this.props.navigation.goBack() }}>
                                 <Icon name="ios-arrow-round-back" color="#fff" size={45} />
                             </TouchableOpacity>
                         </View>
@@ -36,7 +43,7 @@ class RecipeListing extends Component {
 
                         />
                         <View style={RecipeListingPageCSS.HeadingSection}>
-                            <Text style={RecipeListingPageCSS.categoryHeading}>Sea Bass</Text>
+                            <Text style={RecipeListingPageCSS.categoryHeading}>{HeaderReducer.selectedRecipe.queryString}</Text>
                             <View style={RecipeListingPageCSS.separator}></View>
                             <Text style={RecipeListingPageCSS.categoyBenifit}>80 calories per 100 Kgs</Text>
                         </View>
@@ -44,7 +51,7 @@ class RecipeListing extends Component {
                     </View>
                     <ScrollView style={RecipeListingPageCSS.resultContainer}>
                         <Text style={RecipeListingPageCSS.containerInfo}>Recipes</Text>
-                        <Text style={RecipeListingPageCSS.subInfo}>10 recipes available</Text>
+                        <Text style={RecipeListingPageCSS.subInfo}>{RecipeReducer.recipeList.length} recipes available</Text>
                         <View style={RecipeListingPageCSS.resultWrapper}>
                             <View style={RecipeListingPageCSS.resultItem}>
                                 <View style={[CommonCSS.flexDirectionColumn, { justifyContent: "center" }]}>
@@ -166,13 +173,17 @@ class RecipeListing extends Component {
 
 function mapStateToProps(state) {
     //alert(JSON.stringify(state))
-    //console.error(state)
-    const { personalizedDataReducer } = state
+    //console.warn(state.RecipeReducer)
+    const { UserDetailsReducer, HeaderReducer,RecipeReducer } = state
     return {
-        personalizedData: personalizedDataReducer.personalizedData
+        UserDetailsReducer,
+        HeaderReducer,
+        RecipeReducer
     }
 }
 const mapDispatchToProps = dispatch => ({
+    fetchRecipeListing: (keyword, accessToken) =>
+        dispatch(fetchRecipeListing(keyword, accessToken))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeListing)

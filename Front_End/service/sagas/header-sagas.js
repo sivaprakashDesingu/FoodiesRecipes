@@ -32,7 +32,6 @@ function* setActiveRecipeId(action) {
       yield put({ type: SELECTED_RECIPE_ID_OR_NAME_SUCCESS, data: action.object });
    }
    catch (error) {
-      //console.warn(error)
       yield put({ type: SELECTED_RECIPE_ID_OR_NAME_FAILED, data: error });
    }
 }
