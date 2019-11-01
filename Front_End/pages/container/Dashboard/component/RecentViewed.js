@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux'
-import HeaderBar from './../../../components/Header'
+import HeaderBar from './../../../components/Header/Header'
 import { CommonCSS } from '../../../../assets/styles/common_style'
 import { DashboardPageCSS } from '../../../../assets/styles/dashboard_style'
 import RecipeTile from './../../../components/Tile/RecipeTile'

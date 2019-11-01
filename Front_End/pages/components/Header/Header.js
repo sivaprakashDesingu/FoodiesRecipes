@@ -54,7 +54,7 @@ class HeaderBar extends React.Component {
         return result
     }
     renderRecipeResult(data) {
-        
+
         if (data.length === 0) {
             return (
                 null
@@ -63,7 +63,7 @@ class HeaderBar extends React.Component {
             const props = this.props
             const result = data.map(function (data, i) {
                 return (
-                    <TouchableOpacity onPress={()=>props.navigatePage(data._id,'RecipeDetails')}  key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                    <TouchableOpacity onPress={() => [props.navigatePage(data._id, 'RecipeDetails'), this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
                         <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
                             <Text>Recipe</Text>
                         </View>
@@ -73,10 +73,11 @@ class HeaderBar extends React.Component {
 
                     </TouchableOpacity>
                 )
-            })
+            }.bind(this))
             return result;
         }
     }
+
     renderEmptyResult() {
         return (
             <View style={[headerComponentCSS.resultWrapper]}>
@@ -84,17 +85,19 @@ class HeaderBar extends React.Component {
             </View>
         )
     }
+
     renderCategoryResult(data) {
-        
+
         if (data === 0) {
             return (
                 null
             )
         } else {
             const props = this.props
+            const {text} = this.state
             const result = data.categoryList.map(function (data, i) {
                 return (
-                    <TouchableOpacity onPress={()=> props.navigatePage(data._id,'RecipeListing')} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                    <TouchableOpacity onPress={() => [props.navigatePage(text, 'RecipeListing'), , this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
                         <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
                             <Text>Category</Text>
                         </View>
@@ -106,7 +109,7 @@ class HeaderBar extends React.Component {
                         </View>
                     </TouchableOpacity>
                 )
-            })
+            }.bind(this))
             return result;
         }
 
@@ -115,9 +118,7 @@ class HeaderBar extends React.Component {
     render() {
         const { headerTitle, showSearch, searchResultData } = this.props
         const { searchBar, text, height } = this.state
-
-        const categoryResult = this.getTheRecipeCategoryRepeatedCount(searchResultData.suggestionRecipeByCategory)
-        
+        const categoryResult = this.getTheRecipeCategoryRepeatedCount(searchResultData === undefined ? 0 : searchResultData.suggestionRecipeByCategory)
         return (
             <View style={[CommonCSS.fixedHeaderBar, searchBar ? { height: Layout.height } : { height: 80 }]}>
                 <View style={[CommonCSS.container]}>
@@ -162,18 +163,19 @@ class HeaderBar extends React.Component {
 
                             <View style={[CommonCSS.flexDirectionRow, { marginBottom: 15 }]}>
                                 <Text style={headerComponentCSS.KeyWordSearchTag}>KeyWord Search For: </Text>
-                                <Text style={headerComponentCSS.KeyWordSearchValue}>{text.length >=1 ? `"${text}"` : null}</Text>
+                                <Text style={headerComponentCSS.KeyWordSearchValue}>{text.length >= 1 ? `"${text}"` : null}</Text>
                             </View>
                             <View style={[CommonCSS.flexDirectionRow, { marginBottom: 15 }]}>
                                 <Text style={headerComponentCSS.KeyWordSearchTag}>SUGGESTIONS </Text>
 
                             </View>
-
-                            <View style={[headerComponentCSS.resultWrapper]}>
+                            {this.props.showSearch ? <View style={[headerComponentCSS.resultWrapper]}>
                                 {categoryResult === 0 && searchResultData.suggestionRecipe.length === 0
                                     ? this.renderEmptyResult() :
-                                    [this.renderCategoryResult(categoryResult),this.renderRecipeResult(searchResultData.suggestionRecipe)]}
+                                    [this.renderCategoryResult(categoryResult), this.renderRecipeResult(searchResultData.suggestionRecipe)]}
                             </View>
+                                : null}
+
 
 
                         </ScrollView>

@@ -17,7 +17,7 @@ module.exports = {
                     .status(400)
                     .json({
                         "status": "UNAUTHORISED",
-                        "message": err && err.message,
+                        "message": "INVALID USER",
                         "data": err
                     });
             }

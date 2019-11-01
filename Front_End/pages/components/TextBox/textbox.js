@@ -6,7 +6,7 @@ class TextBox extends Component {
         super(props)
         this.state = {
             topValue: new Animated.Value(15),
-            fontValue:new Animated.Value(16)
+            fontValue: new Animated.Value(16)
         }
     }
     enableFloating() {
@@ -41,8 +41,8 @@ class TextBox extends Component {
         });
     }
     render() {
-        const { topValue,fontValue } = this.state
-        const {value} = this.props
+        const { topValue, fontValue } = this.state
+        const { value } = this.props
 
         return (
             <Animated.View style={style.inputwrapper}>
@@ -50,11 +50,11 @@ class TextBox extends Component {
                     style={style.inputField}
                     onFocus={this.enableFloating.bind(this)}
                     onBlur={this.FloatingLable.bind(this)}
-                    onChangeText={(value) => this.props.onTextValue({ value })}
+                    onChangeText={(value) => this.props.onTextValue(value)}
                     value={value}
                 />
-                <Animated.Text onClick={this.FloatingLable.bind(this)} 
-                style={[style.floatlable, { top: topValue,fontSize:fontValue }]}>
+                <Animated.Text onClick={this.FloatingLable.bind(this)}
+                    style={[style.floatlable, { top: topValue, fontSize: fontValue }]}>
                     {this.props.label}
                 </Animated.Text>
             </Animated.View>
@@ -65,13 +65,13 @@ class TextBox extends Component {
 const style = StyleSheet.create({
     inputwrapper: {
         position: 'relative',
-        marginTop:20,
-        marginBottom:40,
+        marginTop: 20,
+        marginBottom: 40,
     },
     inputField: {
         padding: 10,
         paddingLeft: 0,
-        paddingBottom:5,
+        paddingBottom: 5,
         width: '100%',
         borderWidth: 1,
         borderBottomColor: '#fff',
@@ -83,7 +83,7 @@ const style = StyleSheet.create({
     floatlable: {
         position: 'absolute',
         color: '#fff',
-       
+
     }
 
 })
