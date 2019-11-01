@@ -44,8 +44,6 @@ function Main(props) {
     }, []);
 
     useEffect(() => {
-       
-        //AsyncStorage.removeItem('Personalization', (err, token) => {})
         navigaToPages()
 
     }, [])

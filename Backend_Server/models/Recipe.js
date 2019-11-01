@@ -36,6 +36,10 @@ var Recipe = new Schema({
         type: String,
         required: true,
     },
+    meadiaSource:{
+        type: Object,
+        required: true,
+    },
     postedBy :{
         type: String,
         required: true,

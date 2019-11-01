@@ -4,7 +4,6 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import * as Font from 'expo-font'
 
-import { createStore } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './service/store/store'
 
@@ -22,7 +21,7 @@ export default class App extends React.Component {
       'RobotoBold': require('./assets/fonts/Roboto/Roboto-Bold.ttf'),
       'RobotoRegular': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
     });
-    this.refs.toast.show('hello world!', DURATION.LENGTH_LONG);
+    /*this.refs.toast.show('hello world!', DURATION.LENGTH_LONG);*/
     this.setState({ fontLoaded: true });
  
   }
