@@ -34,8 +34,8 @@ class Dashboard extends Component {
         const {accessToken} = UserDetailsReducer.userDetails
         this.props.fetchSuggestionSearch(accessToken,key)
     }
-    navigatePage(id,page){
-        this.props.setActiveRecipeId(id,page)
+    navigatePage(id,page,searchBy){
+        this.props.setActiveRecipeId(id,page,searchBy)
         this.props.navigation.navigate(page)
     }
     render() {
@@ -53,7 +53,7 @@ class Dashboard extends Component {
                     headerTitle={"Dash board"}
                     showSearch={true}
                     searchResultData = {this.props.headerSearchResult}
-                    navigatePage = {(id,page) => this.navigatePage(id,page)}
+                    navigatePage = {(id,page,searchBy) => this.navigatePage(id,page,searchBy)}
                 />
                 <ScrollView style={CommonCSS.fixedMidwrapper}>
                     {/* Hero banner section */}
@@ -147,7 +147,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
     fetchSuggestionSearch: (accessToken,keyword) =>
         dispatch(fetchSuggestionSearch(accessToken,keyword)),
-    setActiveRecipeId:(id,page) => dispatch(setActiveRecipeId(id,page)),
+    setActiveRecipeId:(id,page,searchBy) => dispatch(setActiveRecipeId(id,page,searchBy)),
 })
 
 

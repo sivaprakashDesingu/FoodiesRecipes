@@ -152,6 +152,7 @@ exports.recipeListing = function (request, response) {
     const { id } = request.params
     console.log(`API for fetching Group of recipe by id, ${emailId}`);
     console.log(`Record matching for  + ${id}`)
+
     RecipeCatagory.find({ CategoryName: { '$regex': id, '$options': 'i' } })
         .exec(function (err, categoryList) {
 
@@ -182,4 +183,80 @@ exports.recipeListing = function (request, response) {
                     }
                 })
         })
+};
+
+exports.recipeListingByCategory = function (request, response) {
+    const { emailId } = request.userData
+    const { id } = request.params
+    console.log(`API for fetching Recipe data based on category search, ${id}`);
+
+    Recipe.aggregate([
+        // Match wanted category(ies)
+        {
+            "$match": {
+                "recipeCategoryId": { "$in": [mongoose.Types.ObjectId(id)] }
+            }
+        },
+        // Filter the content of the array
+        {
+            "$addFields": {
+                "recipeCategoryId": {
+                    "$filter": {
+                        "input": "$recipeCategoryId",
+                        "cond": {
+                            "$in": ["$$this", [mongoose.Types.ObjectId(id)]]
+                        }
+                    }
+                }
+            }
+        },
+        // Lookup the related matching category(ies)
+        {
+            "$lookup": {
+                "from": 'recipecatagories',
+                "let": { "recipeCategoryIds": "$recipeCategoryId" },
+                "pipeline": [
+                    {
+                        "$match": {
+                            "$expr": { "$in": ["$_id", "$$recipeCategoryIds"] }
+                        }
+                    }
+                ],
+                "as": "recipeCategoryId"
+            }
+        },
+        // Lookup the related user to postedBy
+        {
+            "$lookup": {
+                "from": "users",
+                "let": { "postedBy": "$postedBy" },
+                "pipeline": [
+                    { "$match": { "$expr": { "$eq": ["$emailId", "$$postedBy"] } } }
+                ],
+                "as": "users"
+            }
+        },
+        // postedBy is "singular"
+        { "$unwind": "$users" }
+    ]).exec(function (err, recipes) {
+        if (err) {
+            response
+                .status(400)
+                .json({
+                    "status": "Failed",
+                    "message": "Error",
+                    "data": err | err.message
+                });
+            return
+        } else {
+            response
+                .status(200)
+                .json({
+                    "status": "Ok",
+                    "message": "Success",
+                    "data": recipes
+                });
+            return
+        }
+    })
 };
