@@ -117,6 +117,7 @@ exports.recipeDetails = function (request, response) {
                     cookTime: "$cookTime",
                     title: "$recipeTitle",
                     postedBy: "$postedBy",
+                    images: "$images",
                 },
                 ingredients: "$ingredients.Items",
                 process: "$precess",
@@ -153,7 +154,48 @@ exports.recipeListing = function (request, response) {
     console.log(`API for fetching Group of recipe by id, ${emailId}`);
     console.log(`Record matching for  + ${id}`)
 
-    RecipeCatagory.find({ CategoryName: { '$regex': id, '$options': 'i' } })
+    Recipe.aggregate([
+        // Match wanted category(ies)
+        {
+            "$match": {
+                "recipeTitle": { '$regex': id, '$options': 'i' }
+            }
+        },
+        // Lookup the related user to postedBy
+        {
+            "$lookup": {
+                "from": "users",
+                "let": { "postedBy": "$postedBy" },
+                "pipeline": [
+                    { "$match": { "$expr": { "$eq": ["$emailId", "$$postedBy"] } } }
+                ],
+                "as": "users"
+            }
+        },
+        // postedBy is "singular"
+        { "$unwind": "$users" }
+    ]).exec(function (err, list) {
+        if (err) {
+            response
+                .status(400)
+                .json({
+                    "status": "Failed",
+                    "message": "Error",
+                    "data": err | err.message
+                });
+            return
+        } else {
+            response
+                .status(200)
+                .json({
+                    "status": "Ok",
+                    "message": "Success",
+                    "data": list
+                });
+            return
+        }
+    })
+    /*RecipeCatagory.find({ CategoryName: { '$regex': id, '$options': 'i' } })
         .exec(function (err, categoryList) {
 
             const ids = categoryList.map(function (data) {
@@ -182,7 +224,7 @@ exports.recipeListing = function (request, response) {
                         return
                     }
                 })
-        })
+        })*/
 };
 
 exports.recipeListingByCategory = function (request, response) {

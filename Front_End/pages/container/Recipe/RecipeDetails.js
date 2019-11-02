@@ -27,10 +27,10 @@ class RecipeDetails extends Component {
         const { selectedRecipe } = this.props.HeaderReducer
         const { UserDetailsReducer } = this.props
         const { accessToken } = UserDetailsReducer.userDetails
-        
+
         this.props.fetchRecipeDetails(selectedRecipe.recipeId, accessToken)
     }
-    componentWillReceiveProps(nextProps) {}
+    componentWillReceiveProps(nextProps) { }
     renderRecipeProcess(steps) {
         const steprItem = steps.map(function (item, i) {
             return (
@@ -64,7 +64,7 @@ class RecipeDetails extends Component {
             <View>
                 <View>
                     <Image
-                        source={{ uri: 'https://foodwithfeeling.com/wp-content/uploads/2017/01/Vegan-Tikka-Masala-8.jpg' }}
+                        source={{ uri: data.recipe.images.hero || data.recipe.images.banner }}
                         style={RecipePageCSS.recipeBannerImage} />
                 </View>
                 <View style={RecipePageCSS.desciptoinWrapper}>
@@ -90,7 +90,7 @@ class RecipeDetails extends Component {
                             {_recipIngredients}
                         </ScrollView>
                     </View>
-                    {data.process.length>=1 ? <View>
+                    {data.process.length >= 1 ? <View>
                         <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
 
                         <View>
@@ -142,7 +142,7 @@ class RecipeDetails extends Component {
 
 
 function mapStateToProps(state) {
-    
+
     const { RecipeReducer, HeaderReducer, UserDetailsReducer } = state
     return {
         HeaderReducer,
