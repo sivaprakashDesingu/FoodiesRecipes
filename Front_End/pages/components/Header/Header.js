@@ -136,7 +136,7 @@ class HeaderBar extends React.Component {
                         </View >
                         {showSearch ? <TouchableOpacity style={[CommonCSS.flexDirectionColumn]}
                             onPress={this.isSearchBarEnabled.bind(this)}>
-                            <Icon name="ios-search" color="#fff" size={40} />
+                            <Icon name="ios-search" color="#fff" size={30} />
                         </TouchableOpacity> : null}
 
                     </View>

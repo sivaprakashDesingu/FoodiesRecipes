@@ -7,7 +7,8 @@ const initialPageCSS = StyleSheet.create({
         marginTop:20,
         marginLeft: 10,
         marginBottom:20,
-        fontFamily:"RobotoBold"
+        fontFamily:"RobotoBold",
+        color:AppColor.greyDark
     },
     buttons: {
         flexDirection: 'row',
@@ -29,7 +30,7 @@ const initialPageCSS = StyleSheet.create({
     },
     acitveButton:{
         borderWidth:1,
-        borderColor: AppColor.primaryColor,
+        borderColor: AppColor.orangeMid,
     },
     getStartedBtnWrapper:{
         backgroundColor:'#fff',
@@ -55,7 +56,7 @@ const initialPageCSS = StyleSheet.create({
         resizeMode: 'stretch',
     },
     TextStyle: {
-        color: '#333',
+        color:AppColor.greyDark,
         paddingLeft:15,
         paddingRight:15,
         fontSize:16,

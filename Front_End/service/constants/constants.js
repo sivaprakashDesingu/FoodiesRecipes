@@ -47,5 +47,5 @@ export const FETCH_REICPE_LISTING_BY_CATEGORY = 'FETCH_REICPE_LISTING_BY_CATEGOR
 export const FETCH_REICPE_LISTING_BY_CATEGORY_SUCCESS = 'FETCH_REICPE_LISTING_BY_CATEGORY_SUCCESS'
 export const FETCH_REICPE_LISTING_BY_CATEGORY_FAILED = 'FETCH_REICPE_LISTING_BY_CATEGORY_FAILED'
 
-//export const API_URL = "http://10.101.1.145:8000/api/"
-export const API_URL = "https://foodiesrecipe.herokuapp.com/api/"
+export const API_URL = "http://10.101.1.145:8000/api/"
+//export const API_URL = "https://foodiesrecipe.herokuapp.com/api/"

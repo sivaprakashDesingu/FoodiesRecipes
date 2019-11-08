@@ -17,10 +17,16 @@ const HomeCSS = StyleSheet.create({
         height: Layout.height,
     },
     heading: {
-        fontSize: 35,
+        fontSize: 24,
+        textAlign:"left",
         color: AppColor.white
     },
-    subHeading: {
+    subHeading:{
+        fontSize: 35,
+        marginBottom:10,
+        color: AppColor.white
+    },
+    hasTag: {
         fontSize: 18,
         color: AppColor.white
     },

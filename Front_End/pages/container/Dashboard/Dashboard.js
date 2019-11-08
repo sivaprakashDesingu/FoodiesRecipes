@@ -43,14 +43,14 @@ class Dashboard extends Component {
         
         return (
             <View style={CommonCSS.container}>
-                <StatusBar backgroundColor="blue" barStyle="light-content" />
+                
                 {/* <View >
                     
                 </View> */}
                 <HeaderBar
                     searchActive={(key) => this.searchActive(key)}
                     goBack={() => { this.props.navigation.goBack() }}
-                    headerTitle={"Dash board"}
+                    headerTitle={"Foodies Recipe"}
                     showSearch={true}
                     searchResultData = {this.props.headerSearchResult}
                     navigatePage = {(id,page,searchBy) => this.navigatePage(id,page,searchBy)}

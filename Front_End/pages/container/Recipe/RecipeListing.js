@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux'
+//import SkeletonContent from "react-native-skeleton-content";
 import FullPageLoader from './../../components/Loader/FullpageLoader'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { RecipeListingPageCSS } from '../../../assets/styles/recipe_style'
