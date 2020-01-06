@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView, Animated, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, Image, ScrollView, Animated, TouchableOpacity, StatusBar,WebView } from 'react-native';
+import { Video } from 'expo-av';
 import { connect } from 'react-redux'
 import FullPageLoader from './../../components/Loader/FullpageLoader'
 import HeaderBar from './../../components/Header/Header'
@@ -11,6 +12,7 @@ import { fetchRecipeDetails } from './../../../service/action'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { RecipePageCSS } from '../../../assets/styles/recipe_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
+
 
 class RecipeDetails extends Component {
     constructor(props) {
@@ -31,10 +33,12 @@ class RecipeDetails extends Component {
         this.props.fetchRecipeDetails(selectedRecipe.recipeId, accessToken)
     }
     componentWillReceiveProps(nextProps) { }
+
     renderRecipeProcess(steps) {
         const steprItem = steps.map(function (item, i) {
+
             return (
-                <View key={i} style={[CommonCSS.listWrapper]}>
+                <View key={i + item} style={[CommonCSS.listWrapper]}>
                     <View style={CommonCSS.listBulllet}>
                         <Text>{'\u2022'}</Text>
                     </View>
@@ -54,25 +58,38 @@ class RecipeDetails extends Component {
                 <Text key={i} style={RecipePageCSS.recipeTags}>{item}</Text>
             )
         });
-        const _recipIngredients = data.ingredients && data.ingredients[0].map(function (item, i) {
+        const _recipIngredients = data.ingredients && data.ingredients.map(function (item, i) {
+
             return (
-                <Text key={item.id} style={RecipePageCSS.recipeTags} >{item.Name}</Text>
+                item.ingItem.name !== undefined ? <Text key={i} style={RecipePageCSS.recipeTags} >{item.ingItem.name}</Text> : null
             )
         });
 
         return (
             <View>
-                <View>
-                    <Image
+                {/* <View>
+                    {data.recipe.images && data.recipe.images.hero !== undefined ? 
+                        <Image
                         source={{ uri: data.recipe.images.hero || data.recipe.images.banner }}
-                        style={RecipePageCSS.recipeBannerImage} />
-                </View>
+                        style={RecipePageCSS.recipeBannerImage} /> 
+                        : <Text>fdsfs</Text>
+                    }
+
+                </View> */}
+                
+                <WebView
+                    javaScriptEnabled={true}
+                    style={RecipePageCSS.recipeBannerImage}
+                    source={{ html: `<html><body style='padding:0;margin:0'><iframe width='100%' height='100%' src=${data.recipe.video} frameborder='0' allowfullscreen></iframe></body></html>` }}
+                />
+
+
                 <View style={RecipePageCSS.desciptoinWrapper}>
                     <Text style={RecipePageCSS.heading}>{data.recipe.recipeTitle}</Text>
                     <View>
                         <Text style={RecipePageCSS.ownDes}>
                             Recipe by
-                        <Text style={RecipePageCSS.ownDesName}> {data.userName[0]}</Text>
+                        <Text style={RecipePageCSS.ownDesName}> {data.userName}</Text>
                         </Text>
 
                     </View>
@@ -90,13 +107,13 @@ class RecipeDetails extends Component {
                             {_recipIngredients}
                         </ScrollView>
                     </View>
-                    {data.process.length >= 1 ? <View>
+                    {data.process && data.process._id && <View>
                         <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
 
                         <View>
-                            {this.renderRecipeProcess(data.process[0].steps)}
+                            {this.renderRecipeProcess(data.process.steps)}
                         </View>
-                    </View> : null}
+                    </View>}
 
 
                 </View>
