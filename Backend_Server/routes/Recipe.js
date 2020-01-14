@@ -8,5 +8,6 @@ var Recipe = require('./../controllers/Recipe');
 router.get('/', Recipe.test);
 router.get('/recipeAndRecipeCategoryList', Recipe.recipeAndRecipeCategoryList);
 router.get('/recipDetails/:id',Recipe.recipeDetails)
+router.get('/recipeListingByCategory/:id',Recipe.recipeListingByCategory)
 router.get('/recipeListing/:id',Recipe.recipeListing)
 module.exports = router;

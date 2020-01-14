@@ -64,14 +64,51 @@ const CommonCSS = StyleSheet.create({
         opacity: 0.7,
     },
     Whiteoverlay: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
         opacity: 0.5,
-        backgroundColor: 'rgba(255, 255, 255, 0.02)',
-        opacity: 1,
+        backgroundColor: AppColor.white,
+        height: '100%',
+        width: '100%',
+        zIndex:1,
+        opacity: 0.2,
     },
     verticalHorizalCenter: {
         justifyContent: 'center', 
         alignItems: 'center', 
         flex: 1,
+    },
+    videoSectionWrapper:{
+        alignItems: 'flex-start',
+        width: Layout.width,
+        height: 300,
+        position:"relative"
+    },
+    videoSection:{
+        width: Layout.width,
+        height: 300
+    },
+    videoControlPlaySection:{
+        position:'absolute',
+        left:(Layout.width / 2) - 40 ,
+        top:60,
+        zIndex:2,
+        width:80,
+        height:80
+    },
+    videoControlScreeningSection:{
+        position:'absolute',
+        right:20,
+        top:15,
+        zIndex:2,
+        width:40,
+        height:40
+    },
+    controlIcon:{
+        display:'flex',
+        width:'100%',
+        height:'100%'
     }
 })
 export { CommonCSS }  

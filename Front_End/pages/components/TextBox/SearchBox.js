@@ -32,7 +32,7 @@ class SearchBox extends Component {
                 />
 
                 <TouchableOpacity
-                    onPress={() => this.props.searchActive("biryani")} 
+                    onPress={() => this.props.searchByCategory(value)} 
                     style={style.searchIconSection}>
                     <Icon name="md-arrow-forward" color="#fff" size={35} />
                 </TouchableOpacity>

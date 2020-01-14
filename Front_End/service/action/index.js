@@ -1,6 +1,7 @@
-import { fetchRecipeDetails, fetchRecipeListing } from './recipe-action'
+import { fetchRecipeDetails, fetchRecipeListing ,fetchRecipeListingByCategory} from './recipe-action'
 
 export {
     fetchRecipeDetails,
-    fetchRecipeListing
+    fetchRecipeListing,
+    fetchRecipeListingByCategory
 }

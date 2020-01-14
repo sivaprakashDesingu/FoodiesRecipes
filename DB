@@ -1,0 +1,14 @@
+2019-12-21T13:02:23.551+0530 W  CONTROL  [main] Option: ssl is deprecated. Please use tls instead.
+MongoDB shell version v4.2.0
+connecting to: mongodb://cluster0-shard-00-01-mvq6r.mongodb.net:27017,cluster0-shard-00-02-mvq6r.mongodb.net:27017,cluster0-shard-00-00-mvq6r.mongodb.net:27017/test?authSource=admin&compressors=disabled&gssapiServiceName=mongodb&replicaSet=Cluster0-shard-0&ssl=true
+2019-12-21T13:02:24.176+0530 I  NETWORK  [js] Starting new replica set monitor for Cluster0-shard-0/cluster0-shard-00-01-mvq6r.mongodb.net:27017,cluster0-shard-00-02-mvq6r.mongodb.net:27017,cluster0-shard-00-00-mvq6r.mongodb.net:27017
+2019-12-21T13:02:24.176+0530 I  CONNPOOL [ReplicaSetMonitor-TaskExecutor] Connecting to cluster0-shard-00-01-mvq6r.mongodb.net:27017
+2019-12-21T13:02:24.176+0530 I  CONNPOOL [ReplicaSetMonitor-TaskExecutor] Connecting to cluster0-shard-00-00-mvq6r.mongodb.net:27017
+2019-12-21T13:02:24.176+0530 I  CONNPOOL [ReplicaSetMonitor-TaskExecutor] Connecting to cluster0-shard-00-02-mvq6r.mongodb.net:27017
+2019-12-21T13:02:25.271+0530 I  NETWORK  [ReplicaSetMonitor-TaskExecutor] Confirmed replica set for Cluster0-shard-0 is Cluster0-shard-0/cluster0-shard-00-00-mvq6r.mongodb.net:27017,cluster0-shard-00-01-mvq6r.mongodb.net:27017,cluster0-shard-00-02-mvq6r.mongodb.net:27017
+Implicit session: session { "id" : UUID("97715de3-cb7c-445c-aa0b-85ecee64ea5b") }
+MongoDB server version: 4.0.13
+WARNING: shell and server versions do not match
+2019-12-21T13:02:28.126+0530 E  -        [main] file [Backupstartups20.csv] doesn't exist
+2019-12-21T13:02:28.126+0530 F  -        [main] failed to load: Backupstartups20.csv
+2019-12-21T13:02:28.126+0530 E  -        [main] exiting with code -3

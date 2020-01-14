@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, Animated, TouchableOpacity, StatusBar } from 'react-native';
 import { connect } from 'react-redux'
+import { Video } from './../../components'
 import FullPageLoader from './../../components/Loader/FullpageLoader'
 import HeaderBar from './../../components/Header/Header'
 import {
@@ -11,6 +12,7 @@ import { fetchRecipeDetails } from './../../../service/action'
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { RecipePageCSS } from '../../../assets/styles/recipe_style'
 import { DashboardPageCSS } from '../../../assets/styles/dashboard_style'
+
 
 class RecipeDetails extends Component {
     constructor(props) {
@@ -27,14 +29,18 @@ class RecipeDetails extends Component {
         const { selectedRecipe } = this.props.HeaderReducer
         const { UserDetailsReducer } = this.props
         const { accessToken } = UserDetailsReducer.userDetails
-        
+
         this.props.fetchRecipeDetails(selectedRecipe.recipeId, accessToken)
     }
-    componentWillReceiveProps(nextProps) {}
+    componentWillReceiveProps(nextProps) {
+
+    }
+
     renderRecipeProcess(steps) {
         const steprItem = steps.map(function (item, i) {
+
             return (
-                <View key={i} style={[CommonCSS.listWrapper]}>
+                <View key={i + item} style={[CommonCSS.listWrapper]}>
                     <View style={CommonCSS.listBulllet}>
                         <Text>{'\u2022'}</Text>
                     </View>
@@ -47,6 +53,14 @@ class RecipeDetails extends Component {
         return steprItem;
     }
 
+
+    renderHeroImage = (url) => {
+        return (
+            <Image
+                source={{ uri: url }}
+                style={RecipePageCSS.recipeBannerImage} />
+        )
+    }
     renderMidpage(data) {
 
         const _recipeTags = data.recipe.Recipetags.map(function (item, i) {
@@ -54,25 +68,32 @@ class RecipeDetails extends Component {
                 <Text key={i} style={RecipePageCSS.recipeTags}>{item}</Text>
             )
         });
-        const _recipIngredients = data.ingredients && data.ingredients[0].map(function (item, i) {
+        const _recipIngredients = data.ingredients && data.ingredients.map(function (item, i) {
+
             return (
-                <Text key={item.id} style={RecipePageCSS.recipeTags} >{item.Name}</Text>
+                item.ingItem.name !== undefined ? <Text key={i} style={RecipePageCSS.recipeTags} >{item.ingItem.name}</Text> : null
             )
         });
 
+        console.log(data.recipe)
         return (
             <View>
                 <View>
-                    <Image
-                        source={{ uri: 'https://foodwithfeeling.com/wp-content/uploads/2017/01/Vegan-Tikka-Masala-8.jpg' }}
-                        style={RecipePageCSS.recipeBannerImage} />
+                    {
+                        data.recipe.video && data.recipe.video !== undefined
+                            ? <Video
+                                url={data.recipe.video} />
+
+                            : this.renderHeroImage(data.recipe.images.hero || data.recipe.images.banner)
+                    }
                 </View>
+
                 <View style={RecipePageCSS.desciptoinWrapper}>
                     <Text style={RecipePageCSS.heading}>{data.recipe.recipeTitle}</Text>
                     <View>
                         <Text style={RecipePageCSS.ownDes}>
                             Recipe by
-                        <Text style={RecipePageCSS.ownDesName}> {data.userName[0]}</Text>
+                        <Text style={RecipePageCSS.ownDesName}> {data.userName}</Text>
                         </Text>
 
                     </View>
@@ -90,13 +111,13 @@ class RecipeDetails extends Component {
                             {_recipIngredients}
                         </ScrollView>
                     </View>
-                    {data.process.length>=1 ? <View>
+                    {data.process && data.process._id && <View>
                         <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
 
-                        <View>
-                            {this.renderRecipeProcess(data.process[0].steps)}
-                        </View>
-                    </View> : null}
+                        <ScrollView >
+                            {this.renderRecipeProcess(data.process.steps)}
+                        </ScrollView>
+                    </View>}
 
 
                 </View>
@@ -142,7 +163,7 @@ class RecipeDetails extends Component {
 
 
 function mapStateToProps(state) {
-    
+
     const { RecipeReducer, HeaderReducer, UserDetailsReducer } = state
     return {
         HeaderReducer,

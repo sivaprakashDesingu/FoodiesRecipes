@@ -14,6 +14,7 @@ import { CommonCSS } from '../../../assets/styles/common_style'
 import { initialPageCSS } from '../../../assets/styles/initial_style'
 import FullPageLoader from './../../components/Loader/FullpageLoader'
 import HeaderBar from './../../components/Header/Header'
+import { AppColor } from '../../helper/dimenstion';
 class Personalization extends React.Component {
 
   constructor(props) {
@@ -100,13 +101,13 @@ class Personalization extends React.Component {
         <View>
           <HeaderBar
             goBack={() => { this.props.navigation.goBack() }}
-            headerTitle={"Personalization"}
+            headerTitle={"Foodies Recipe"}
             showSearch={false}
 
           />
           <ScrollView style={CommonCSS.flexContainer}>
         
-        <StatusBar backgroundColor="#fa6767" barStyle="light-content" />
+        {/* <StatusBar backgroundColor="#fa6767" barStyle="light-content" /> */}
   
         {/* Rate your cooking skills */}
         <View style={initialPageCSS.pageWrapper}>
@@ -178,8 +179,8 @@ class Personalization extends React.Component {
                 width: '90%',
                 dark: true,
                 colors: {
-                  primary: '#ec4242',
-                  accent: "#ffffff",
+                  primary: AppColor.orangeDark,
+                  
                 }
               }}
               contentStyle={{ height: 50 }}

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, Image, TouchableOpacity, ScrollView, Animated, Easing } from 'react-native';
 import SearchBox from '../../components/TextBox/SearchBox'
@@ -63,7 +62,11 @@ class HeaderBar extends React.Component {
             const props = this.props
             const result = data.map(function (data, i) {
                 return (
-                    <TouchableOpacity onPress={() => [props.navigatePage(data._id, 'RecipeDetails'), this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                    <TouchableOpacity
+                        onPress={() => [props.navigatePage(data._id, 'RecipeDetails', 'Category'), this.isSearchBarEnabled()]}
+                        key={data._id}
+                        style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                            
                         <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
                             <Text>Recipe</Text>
                         </View>
@@ -94,10 +97,11 @@ class HeaderBar extends React.Component {
             )
         } else {
             const props = this.props
-            const {text} = this.state
+            const { text } = this.state
+
             const result = data.categoryList.map(function (data, i) {
                 return (
-                    <TouchableOpacity onPress={() => [props.navigatePage(text, 'RecipeListing'), , this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
+                    <TouchableOpacity onPress={() => [props.navigatePage(data._id, 'RecipeListing', 'Category'), , this.isSearchBarEnabled()]} key={data._id} style={[headerComponentCSS.resultItem, CommonCSS.flexDirectionRow]}>
                         <View style={[headerComponentCSS.resultItemTag, CommonCSS.flexDirectionColumn]}>
                             <Text>Category</Text>
                         </View>
@@ -131,7 +135,7 @@ class HeaderBar extends React.Component {
                         </View >
                         {showSearch ? <TouchableOpacity style={[CommonCSS.flexDirectionColumn]}
                             onPress={this.isSearchBarEnabled.bind(this)}>
-                            <Icon name="ios-search" color="#fff" size={40} />
+                            <Icon name="ios-search" color="#fff" size={30} />
                         </TouchableOpacity> : null}
 
                     </View>
@@ -148,7 +152,10 @@ class HeaderBar extends React.Component {
                                     type={"search"}
                                     value={text}
                                     onTextValue={(value) => this.setState({ text: value })}
-                                //searchData = {this.props.searchData}
+                                    searchByCategory={(id) =>
+                                        [this.props.navigatePage(id, 'RecipeListing', 'key'),
+                                        this.isSearchBarEnabled()]
+                                    }
                                 />
                             </View>
                         </View>

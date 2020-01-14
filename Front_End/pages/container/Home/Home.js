@@ -11,7 +11,8 @@ import {
 import { CommonCSS } from '../../../assets/styles/common_style'
 import { HomeCSS } from '../../../assets/styles/home_style'
 import TextBox from '../../components/TextBox/textbox'
-import bgImage from './../../../assets/images/home_bg.jpg'
+import bgImage from './../../../assets/images/home_bg2.jpeg'
+
 import { AppColor } from '../../../pages/helper/dimenstion'
 
 function Home(props) {
@@ -65,10 +66,11 @@ function Home(props) {
     <View style={HomeCSS.container}>
       <StatusBar backgroundColor="blue" barStyle="light-content" />
       <ImageBackground source={bgImage} style={HomeCSS.backgroundImage}>
-        <View style={CommonCSS.overlay}></View>
+        <View style={[CommonCSS.overlay,{opacity:.5}]}></View>
         <View style={HomeCSS.homepageContainer}>
-          <Text style={HomeCSS.heading}>Join with us</Text>
-          <Text style={HomeCSS.subHeading}>Look | Cook | Taste</Text>
+          <Text style={HomeCSS.heading}>Welcome to</Text>
+          <Text style={HomeCSS.subHeading}>Foodies Recipe</Text>
+          <Text style={HomeCSS.hasTag}>Look | Cook | Taste</Text>
 
           <View style={HomeCSS.loginFormWrapper}>
             <TextBox label="Email Id"
@@ -93,7 +95,7 @@ function Home(props) {
               roundness: 5,
               width: 200,
               colors: {
-                primary: AppColor.primaryColor,
+                primary: AppColor.orangeDark,
 
               }
             }}
