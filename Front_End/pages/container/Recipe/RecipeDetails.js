@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView, Animated, TouchableOpacity, StatusBar,WebView } from 'react-native';
-import { Video } from 'expo-av';
+import { View, Text, Image, ScrollView, Animated, TouchableOpacity, StatusBar } from 'react-native';
 import { connect } from 'react-redux'
+import { Video } from './../../components'
 import FullPageLoader from './../../components/Loader/FullpageLoader'
 import HeaderBar from './../../components/Header/Header'
 import {
@@ -32,7 +32,9 @@ class RecipeDetails extends Component {
 
         this.props.fetchRecipeDetails(selectedRecipe.recipeId, accessToken)
     }
-    componentWillReceiveProps(nextProps) { }
+    componentWillReceiveProps(nextProps) {
+
+    }
 
     renderRecipeProcess(steps) {
         const steprItem = steps.map(function (item, i) {
@@ -51,6 +53,14 @@ class RecipeDetails extends Component {
         return steprItem;
     }
 
+
+    renderHeroImage = (url) => {
+        return (
+            <Image
+                source={{ uri: url }}
+                style={RecipePageCSS.recipeBannerImage} />
+        )
+    }
     renderMidpage(data) {
 
         const _recipeTags = data.recipe.Recipetags.map(function (item, i) {
@@ -65,24 +75,18 @@ class RecipeDetails extends Component {
             )
         });
 
+        console.log(data.recipe)
         return (
             <View>
-                {/* <View>
-                    {data.recipe.images && data.recipe.images.hero !== undefined ? 
-                        <Image
-                        source={{ uri: data.recipe.images.hero || data.recipe.images.banner }}
-                        style={RecipePageCSS.recipeBannerImage} /> 
-                        : <Text>fdsfs</Text>
+                <View>
+                    {
+                        data.recipe.video && data.recipe.video !== undefined
+                            ? <Video
+                                url={data.recipe.video} />
+
+                            : this.renderHeroImage(data.recipe.images.hero || data.recipe.images.banner)
                     }
-
-                </View> */}
-                
-                <WebView
-                    javaScriptEnabled={true}
-                    style={RecipePageCSS.recipeBannerImage}
-                    source={{ html: `<html><body style='padding:0;margin:0'><iframe width='100%' height='100%' src=${data.recipe.video} frameborder='0' allowfullscreen></iframe></body></html>` }}
-                />
-
+                </View>
 
                 <View style={RecipePageCSS.desciptoinWrapper}>
                     <Text style={RecipePageCSS.heading}>{data.recipe.recipeTitle}</Text>
@@ -110,9 +114,9 @@ class RecipeDetails extends Component {
                     {data.process && data.process._id && <View>
                         <Text style={RecipePageCSS.ingredientHeading}>Steps to Prepare Recipe.</Text>
 
-                        <View>
+                        <ScrollView >
                             {this.renderRecipeProcess(data.process.steps)}
-                        </View>
+                        </ScrollView>
                     </View>}
 
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, Image, TouchableOpacity, ScrollView, Animated, Easing } from 'react-native';
 import SearchBox from '../../components/TextBox/SearchBox'
