@@ -91,7 +91,7 @@ exports.recipeDetails = function (request, response) {
                 "from": "recipeprocesssteps",
                 "localField": "_id",
                 "foreignField": "recipeId",
-                "as": "precess",
+                "as": "process",
             }
         },
         {
@@ -114,7 +114,7 @@ exports.recipeDetails = function (request, response) {
             $unwind: "$ingredients"
         },
         {
-            $unwind: "$precess"
+            $unwind: "$process"
         },
         {
             $unwind: "$users"
@@ -131,7 +131,7 @@ exports.recipeDetails = function (request, response) {
                     video:"$video"
                 },
                 ingredients: "$ingredients.Items",
-                process: "$precess",
+                process: "$process",
                 userName: "$users.fullName",
             }
         }
