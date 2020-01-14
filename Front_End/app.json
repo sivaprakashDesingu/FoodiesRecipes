@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Cooking_recipes",
-    "slug": "Cooking_recipes",
+    "name": "FoodiesRecipe",
+    "slug": "FoodiesRecipe",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": [

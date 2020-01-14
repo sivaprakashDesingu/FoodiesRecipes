@@ -10,10 +10,10 @@ export function fetchSuggestionSearch(accessToken, keyword) {
         object: { keyword, accessToken }
     }
 }
-export function setActiveRecipeId(id, page) {
+export function setActiveRecipeId(id, page,searchBy) {
     return{
         type:SELECTED_RECIPE_ID_OR_NAME,
-        object:{id,page}
+        object:{id,page,searchBy}
     }
 }
 

@@ -13,6 +13,7 @@ const initialState = {
         queryString: '',
         recipeId: '',
         currentPage: '',
+        searchBy:''
     }
 
 }
@@ -40,9 +41,10 @@ const HeaderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedRecipe: {
-                    queryString: action.data.page === 'RecipeDetails' ? '' : action.data.id,
-                    recipeId: action.data.page === 'RecipeDetails' ? action.data.id : '',
+                    queryString: action.data.page === 'RecipeDetails' && action.data.searchBy ==='Category' ? '' : action.data.id,
+                    recipeId: action.data.page === 'RecipeDetails' ||  action.data.searchBy ==='Category' ? action.data.id : '',
                     currentPage: action.data.page,
+                    searchBy:action.data.searchBy
                 },
                 suggestionRecipe: [],
                 suggestionRecipeByCategory: {},

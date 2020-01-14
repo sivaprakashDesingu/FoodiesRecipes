@@ -13,7 +13,7 @@ const CommonCSS = StyleSheet.create({
     fixedHeaderBar:{
         height:80,
         paddingTop:20,
-        backgroundColor:AppColor.halfPrimaryColor, 
+        backgroundColor:AppColor.blueMid, 
     },
     marginTop30: {
         marginTop: 30
@@ -61,7 +61,7 @@ const headerComponentCSS = StyleSheet.create({
     headerSection:{
         paddingLeft:15,
         paddingRight:15,
-        backgroundColor:AppColor.halfPrimaryColor
+        //backgroundColor:AppColor.halfPrimaryColor
     },
     title: {
         fontSize: 20,

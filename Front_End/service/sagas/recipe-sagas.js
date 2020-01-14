@@ -7,7 +7,11 @@ import {
     FETCH_REICPE_LISTING,
     FETCH_REICPE_LISTING_FAILED,
     FETCH_REICPE_LISTING_SUCCESS,
-    API_URL
+    FETCH_REICPE_LISTING_BY_CATEGORY,
+    FETCH_REICPE_LISTING_BY_CATEGORY_SUCCESS,
+    FETCH_REICPE_LISTING_BY_CATEGORY_FAILED,
+    API_URL,
+    
 } from './../constants/constants'
 
 
@@ -27,7 +31,7 @@ function* fetchRecipeDetails(action) {
     }
 }
 
-function* fetchRecipeListing(action){
+function* fetchRecipeListing(action) {
     try {
         const result = yield call(() =>
             axios.get(`${API_URL}recipe/recipeListing/${action.object.keyword}`, {
@@ -43,9 +47,25 @@ function* fetchRecipeListing(action){
     }
 }
 
+function* fetchRecipeListingByCategory(action) {
+    try {
+        const result = yield call(() =>
+            axios.get(`${API_URL}recipe/recipeListingByCategory/${action.object.categoryID}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accesstoken': action.object.accessToken
+                }
+            })
+        )
+        yield put({ type: FETCH_REICPE_LISTING_BY_CATEGORY_SUCCESS, data: result.data });
+    } catch (error) {
+        yield put({ type: FETCH_REICPE_LISTING_BY_CATEGORY_FAILED, data: error });
+    }
+}
 function* recipeSagas() {
     yield takeLatest(FETCH_REICPE_DETAILS, fetchRecipeDetails);
     yield takeLatest(FETCH_REICPE_LISTING, fetchRecipeListing);
+    yield takeLatest(FETCH_REICPE_LISTING_BY_CATEGORY, fetchRecipeListingByCategory)
 }
 
 export default recipeSagas;

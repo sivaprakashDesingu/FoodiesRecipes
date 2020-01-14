@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 const Recipe = require('../models/Recipe');
 const RecipeCatagory = require('../models/RecipeCatagory');
 const Ingredient = require('../models/Ingredients')
+const IngredientItem = require('../models/Ingredientitem')
 const User = require('../models/user');
 const helper = require("../helper/helper");
 
@@ -90,7 +91,7 @@ exports.recipeDetails = function (request, response) {
                 "from": "recipeprocesssteps",
                 "localField": "_id",
                 "foreignField": "recipeId",
-                "as": "precess",
+                "as": "process",
             }
         },
         {
@@ -100,7 +101,7 @@ exports.recipeDetails = function (request, response) {
                 "foreignField": "recipeId",
                 "as": "ingredients",
             }
-        },
+        },        
         {
             $lookup: {
                 "from": "users",
@@ -110,6 +111,15 @@ exports.recipeDetails = function (request, response) {
             }
         },
         {
+            $unwind: "$ingredients"
+        },
+        {
+            $unwind: "$process"
+        },
+        {
+            $unwind: "$users"
+        },
+        {
             $project: {
                 recipe: {
                     id: "$_id",
@@ -117,25 +127,42 @@ exports.recipeDetails = function (request, response) {
                     cookTime: "$cookTime",
                     title: "$recipeTitle",
                     postedBy: "$postedBy",
+                    images: "$images",
+                    video:"$video"
                 },
                 ingredients: "$ingredients.Items",
-                process: "$precess",
+                process: "$process",
                 userName: "$users.fullName",
             }
         }
     ])
         .exec(function (err, list) {
             if (err) {
+               
                 response
                     .status(400)
                     .json({
                         "status": "Failed",
                         "message": "Error",
-                        "data": err | err.message
+                        "data": err
                     });
                 return
             } else {
-                response
+                
+                 const ids = list[0].ingredients.map((data)=>{
+                     return data.ingredient_id;
+                 })
+                 
+                 IngredientItem.find().where('_id').in(ids).exec(function (err, list2) {
+                     list2.map(d => {
+                          list[0].ingredients.map((itm,i) =>{
+                            if(itm.ingredient_id.toString() === d._id.toString()){
+                                list[0].ingredients[i].ingItem = d
+                            } 
+                        })
+                    })
+
+                    response
                     .status(200)
                     .json({
                         "status": "Ok",
@@ -143,6 +170,8 @@ exports.recipeDetails = function (request, response) {
                         "data": list
                     });
                 return
+                 });
+                
             }
         })
 };
@@ -152,7 +181,49 @@ exports.recipeListing = function (request, response) {
     const { id } = request.params
     console.log(`API for fetching Group of recipe by id, ${emailId}`);
     console.log(`Record matching for  + ${id}`)
-    RecipeCatagory.find({ CategoryName: { '$regex': id, '$options': 'i' } })
+
+    Recipe.aggregate([
+        // Match wanted category(ies)
+        {
+            "$match": {
+                "recipeTitle": { '$regex': id, '$options': 'i' }
+            }
+        },
+        // Lookup the related user to postedBy
+        {
+            "$lookup": {
+                "from": "users",
+                "let": { "postedBy": "$postedBy" },
+                "pipeline": [
+                    { "$match": { "$expr": { "$eq": ["$emailId", "$$postedBy"] } } }
+                ],
+                "as": "users"
+            }
+        },
+        // postedBy is "singular"
+        { "$unwind": "$users" }
+    ]).exec(function (err, list) {
+        if (err) {
+            response
+                .status(400)
+                .json({
+                    "status": "Failed",
+                    "message": "Error",
+                    "data": err | err.message
+                });
+            return
+        } else {
+            response
+                .status(200)
+                .json({
+                    "status": "Ok",
+                    "message": "Success",
+                    "data": list
+                });
+            return
+        }
+    })
+    /*RecipeCatagory.find({ CategoryName: { '$regex': id, '$options': 'i' } })
         .exec(function (err, categoryList) {
 
             const ids = categoryList.map(function (data) {
@@ -181,5 +252,81 @@ exports.recipeListing = function (request, response) {
                         return
                     }
                 })
-        })
+        })*/
+};
+
+exports.recipeListingByCategory = function (request, response) {
+    const { emailId } = request.userData
+    const { id } = request.params
+    console.log(`API for fetching Recipe data based on category search, ${id}`);
+
+    Recipe.aggregate([
+        // Match wanted category(ies)
+        {
+            "$match": {
+                "recipeCategoryId": { "$in": [mongoose.Types.ObjectId(id)] }
+            }
+        },
+        // Filter the content of the array
+        {
+            "$addFields": {
+                "recipeCategoryId": {
+                    "$filter": {
+                        "input": "$recipeCategoryId",
+                        "cond": {
+                            "$in": ["$$this", [mongoose.Types.ObjectId(id)]]
+                        }
+                    }
+                }
+            }
+        },
+        // Lookup the related matching category(ies)
+        {
+            "$lookup": {
+                "from": 'recipecatagories',
+                "let": { "recipeCategoryIds": "$recipeCategoryId" },
+                "pipeline": [
+                    {
+                        "$match": {
+                            "$expr": { "$in": ["$_id", "$$recipeCategoryIds"] }
+                        }
+                    }
+                ],
+                "as": "recipeCategoryId"
+            }
+        },
+        // Lookup the related user to postedBy
+        {
+            "$lookup": {
+                "from": "users",
+                "let": { "postedBy": "$postedBy" },
+                "pipeline": [
+                    { "$match": { "$expr": { "$eq": ["$emailId", "$$postedBy"] } } }
+                ],
+                "as": "users"
+            }
+        },
+        // postedBy is "singular"
+        { "$unwind": "$users" }
+    ]).exec(function (err, recipes) {
+        if (err) {
+            response
+                .status(400)
+                .json({
+                    "status": "Failed",
+                    "message": "Error",
+                    "data": err | err.message
+                });
+            return
+        } else {
+            response
+                .status(200)
+                .json({
+                    "status": "Ok",
+                    "message": "Success",
+                    "data": recipes
+                });
+            return
+        }
+    })
 };
